@@ -1,0 +1,75 @@
+<!--Section 13-->
+<!--Details of participating in meetings at district and block level -->
+
+
+<div class="row" id="rpos-13">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 13:</h4>
+                    <p class="card-title-desc">Details of participating in meetings at district and block level </p>
+                </div>
+                {% if task_obj.task_status == 1 and 'Program Officer' == user_role or 'Trainging Coordinator' == user_role %}  
+                <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/po-report/rnp/participating-meeting-listing/{{task_id}}/'">
+                         View
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/rnp/add-participating-meeting/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div>
+                {% elif view_entry_flag and 'Senior Program Officer' == user_role and task_obj.task_status == 1 %}
+                <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/po-report/rnp/participating-meeting-listing/{{task_id}}/'">
+                         View
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/rnp/add-participating-meeting/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div>
+                {% endif %}
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Date</th>
+                                    <th rowspan="2">District/Block Level</th>
+                                    <th rowspan="2">Type of meeting</th>
+                                    <th rowspan="2">With which department?</th>
+                                    <th rowspan="2">Point of discussion</th>
+                                    <th colspan="5">Number of adolescent girls</th>
+                                </tr>
+                                <tr>
+                                    <th>District level officials</th>
+                                    <th>Block level</th>
+                                    <th>Cluster level</th>
+                                    <th>PRI</th>
+                                    <th>Others</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for p in participating_meeting %}
+                                <tr>
+                                    <th>{{p.date}}</th>
+                                    <td>{{p.get_district_block_level_display}}</td>
+                                    <td>{{p.get_type_of_meeting_display}}</td>
+                                    <td>{{p.get_department_display}}</td>
+                                    <td>{{p.point_of_discussion}}</td>
+                                    <td>{{p.districit_level_officials}}</td>
+                                    <td>{{p.block_level}}</td>
+                                    <td>{{p.cluster_level}}</td>
+                                    <td>{{p.no_of_pri}}</td>
+                                    <td>{{p.no_of_others}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+

@@ -1,0 +1,54 @@
+<!--Section 16-->
+<!--If any challenge faced related to the operation of the program, then mention it and mention the proposed solution   -->
+
+<div class="row" id="rpos-15">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 15:</h4>
+                    <p class="card-title-desc">If any challenge faced related to the operation of the program, then mention it and mention the proposed solution</p>
+                </div>
+                {% if task_obj.task_status == 1 and 'Program Officer' == user_role or 'Trainging Coordinator' == user_role %}
+                <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/po-report/rnp/faced-related-listing/{{task_id}}/'">
+                         View
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/rnp/add-faced-related/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div>
+                {% elif view_entry_flag and 'Senior Program Officer' == user_role and task_obj.task_status == 1 %}
+                <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/po-report/rnp/faced-related-listing/{{task_id}}/'">
+                         View
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/rnp/add-faced-related/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div>
+                {% endif %}
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Challenges (LIST)</th>
+                                    <th>Proposed solution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for f in faced_related %}
+                                <tr>
+                                    <th>{{f.challenges}}</th>
+                                    <td>{{f.proposed_solution}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

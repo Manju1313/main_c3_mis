@@ -1,0 +1,255 @@
+{% load static %}
+{% block filters %}
+<div class="row">{% comment %}{% if heading != 'Family Phone Call' and heading != 'Family Visit' %} justify-content-end {% endif %} {% endcomment %}
+    {% if heading == 'User Management' %}
+    <div class="col-lg-3 mt-3">
+        <select class="select2 form-select shelter" id='user_role' name='user_role'>
+            <option value='' selected>Select User Role</option>
+            {% for group in groups%}
+                <option value="{{group.id}}" {% if user_role == group.id|slugify %}selected {% endif %}>{{group.name|add:' '}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% else %}
+    <div class="col-lg-3 mt-3">
+        <select class="select2 form-select state" id='state' name='state'>
+            <option value='0' selected>Select State</option>
+            {% for select_state in states %}
+            <option value="{{select_state.id}}" {% if select_state.id == state  %}selected{% endif %}>
+                {{select_state.name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-lg-3 mt-3">
+        <select class="select2 form-select district" id='district' name='district'>
+            <option value='0' selected>Select District</option>
+            {% for dist in districts%}
+                <option value="{{dist.id}}" {% if dist.id == district  %}selected {% endif %}>{{dist.name|add:' '}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-lg-3 mt-3" id='shelter_field'>
+        <select class="select2 form-select shelter" id='shelter' name='shelter'>
+            <option value='0' selected>Select Shelter Home</option>
+            {% for s in shelterhome%}
+                <option value="{{s.id}}" {% if shelter == s.id %}selected {% endif %}>{{s.name|add:' '}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    {% endif %}
+    
+    {% if heading == 'Guardian' %}
+    <div class="col-lg-3 mt-3">
+        <input type="text" name="q" value="{{search}}" class="form-control" id="search_child" placeholder="Search Guardian/Child Name">
+    </div>
+    {% endif %}
+    {% if heading == 'Guardian' %}
+    <div class="col-auto mt-3 ">
+        <button type="submit" class="form-control btn btn-success waves-effect btn-xs float-right">Filter</button>
+    </div>
+    {% endif %}
+    {% if heading == 'Child Management' or heading == 'User Management' %}
+    <div class="col-lg-3 mt-3">
+        <select id="formrow-inputState" class="form-select" name='status'>
+            <option value="2" {% if status == "2" %}selected{% endif %}>Active</option>
+            <option value="1" {% if status == "1" %}selected{% endif %}>Inactive</option>
+        </select>
+    </div>
+    {% endif %}
+    
+</div>
+
+
+<div class='row'>
+{% if heading != 'Guardian' and 'Report' not in heading %}
+    <div class="col-lg-3 mt-3">
+        <input type="text" name="q_case_number" value="{{q_case_number}}" id="search_child" class=" form-control"
+        {% if heading == 'User Management' %}placeholder="Search Username"{% else %}placeholder="Search Case Number" {% endif %}>
+    </div>
+    <div class="col-lg-3 mt-3">
+        <input type="text" name="q_name" value="{{q_name}}" class="form-control" id="search_child"
+        {% if heading == 'User Management' %} placeholder="Search Email Address" {% else %}placeholder="Search Child Name"{% endif %}>
+    </div>
+{% endif %}
+{% if heading == 'User Management' %}
+    <div class="col-lg-3 mt-3">
+        <input type="text" name="q_first_name" value="{{q_first_name}}" id="search_child" class=" form-control"
+        placeholder="Search First Name" >
+    </div>
+    <div class="col-lg-3 mt-3">
+        <input type="text" name="q_last_name" value="{{q_last_name}}" class="form-control" id="search_child"
+        placeholder="Search Last Name">
+    </div>
+{% endif %}
+{% if heading != 'Guardian' and heading != 'Child Management' and heading != 'User Management' and 'Report' not in heading %}
+
+    <div class="col-lg-3 mt-3 ">
+        <input type="text" name="start_date" value="{{start_date}}"  class="form-control" onclick='this.type="date"'
+                id="start_date"
+            {% if heading == 'Family Phone Call'%}placeholder='From Call Date' {% else %}
+            placeholder='From Visit Date' {% endif %}>
+    </div>
+    <div class="col-lg-3 mt-3 ">
+        <input type="text" name="end_date" value="{{end_date}}" class="form-control" onclick='this.type="date"'
+                id="end_date" {% if heading == 'Family Phone Call'%}
+            placeholder='To Call Date'{% else %} placeholder='To Visit Date' {% endif %}>
+    </div>
+{% endif %}
+{% if 'Report' in heading %}
+        {% if excluding_filters %}
+            <script>
+                document.getElementById('{{excluding_filters}}').style.display = 'none';
+            </script>
+        {% endif %}
+    {% for filter in filter_values %}
+        {% if filter.0 == 'classification' %}
+            <div class="col-lg-3 mt-3">
+                <select class="select2 form-select state" id='{{filter.0}}' name='{{filter.0}}'>
+                    <option value='' selected>{{filter.0|capfirst}}</option>
+                    {% for filter_item in filter.1 %}
+                    <option value="{{filter_item}}" {% if filter_item == req_data|get_item:filter.0  %}selected{% endif %}>
+                        {{filter_item}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% elif "Date" in filter.1  %}
+           <div class="col-lg-3 mt-3 ">
+            <input type="text" name="{{filter.0}}" value="{{req_data|get_item:filter.0}}" class="form-control" onclick='this.type="date"'
+                    id="{{filter.0}}" placeholder='{{filter.1}}' >
+        </div>
+        {% else %}
+            <div class="col-lg-3 mt-3">
+                <select class="select2 form-select state" id='{{filter.0}}' name='{{filter.0}}'>
+                    <option value='' selected>{{filter.0|field_name_to_label|capfirst}}</option>
+                    {% for filter_item in filter.1 %}
+                    <option value="{{filter.1|get_item:filter_item}}" {% if filter.1|get_item:filter_item == req_data|get_item:filter.0  %}selected{% endif %}>
+                        {{filter_item}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+        {% endif %}
+    {% endfor %}
+{% endif %}
+{% if heading != 'Guardian' %}
+    <div class="col-auto mt-3 ">
+        <button type="submit" class="form-control btn btn-success waves-effect btn-xs float-right">Filter</button>
+    </div>
+{% endif %}
+</div>
+<div class="row justify-content-end " >
+    <div class="col-lg-auto mt-4" {% if 'Report' not in heading %} id='sorting_listing'{% endif %} >
+        Sort By:
+    </div>
+    <div class="col-lg-3 mt-3" {% if 'Report' not in heading %} id='sorting_listing' {% endif %}>
+        <div class="col" >
+            <select id="formrow-inputState" class="form-select sort_by" name='field' >
+                {% if heading == 'Child Management' %}
+                <option value="first_name" {% if 'first_name' == sorting_field %}selected{% endif %}>Name</option>
+                <option value="child_classification"
+                    {% if 'child_classification__display_order' == sorting_field %}selected{% endif %}>Child Category
+                </option>
+                {% endif %}
+                {% if 'Report' not in heading %}
+                    {% for i in all_fields %}
+                        {% if i.verbose_name != 'image' and i.name != 'photo_with_child' and i.name != 'address' and i.name != 'reason' and i.name != 'is_staff'%}
+                            <option value="{{i.name}}" {% if i.name == sorting_field %}selected{% endif %}>
+                                {{i.verbose_name|title}}</option>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    {% for sort in sorting_fields %}
+                        <option value="{{sorting_fields|get_item:sort}}" {% if sorting_fields|get_item:sort == sorting_field %}selected{% endif %}>
+                        {{sort}}</option>
+                    {% endfor %}
+                                
+                {% endif %}
+
+            </select>
+        </div>
+    </div>
+    <div class="col-lg-3 mt-3" {% if 'Report' not in heading %} id='sorting_listing' {% endif %}>
+        <div class="col">
+            <select id="formrow-inputState" class="form-select" name='order'>
+                <option value="asc" {% if sorting_order == "asc" %}selected{% endif %}>Ascending</option>
+                <option value="desc" {% if sorting_order == "desc" %}selected{% endif %}>Descending</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-auto mt-3 " {% if 'Report' not in heading %} id='sorting_listing' {% endif %}>
+        <button type="submit" class="form-control btn btn-success waves-effect btn-xs float-right">Sort</button>
+    </div>
+
+    <script type="text/javascript">
+        
+        $(document).ready(function () {
+            $('select#state').change(function () {
+                var optionSelected = $(this).find("option:selected");
+                var valueSelected = optionSelected.val();
+                    data = {
+                        'selected_state': valueSelected
+                    };
+                    $.ajax({
+                        type: "GET",
+                        url: '/ajax/district/',
+                        data: data,
+                        success: function (result) {
+                            $("#district option").remove();
+                            a = '<option selected value="0">Select District</option>';
+                            $("#district").append(a);
+                            $("#shelter option").remove();
+                            b = '<option selected value="0">Select Shelter Home</option>';
+                            $("#shelter").append(b);
+                            if (JSON.parse(result) == 0) {
+                                $("#district option").remove();
+                                a =
+                                '<option selected disabled value="">Select District</option>';
+                                $("#district").append(a);
+                            } else {
+                                $.each(JSON.parse(result), function (key, value) {
+                                    a = '<option value=' + value['id'] + '>' +
+                                        value['name'] + '</option>';
+                                    $("#district").append(a);
+                                });
+                            }
+                        }
+                    });
+                
+
+            });
+        });
+        $(document).ready(function () {
+            $('select#district').change(function () {
+                var optionSelected = $(this).find("option:selected");
+                var valueSelected = optionSelected.val();
+                    data = {
+                        'selected_district': valueSelected
+                    };
+                    $.ajax({
+                        type: "GET",
+                        url: '/ajax/shelterhome/',
+                        data: data,
+                        success: function (result) {
+                            $("#shelter option").remove();
+                            a = '<option selected value="0">Select Shelter Home</option>';
+                            $("#shelter").append(a);
+                            if (JSON.parse(result) == 0) {
+                                $("#shelter option").remove();
+                                a =
+                                '<option selected disabled value="0">Select Shelter Home</option>';
+                                $("#shelter").append(a);
+                            } else {
+                                $.each(JSON.parse(result), function (key, value) {
+                                    a = '<option value=' + value['id'] + '>' +
+                                        value['name'] + '</option>';
+                                    $("#shelter").append(a);
+                                });
+                            }
+                        }
+                    });
+                
+            });
+        });
+    </script>
+
+    {% endblock  %}

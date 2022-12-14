@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block contents %}
+<style>
+    .table>thead { vertical-align: top}
+    .card-title{ margin-right: 5px }
+    th, td{border: 1px solid!important}
+</style>
+<!--Section 3-->
+<!--Details of adolescent girls linked with vocational training & placement -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 10:</h4>
+                    <p class="card-title-desc">Details of VLCPC meetings</p>
+                </div>
+                <!-- <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/untrust/add-vlcpc-meeting/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div> -->
+                <div class="table-rep-plugin mb-3">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Name of AWC</th>
+                                    <th rowspan="2">Date of mettings</th>
+                                    <th rowspan="2">Issues discussed</th>
+                                    <th rowspan="2">Decision taken</th>
+                                    <th colspan="2">No. of Participants</th>
+                                    <th rowspan="2">Action</th>
+                                </tr>
+                                <tr>
+                                    <th>Planned</th>
+                                    <th>Attended</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for v in data %}
+                                <tr>
+                                    <th>{{v.awc_name}}</th>
+                                    <td>{{v.date_of_meeting }}</td>
+                                    <td>{{v.issues_discussed}}</td>
+                                    <td>{{v.decision_taken}}</td>
+                                    <td>{{v.no_of_participants_planned}}</td>
+                                    <td>{{v.no_of_participants_attended}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/untrust/edit-vlcpc-meeting/{{task_id}}/{{v.id}}/'">
+                                            <i class="bx bx bx-pencil font-size-16 align-middle me-1"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %} 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <nav aria-label="..." class="d-flex justify-content-between">
+                    <div>
+                        <button type="reset" onclick="location.href='/untrust/po/monthly/report/{{task_id}}/#upos-10'" class="btn btn-secondary waves-effect justify-content-start">
+                            Back
+                        </button>
+                    </div>
+                    <div>
+                        {% if data.has_other_pages %}
+                        <ul class="pagination">
+                            {% if data.has_previous %}
+                            <li class="paginate_button page-item"><a class="page-link" href="?page=1">First</a></li>
+                            {% else %}
+                            <li class="paginate_button page-item disabled"><span class="page-link">First</span></li>
+                            {% endif %}
+                            {% for i in display_page_range %}
+                                {% if data.number == i %}
+                                <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                <li class="paginate_button paginate_button page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if data.has_next %}
+                                <li class="paginate_button page-item"><a class="page-link" href="?page={{ data.paginator.num_pages }}">Last</a></li>
+                            {% else %}
+                                <li class="paginate_button page-item disabled"><span class="page-link">Last</span></li>
+                            {% endif %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+
+{% endblock %}

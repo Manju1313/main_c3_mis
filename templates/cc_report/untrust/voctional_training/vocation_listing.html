@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block contents %}
+<style>
+    .table>thead { vertical-align: top}
+    .card-title{ margin-right: 5px }
+    th, td{border: 1px solid!important}
+</style>
+<!--Section 2-->
+<!--Details of adolescent girls linked with vocational training & placement -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 2(a):</h4>
+                    <p class="card-title-desc">Details of adolescent boys linked with vocational training & placement</p>
+                </div>
+                {% if task_obj.task_status == 1 and 'Cluster Coordinator' == user_role %}
+                <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/cc-report/untrust/add-vocation/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div>
+                {% endif %}
+                <div class="table-rep-plugin mb-3">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name of the adolescent boys</th>
+                                    <th>Date of registration</th>
+                                    <th>Age in years</th>
+                                    <th>Parent/guardian name</th>
+                                    <th>Training subject</th>
+                                    <th>Training providing by</th>
+                                    <th>Duration in days</th>
+                                    <th>Training completed</th>
+                                    <th>Placement offered</th>
+                                    <th>Placement accepted</th>
+                                    <th>Type of employment</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for v in data %}
+                                <tr>
+                                    <th>{{v.adolescent_name}}</th>
+                                    <td>{{v.date_of_registration}}</td>
+                                    <td>{{v.age|default_if_none:''}}</td>
+                                    <td>{{v.parent_guardian_name}}</td>
+                                    <td>{{v.training_subject.training_subject}}</td>
+                                    <td>{{v.get_training_providing_by_display}}</td>
+                                    <td>{{v.duration_days}}</td>
+                                    <td>{{v.get_training_complated_display}}</td>
+                                    <td>{{v.get_placement_offered_display|default_if_none:""}}</td>
+                                    <td>{{v.get_placement_accepted_display|default_if_none:""}}</td>
+                                    <td>{{v.get_type_of_employment_display|default_if_none:""}}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/cc-report/untrust/edit-vocation/{{task_id}}/{{v.id}}/'">
+                                            <i class="bx bx bx-pencil font-size-16 align-middle me-1"></i>
+                                        </button>
+                                       
+                                    </td>
+                                </tr>
+                                {% endfor %} 
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <nav aria-label="..." class="d-flex justify-content-between">
+                    <div>
+                        <button type="reset" onclick="location.href='/untrust/cc/monthly/report/{{task_id}}/#uccs-2a'" class="btn btn-secondary waves-effect justify-content-start">
+                            Back
+                        </button>
+                    </div>
+                    <div>
+                        {% if data.has_other_pages %}
+                        <ul class="pagination">
+                            {% if data.has_previous %}
+                            <li class="paginate_button page-item"><a class="page-link" href="?page=1">First</a></li>
+                            {% else %}
+                            <li class="paginate_button page-item disabled"><span class="page-link">First</span></li>
+                            {% endif %}
+                            {% for i in display_page_range %}
+                                {% if data.number == i %}
+                                <li class="page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                <li class="paginate_button paginate_button page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if data.has_next %}
+                                <li class="paginate_button page-item"><a class="page-link" href="?page={{ data.paginator.num_pages }}">Last</a></li>
+                            {% else %}
+                                <li class="paginate_button page-item disabled"><span class="page-link">Last</span></li>
+                            {% endif %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+
+{% endblock %}

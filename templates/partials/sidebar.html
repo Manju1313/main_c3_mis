@@ -1,0 +1,108 @@
+{% load configuration_tags   %}
+{% load static %} {% block sidebar %}
+<!-- ========== Left Sidebar Start ========== -->
+<style>
+  body[data-sidebar=dark].vertical-collpsed .vertical-menu #sidebar-menu ul li.mm-active .active i {
+    color: #fc7c04!important;
+}
+</style> 
+<div class="vertical-menu">
+  <div data-simplebar class="h-100">
+    <!--- Sidemenu -->
+    <div id="sidebar-menu">
+      <!-- Left Menu Start -->
+      <ul class="metismenu list-unstyled" id="side-menu">
+        <!-- <li class="menu-title" key="t-menu">Menu</li> -->
+        {% comment %} <li>
+          <a href="/fossil/cc/monthly/report/{{task_id}}/" class="waves-effect">
+            <i class="dripicons-document"></i>
+            <span key="t-chat">Fossil CC-Report</span>
+          </a>
+        </li>
+        <li>
+          <a href="/rnp/cc/monthly/report/{{task_id}}/" class="waves-effect">
+            <i class="dripicons-document"></i>
+            <span key="t-chat">RNP CC-Report</span>
+          </a>
+        </li>
+        <li>
+          <a href="/untrust/cc/monthly/report/{{task_id}}/" class="waves-effect">
+            <i class="dripicons-document"></i>
+            <span key="t-chat">UN Trust CC-Report</span>
+          </a>
+        </li>
+        <li>
+          <a href="/fossil/po/monthly/report/{{task_id}}/" class="waves-effect">
+            <i class="dripicons-document"></i>
+            <span key="t-chat">Fossil PO-Report</span>
+          </a>
+        </li>
+        <li>
+          <a href="/rnp/po/monthly/report/{{task_id}}/" class="waves-effect">
+            <i class="dripicons-document"></i>
+            <span key="t-chat">RNP PO-Report</span>
+          </a>
+        </li>
+        <li>
+          <a href="/untrust/po/monthly/report/{{task_id}}/" class="waves-effect">
+            <i class="dripicons-document"></i>
+            <span key="t-chat">UN Trust PO-Report</span>
+          </a>
+        </li>
+        <li>
+          <a href="/add-file/" class="waves-effect">
+            <i class="dripicons-document"></i>
+            <span key="t-chat">Model Form</span>
+          </a>
+        </li> {% endcomment %}
+        {% if not request.user|has_group:"Senior Lead" %}
+        <li>
+          <a href="/monthly/report/" class="waves-effect">
+            <i class="dripicons-document"></i>
+            <span key="t-chat">Monthly report</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if request.user|has_group:"Program Officer" %}
+          <li>
+            <a href="/cc/monthly/report/" class="waves-effect">
+              <i class="dripicons-document"></i>
+              <span key="t-chat">CC Monthly report</span>
+            </a>
+          </li>
+        {% elif request.user|has_group:"Senior Program Officer" %}
+          <li>
+            <a href="/po/monthly/report/" class="waves-effect">
+              <i class="dripicons-document"></i>
+              <span key="t-chat">PO Monthly report</span>
+            </a>
+          </li>
+        {% elif request.user|has_group:"Senior Lead" %}
+          <li>
+            <a href="/spo/monthly/report/" class="waves-effect">
+              <i class="dripicons-document"></i>
+              <span key="t-chat">SPO Monthly report</span>
+            </a>
+          </li> 
+        {% endif %}
+        {% if request.user|has_group:"Trainging Coordinator" %}
+          <li>
+            <a href="/cc/monthly/report/" class="waves-effect">
+              <i class="dripicons-document"></i>
+              <span key="t-chat">CC Monthly report</span>
+            </a>
+          </li>
+        {% endif %}
+        <li>
+          <a href="/dashboard/" class="waves-effect">
+            <i class="bx bx-pie-chart-alt-2"></i>
+            <span key="t-chat">Dashboard</span>
+          </a>
+        </li>
+      </ul>        
+    </div>
+    <!-- Sidebar -->
+  </div>
+</div>
+<!-- Left Sidebar End -->
+{% endblock %}

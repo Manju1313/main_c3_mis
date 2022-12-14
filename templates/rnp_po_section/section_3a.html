@@ -1,0 +1,85 @@
+<!--Section 4(a)-->
+<!--Details of participation of adolescent girls in Adolescent Health Wellness Day (AHWD) -->
+
+<div class="row" id="rpos-3a">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 3(a):</h4>
+                    <p class="card-title-desc">Details of participation of adolescent girls in Adolescent Health Wellness Day (AHWD)</p>
+                </div>
+                <!-- <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/po-report/rnp/girls-ahwd-listing/{{task_id}}/'">
+                        View
+                    </button>
+                     <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/rnp/add-girls-ahwd/{{task_id}}/'">
+                        Entry
+                    </button> 
+                </div>-->
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th rowspan="3">Name of the Block</th>
+                                    <th rowspan="3">Name of the Panchayat</th>
+                                    <th rowspan="3">Name of the Village</th>
+                                    <th rowspan="3">Name of AWC (Code)</th>
+                                    <th colspan="2">Number of adolescent girls participated</th>
+                                    <th colspan="10">Number of adolescent girls received</th>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">10-14 year</th>
+                                    <th rowspan="2">15-19 year</th>
+                                    <th colspan="2">BMI</th>
+                                    <th colspan="2">TT shot</th>
+                                    <th colspan="2">HB test</th>
+                                    <th colspan="2">Counselling</th>
+                                    <th colspan="2">Referral</th>
+                                </tr>
+                                <tr>
+                                   
+                                    <th>10-14 year</th>
+                                    <th>15-19 year</th>
+                                    <th>10-14 year</th>
+                                    <th>15-19 year</th>
+                                    <th>10-14 year</th>
+                                    <th>15-19 year</th>
+                                    <th>10-14 year</th>
+                                    <th>15-19 year</th>
+                                    <th>10-14 year</th>
+                                    <th>15-19 year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for g in girls_ahwd %}
+                                <tr>
+                                    <th>{{g.name_of_block|default:"Not applicable"}}</th>
+                                    <th>{{g.name_of_panchayat|default:"Not applicable"}}</th>
+                                    <th>{{g.name_of_village|default:"Not applicable"}}</th>
+                                    <th>{{g.name_of_awc_code}}</th>
+
+                                    <td>{{g.participated_10_14_years}}</td>
+                                    <td>{{g.participated_15_19_years}}</td>
+
+                                    <td>{{g.bmi_10_14_year}}</td>
+                                    <td>{{g.bmi_15_19_year}}</td>
+                                    <td>{{g.hb_test_10_14_year}}</td>
+                                    <td>{{g.hb_test_15_19_year}}</td>
+                                    <td>{{g.tt_shot_10_14_year}}</td>
+                                    <td>{{g.tt_shot_15_19_year}}</td>
+                                    <td>{{g.counselling_10_14_year}}</td>
+                                    <td>{{g.counselling_15_19_year}}</td>
+                                    <td>{{g.referral_10_14_year}}</td>
+                                    <td>{{g.referral_15_19_year}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

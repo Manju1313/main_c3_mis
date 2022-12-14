@@ -1,0 +1,126 @@
+<!-- CC-Report Notes -->
+<!--Cluster coordinator monthly progress report-->
+{% load static %}
+<div class="row" id="fcc-report-notes">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">CC-Report Notes:</h4>
+                </div>
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1">Successes:</label><br>
+                        <textarea id="formmessage" name="successes" class="form-control" rows="3" placeholder="Text is coming...." ></textarea>
+                        <div class="invalid-feedback">
+                            Please provide a valid Successes.
+                        </div>
+                    </div>
+                   
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1">Challenges faced:</label><br>
+                        <textarea id="formmessage" name="challenges_faced" class="form-control" rows="3" placeholder="Text is coming...." ></textarea>
+                        <div class="invalid-feedback">
+                            Please provide a valid Challenges faced.
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1">Feasible solution to scale up:</label><br>
+                        <textarea id="formmessage" name="feasible_solution_to_scale_up" class="form-control" rows="3" placeholder="Text is coming...." ></textarea>
+                        <div class="invalid-feedback">
+                            Please provide a valid Feasible solution to scale up.
+                        </div>
+                    </div>
+                    {% if dataentry_obj %}
+                    <div>
+                        <button type="button" class="btn btn-info"><b>Remark</b></button>
+                        {% for i in dataentry_obj %}
+                            <P><b>Updated by:</b>{{i.user_name}}, {{i.server_created_on}}  </P>
+                            <P><b>Status:</b> {{i.remark}}.</P>
+                        {% endfor %}
+                    </div> 
+                    {% endif %}
+                   
+                    <div>
+                       
+
+                        {% if task_obj.task_status == 1 and 'Cluster Coordinator' == user_role%}
+                            <button type="submit" class="btn btn-success waves-effect waves-light w-md">Save</button>
+                            <input type='button' style='margin-left:5px' id='download_button' class="btn btn-primary float-end w-md" value='Submit for Approval' onclick="Confirm('{{task_id}}',2,'Submit for Approval')">
+                        {% endif %}
+
+                        {% if task_obj.task_status == 2 and 'Program Officer' == user_role %} 
+                        <input type='button' style='margin-left:5px' id='download_button' class="btn btn-primary float-end w-md" value='Approve' onclick="Confirm('{{task_id}}',3,'Approve')">
+                        <button type="button" style='margin-left:5px' class="confirm_btn btn btn-info ml-2 float-end" onclick="ConfirmNeed('{{task_id}}',1,'Need Revision')">Need Revision</button>
+                        {% elif task_obj.task_status == 2 and 'Trainging Coordinator' == user_role %} 
+                        <input type='button' style='margin-left:5px' id='download_button' class="btn btn-primary float-end w-md" value='Approve' onclick="Confirm('{{task_id}}',3,'Approve')">
+                        <button type="button" style='margin-left:5px' class="confirm_btn btn btn-info ml-2 float-end" onclick="ConfirmNeed('{{task_id}}',1,'Need Revision')">Need Revision</button>
+                        {% endif %}
+
+                        {% if 'Cluster Coordinator' == user_role%}
+                        <button type="reset" style="float:right; margin-left:5px" onclick="location.href='/monthly/report/'" class="btn btn-secondary waves-effect">Cancel</button>
+                        {% elif 'Program Officer' == user_role %} 
+                        <button type="reset" style="float:right;" onclick="location.href='/cc/monthly/report/'" class="btn btn-secondary waves-effect">Cancel</button>
+                        {% elif 'Trainging Coordinator' == user_role %} 
+                        <button type="reset" style="float:right;" onclick="location.href='/cc/monthly/report/'" class="btn btn-secondary waves-effect">Cancel</button>
+                        {% endif %}
+                    </div>
+                  </form> 
+            </div>
+        </div>
+    </div> 
+</div> 
+
+{% block extra_javascript %}
+   <script src="{% static 'libs/sweetalert2/dist/sweetalert2.min.js' %}"></script>
+
+    <script>
+        function Confirm(task_id, val, title){
+            Swal.fire({
+            title: 'Are you sure you want to '+title+' ?',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            }).then((result) => {
+            if (result.isConfirmed){
+                $.ajax({
+                url:'/ajax-task/'+task_id,
+                type:'POST',
+                data:{status_val:val}, 
+                dataType: 'json',
+                success: function(result) {
+                    window.location.reload();
+                } 
+            });
+            }
+        }).then(function(){ window.location.reload(); })
+        }
+    </script> 
+    <script>
+        function ConfirmNeed(task_id,val,title){
+            Swal.fire({
+            title: 'Are you sure you want to '+ title +' ?',
+            input: 'textarea',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            inputValidator: function (value) {
+                return !value && 'You need to write something!'
+            }
+            }).then((result) => {
+            if (result.isConfirmed){
+                $.ajax({
+                url: '/ajax-task/'+task_id,
+                type:'POST',
+                data:{status_val:val,remark: result.value}, 
+                dataType: 'json',
+                success: function(result) {
+                    window.location.reload();
+                } 
+            });
+            }
+        }).then(function(){ window.location.reload(); })
+        }
+    </script>
+
+{% endblock %}

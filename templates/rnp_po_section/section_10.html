@@ -1,0 +1,333 @@
+<!--Section 11-->
+<!--Details of capacity building of different stakeholders-->
+
+<div class="row" id="rpos-10">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 10:</h4>
+                    <p class="card-title-desc">Details of capacity building of different stakeholders</p>
+                </div>
+                {% if task_obj.task_status == 1 and 'Program Officer' == user_role or 'Trainging Coordinator' == user_role %}   
+                <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/po-report/rnp/stakeholders-listing/{{task_id}}/'">
+                        View
+                    </button>
+                    <button {{error}} type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/rnp/add_stakeholders/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div>
+                {% elif view_entry_flag and 'Senior Program Officer' == user_role and task_obj.task_status == 1 %}
+                <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/po-report/rnp/stakeholders-listing/{{task_id}}/'">
+                        View
+                    </button>
+                    <button {{error}} type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/rnp/add_stakeholders/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div>
+                {% endif %}
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            {% for s in stakeholders_obj %}
+                            <thead>
+                                <tr>
+                                    <th>Category of participants</th>
+                                    <th colspan="3">Achieved in this month</th>
+                                </tr>
+                                <tr>
+                                    <th>Education department</th>
+                                    <th>Male</th>
+                                    <th>Female</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th><span class="co-name">1. Master trainers</span></th>
+                                    <td>{{s.master_trainers_male}}</td>
+                                    <td>{{s.master_trainers_female}}</td>
+                                    <td>{{s.master_trainers_total}}</td>
+                                </tr>
+                                <tr>
+                                    <th><span class="co-name">2. Nodal Teachers</span></th>
+                                    <td>{{s.nodal_teachers_male}}</td>
+                                    <td>{{s.nodal_teachers_female}}</td>
+                                    <td>{{s.nodal_teachers_total}}</td>
+                                </tr>
+                                <tr>
+                                    <th><span class="co-name">3. Principals</span></th>
+                                    <td>{{s.principals_male}}</td>
+                                    <td>{{s.principals_female}}</td>
+                                    <td>{{s.principals_total}}</td>
+                                </tr>
+                                <tr>
+                                    <th><span class="co-name">4. District level officials</span></th>
+                                    <td>{{s.district_level_officials_male}}</td>
+                                    <td>{{s.district_level_officials_female}}</td>
+                                    <td>{{s.district_level_officials_total}}</td>
+                                </tr>
+                                <tr>
+                                    <th><span class="co-name">5. Peer Educator</span></th>
+                                    <td>{{s.peer_educator_male}}</td>
+                                    <td>{{s.peer_educator_female}}</td>
+                                    <td>{{s.peer_educator_total}}</td>
+                                </tr>
+                                <tr>
+                                    <th><span class="co-name">6. State level officials</span></th>
+                                    <td>{{s.state_level_officials_male}}</td>
+                                    <td>{{s.state_level_officials_female}}</td>
+                                    <td>{{s.state_level_officials_total}}</td>
+                                </tr>
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th>ICDS department</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th><span class="co-name">7. AWWs</span></th>
+                                    <td>{{s.icds_awws_male}}</td>
+                                    <td>{{s.icds_awws_female}}</td>
+                                    <td>{{s.icds_awws_total}}</td>
+                                </tr>
+                                <tr>
+                                    <th><span class="co-name">8. SUPERVISORS</span></th>
+                                    <td>{{s.icds_supervisors_male}}</td>
+                                    <td>{{s.icds_supervisors_female}}</td>
+                                    <td>{{s.icds_supervisors_total}}</td>
+                                </tr>
+                                <tr>
+                                    <th><span class="co-name">9. Peer Educator</span></th>
+                                    <td>{{s.icds_peer_educator_male}}</td>
+                                    <td>{{s.icds_peer_educator_female}}</td>
+                                    <td>{{s.icds_peer_educator_total}}</td>
+                                </tr>
+                                <tr>
+                                    <th><span class="co-name">10. CHILD DEVELOPMENT PROJECT OFFICERS</span></th>
+                                    <td>{{s.icds_child_developement_project_officers_male}}</td>
+                                    <td>{{s.icds_child_developement_project_officers_female}}</td>
+                                    <td>{{s.icds_child_developement_project_officers_total}}</td>
+                                </tr>
+                                <tr>
+                                    <th><span class="co-name">11. DISTRICT LEVEL OFFICALS</span></th>
+                                    <td>{{s.icds_district_level_officials_male}}</td>
+                                    <td>{{s.icds_district_level_officials_female}}</td>
+                                    <td>{{s.icds_district_level_officials_total}}</td>
+                                </tr>
+                                <tr>
+                                    <th><span class="co-name">12. STATE LEVEL OFFICIALS</span></th>
+                                    <td>{{s.icds_state_level_officials_male}}</td>
+                                    <td>{{s.icds_state_level_officials_female}}</td>
+                                    <td>{{s.icds_state_level_officials_total}}</td>
+                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th>Health department</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th><span class="co-name">13. ASHAs</span></th>
+                                        <td>{{s.health_ashas_male}}</td>
+                                        <td>{{s.health_ashas_female}}</td>
+                                        <td>{{s.health_ashas_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">14. ANMs</span></th>
+                                        <td>{{s.health_anms_male}}</td>
+                                        <td>{{s.health_anms_female}}</td>
+                                        <td>{{s.health_anms_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">15. BPM/BHM/PHEOs</span></th>
+                                        <td>{{s.health_bpm_bhm_pheos_male}}</td>
+                                        <td>{{s.health_bpm_bhm_pheos_female}}</td>
+                                        <td>{{s.health_bpm_bhm_pheos_total}}</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <th><span class="co-name">16. Medical officers</span></th>
+                                        <td>{{s.health_medical_officers_male}}</td>
+                                        <td>{{s.health_medical_officers_female}}</td>
+                                        <td>{{s.health_medical_officers_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">17. DISTRICT LEVEL OFFICALS</span></th>
+                                        <td>{{s.health_district_level_officials_male}}</td>
+                                        <td>{{s.health_district_level_officials_female}}</td>
+                                        <td>{{s.health_district_level_officials_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">18. STATE LEVEL OFFICIALS</span></th>
+                                        <td>{{s.health_state_level_officials_male}}</td>
+                                        <td>{{s.health_state_level_officials_female}}</td>
+                                        <td>{{s.health_state_level_officials_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">19. RKS members</span></th>
+                                        <td>{{s.health_rsk_male}}</td>
+                                        <td>{{s.health_rsk_female}}</td>
+                                        <td>{{s.health_rsk_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">20. Peer Educator</span></th>
+                                        <td>{{s.health_peer_educator_male}}</td>
+                                        <td>{{s.health_peer_educator_female}}</td>
+                                        <td>{{s.health_peer_educator_total}}</td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th>Panchayat Raj Department</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th><span class="co-name">21. Ward Members</span></th>
+                                        <td>{{s.panchayat_ward_members_male}}</td>
+                                        <td>{{s.panchayat_ward_members_female}}</td>
+                                        <td>{{s.panchayat_ward_members_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">22. Up-Mukhiya /Up-Pramukh</span></th>
+                                        <td>{{s.panchayat_up_mukhiya_up_Pramukh_male}}</td>
+                                        <td>{{s.panchayat_up_mukhiya_up_Pramukh_female}}</td>
+                                        <td>{{s.panchayat_up_mukhiya_up_Pramukh_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">23. Mukhiya/Pramukh</span></th>
+                                        <td>{{s.panchayat_mukhiya_Pramukh_male}}</td>
+                                        <td>{{s.panchayat_mukhiya_Pramukh_female}}</td>
+                                        <td>{{s.panchayat_mukhiya_Pramukh_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">24. Panchayat Samiti Member</span></th>
+                                        <td>{{s.panchayat_samiti_member_male}}</td>
+                                        <td>{{s.panchayat_samiti_member_female}}</td>
+                                        <td>{{s.panchayat_samiti_member_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">25. Zila Parishad Member</span></th>
+                                        <td>{{s.panchayat_zila_parishad_member_male}}</td>
+                                        <td>{{s.panchayat_zila_parishad_member_female}}</td>
+                                        <td>{{s.panchayat_zila_parishad_member_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">26. Vc-Zila Parishad</span></th>
+                                        <td>{{s.panchayat_vc_zila_parishad_male}}</td>
+                                        <td>{{s.panchayat_vc_zila_parishad_female}}</td>
+                                        <td>{{s.panchayat_vc_zila_parishad_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">27. Chairman-Zila Parishad</span></th>
+                                        <td>{{s.panchayat_chairman_zila_parishad_male}}</td>
+                                        <td>{{s.panchayat_chairman_zila_parishad_female}}</td>
+                                        <td>{{s.panchayat_chairman_zila_parishad_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">28. Block level officials</span></th>
+                                        <td>{{s.panchayat_block_level_officials_male}}</td>
+                                        <td>{{s.panchayat_block_level_officials_female}}</td>
+                                        <td>{{s.panchayat_block_level_officials_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">29. District  level officials</span></th>
+                                        <td>{{s.panchayat_district_level_officials_male}}</td>
+                                        <td>{{s.panchayat_district_level_officials_female}}</td>
+                                        <td>{{s.panchayat_district_level_officials_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">30. State level official</span></th>
+                                        <td>{{s.panchayat_state_level_officials_male}}</td>
+                                        <td>{{s.panchayat_state_level_officials_female}}</td>
+                                        <td>{{s.panchayat_state_level_officials_total}}</td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th>Media</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th><span class="co-name">31. Media interns</span></th>
+                                        <td>{{s.media_interns_male}}</td>
+                                        <td>{{s.media_interns_female}}</td>
+                                        <td>{{s.media_interns_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">32. Journalists</span></th>
+                                        <td>{{s.media_journalists_male}}</td>
+                                        <td>{{s.media_journalists_female}}</td>
+                                        <td>{{s.media_journalists_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">33. Editors</span></th>
+                                        <td>{{s.media_editors_male}}</td>
+                                        <td>{{s.media_editors_female}}</td>
+                                        <td>{{s.media_editors_total}}</td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th>Others</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th><span class="co-name">34. Block coordinators/cluster coordinators/Field Coordinator</span></th>
+                                        <td>{{s.others_block_cluster_field_corrdinators_male}}</td>
+                                        <td>{{s.others_block_cluster_field_corrdinators_female}}</td>
+                                        <td>{{s.others_block_cluster_field_corrdinators_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">35. NGO Staff</span></th>
+                                        <td>{{s.others_ngo_staff_corrdinators_male}}</td>
+                                        <td>{{s.others_ngo_staff_corrdinators_female}}</td>
+                                        <td>{{s.others_ngo_staff_corrdinators_total}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span class="co-name">36. Others ( Specify)</span></th>
+                                        <td>{{s.others_male}}</td>
+                                        <td>{{s.others_female}}</td>
+                                        <td>{{s.others_total}}</td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr>
+                                        <th>Total</th>
+                                        <td>{{s.total_male}}</td>
+                                        <td>{{s.total_female}}</td>
+                                        <td>{{s.total}}</td>
+                                    </tr>
+                                </thead>
+                            </tbody>
+                            {% endfor %}
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

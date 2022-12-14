@@ -1,0 +1,289 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class='row'>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Place of AHWD<span class="required-field"></span></label>
+                                <select class="form-select" name='place_of_ahwd' id='place_of_ahwd' onchange='onSelectChange_choose_model(this)'
+                                    aria-label="Floating label select example" required="" >
+                                    <option selected value="">Select</option>
+                                    <option value='1' {% if place_of_ahwd == '1' %}selected{% endif %}>AWC</option>
+                                    <option value='2' {% if place_of_ahwd == '2' %}selected{% endif %}>School</option>
+                                    <option value='3' {% if place_of_ahwd == '3' %}selected{% endif %}>HWC</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a place of place of AHWD.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Date of AHWD<span class="required-field"></span></label>
+                                <input type="date" class="form-control"  name='date_of_ahwd'  id="previous_data"
+                                    placeholder="Enter the Date of AHWD" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid date of AHWD.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6" id='awc_model' >  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Awc Name<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose Awc Name" id="awc" name='selected_field_awc' >      
+                                    <option selected value="">Choose Awc Name</option>
+                                    {% for i in awc_obj %}
+                                    <option value="{{i.id}}">{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                
+                                <div class="invalid-feedback">
+                                    Please select awc name.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6 "  id='school_model'>  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">School Name<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose School Name" id="school" name='selected_field_school' >      
+                                    <option selected value="">Choose School Name</option>
+                                    {% for i in school_obj %}
+                                    <option value="{{i.id}}">{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select school name.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6" id='hwc_model'>
+                            <div class="mb-4">
+                                <label for="floatingemailInput">HWC Name<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='hwc_name'  id="hwc"
+                                    placeholder="Enter the HWC Name">
+                                <div class="invalid-feedback">
+                                    Please provide a valid HWC Name.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent girls participated 10-14 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='participated_10_14_years' onkeyup="validate_10_14(this);" id="participated_10_14_years"
+                                    placeholder="Enter the No of adolescent girls participated 10-14 year" required>
+                                <div class="invalid-feedback" id="participated_10_14_years-msg">
+                                    Please provide a valid No of adolescent girls participated 10-14 year.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent girls participated 15-19 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"   name='participated_15_19_years' onkeyup="validate_15_19(this);" id="participated_15_19_years"
+                                    placeholder="Enter the No of adolescent girls participated 15-19 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid No of adolescent girls participated 15-19 year.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Girls received services - BMI 10-14 years<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control"  name='bmi_10_14_years' onkeyup="validate_10_14(this);"  id="bmi_10_14_years"
+                                    placeholder="Enter the  No of Girls received services - BMI 10-14 year" required>
+                                <div class="invalid-feedback" id="bmi_10_14_years-msg">
+                                    Please provide a valid No of Girls received services - BMI 15-19 years should be less than or equal to the no of adolescent girls participated 10-14 year.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Girls received services - BMI 15-19 years<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control" onkeyup="validate_15_19(this);" name='bmi_15_19_years'  id="bmi_15_19_years"
+                                    placeholder="Enter the  No of Girls received services - BMI 15-19 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid No of Girls received services - BMI 15-19 years should be less than or equal to the no of adolescent girls participated 15-19 year.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Girls received services - HB 10-14 years<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control" onkeyup="validate_10_14(this);"  name='hb_10_14_years'  id="hb_10_14_years"
+                                    placeholder="Enter the No of Girls received services - HB 10-14 years" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid No of Girls received services - HB 10-14 years should be less than or equal to the no of adolescent girls participated 10-14 year.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Girls received services - HB 15-19 years<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control" onkeyup="validate_15_19(this);" name='hb_15_19_years'  id="hb_15_19_years"
+                                    placeholder="Enter the No of Girls received services - HB 15-19 years" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid No of Girls received services - HB 15-19 years should be less than or equal to the no of adolescent girls participated 15-19 year.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Girls received services - TT 10-14 years<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control" onkeyup="validate_10_14(this);"  name='tt_10_14_years'  id="tt_10_14_years"
+                                    placeholder="Enter the No of Girls received services - TT 10-14 years" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid No of Girls received services - TT 10-14 years should be less than or equal to the no of adolescent girls participated 10-14 year.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Girls received services - TT 15-19 years<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control" onkeyup="validate_15_19(this);" name='tt_15_19_years'  id="tt_15_19_years"
+                                    placeholder="Enter the No of Girls received services - TT 15-19 years" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid No of Girls received services - TT 15-19 years should be less than or equal to the no of adolescent girls participated 15-19 year.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Girls received services - Counselling 10-14 years<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control" onkeyup="validate_10_14(this);" name='counselling_10_14_years'  id="counselling_10_14_years"
+                                    placeholder="Enter the No of Girls received services - Counselling 10-14 years" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid No of Girls received services - counselling 10-14 years should be less than or equal to the no of adolescent girls participated 10-14 year.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Girls received services - Counselling 15-19 years<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control" onkeyup="validate_15_19(this);" name='counselling_15_19_years'  id="counselling_15_19_years"
+                                    placeholder="Enter the No of Girls received services - Counselling 15-19 years" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid No of Girls received services - counselling 15-19 years should be less than or equal to the no of adolescent girls participated 15-19 year.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Girls - Referral 10-14 years<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control" onkeyup="validate_10_14(this);" name='referral_10_14_years'  id="referral_10_14_years"
+                                    placeholder="Enter the No of Girls - Referral 10-14 years" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid No of Girls - referral 10-14 years should be less than or equal to the no of adolescent girls participated 10-14 year.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Girls - Referral 15-19 years<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control" onkeyup="validate_15_19(this);"  name='referral_15_19_years'  id="referral_15_19_years"
+                                    placeholder="Enter the No of Girls - Referral 15-19 years" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid No of Girls - referral 15-19 years should be less than or equal to the no of adolescent girls participated 15-19 year.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="reset" onclick="location.href='/po-report/rnp/girls-ahwd-listing/{{task_id}}/'" class="btn btn-secondary waves-effect">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary w-md">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+function validate_10_14(){
+    var participated_10_14_years = document.getElementById("participated_10_14_years").value;
+    document.getElementById("bmi_10_14_years").setAttribute('max', participated_10_14_years) 
+    document.getElementById("hb_10_14_years").setAttribute('max', participated_10_14_years) 
+    document.getElementById("tt_10_14_years").setAttribute('max', participated_10_14_years) 
+    document.getElementById("counselling_10_14_years").setAttribute('max', participated_10_14_years) 
+    document.getElementById("referral_10_14_years").setAttribute('max', participated_10_14_years)
+}
+function validate_15_19(){
+    var participated_15_19_years = document.getElementById("participated_15_19_years").value;
+    document.getElementById("bmi_15_19_years").setAttribute('max', participated_15_19_years) 
+    document.getElementById("hb_15_19_years").setAttribute('max', participated_15_19_years) 
+    document.getElementById("tt_15_19_years").setAttribute('max', participated_15_19_years) 
+    document.getElementById("counselling_15_19_years").setAttribute('max', participated_15_19_years) 
+    document.getElementById("referral_15_19_years").setAttribute('max', participated_15_19_years) 
+}
+
+</script>
+<script type="text/javascript">
+    
+    window.onload = function () {
+        document.getElementById("awc_model").style.display = "none";
+        document.getElementById("school_model").style.display = "none";
+        document.getElementById("hwc_model").style.display = "none";
+    };
+    function onSelectChange_choose_model(place_of_ahwd){
+
+        var opt = place_of_ahwd.options[place_of_ahwd.selectedIndex].text;
+        
+        if(opt === 'AWC'){         
+            document.getElementById('awc_model').style.display = "block";  
+            document.getElementById('school_model').style.display = 'none';    
+            document.getElementById('hwc_model').style.display = 'none';    
+            document.getElementById('awc').setAttribute('required','required')
+            document.getElementById('school').removeAttribute('required','required');
+            document.getElementById('hwc').removeAttribute('required','required');
+            $('#school').prop('selectedIndex', 0).change();
+            $('#awc').prop('selectedIndex', 0).change();
+            $('#hwc').val('');
+        }else if(opt === 'School'){             
+            document.getElementById('school_model').style.display = 'block';
+            document.getElementById('awc_model').style.display = 'none';
+            document.getElementById('hwc_model').style.display = 'none';
+            document.getElementById('school').setAttribute('required','required')
+            document.getElementById('awc').removeAttribute('required','required');
+            document.getElementById('hwc').removeAttribute('required','required');
+            $('#school').prop('selectedIndex', 0).change();
+            $('#awc').prop('selectedIndex', 0).change();
+            $('#hwc').val('');
+        }else{
+            document.getElementById('awc_model').style.display = "none";  
+            document.getElementById('school_model').style.display = 'none';    
+            document.getElementById('hwc_model').style.display = 'block'; 
+            document.getElementById('school').removeAttribute('required','required')
+            document.getElementById('awc').removeAttribute('required','required');
+            document.getElementById('hwc').setAttribute('required','required');
+            $('#school').prop('selectedIndex', 0).change();
+            $('#awc').prop('selectedIndex', 0).change();
+            $('#hwc').val('');
+        }
+    }
+</script>
+{% endblock %}

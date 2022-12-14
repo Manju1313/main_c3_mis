@@ -1,0 +1,201 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class='row'>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">AWC Name<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose AWC Name" id="validationCustom04" name='awc_name' required>      
+                                    <option selected value="">Choose AWC Name</option>
+                                    {% for i in awc %}
+                                    <option value="{{i.id}}" {% if i.id == champions.awc_name.id %}selected{% endif %}>{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                
+                                <div class="invalid-feedback">
+                                    Please select a awc name.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Date of Visit<span class="required-field"></span></label>
+                                <input type="date" class="form-control"  name='date_of_visit'  id="previous_data" value="{{champions.date_of_visit|date:'Y-m-d'}}"
+                                    placeholder="Enter the Date of Visit" required>
+                                <div class="invalid-feedback">
+                                    Please provide a date of visit.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Champions(Girls) 10-14 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='girls_10_14_year' value="{{champions.girls_10_14_year}}"  id="girls_10_14_year"
+                                    placeholder="Enter the No of Champions(Girls) 10-14 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of Champions(Girls) 10-14 year.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Champions(Girls) 15-19 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='girls_15_19_year' value="{{champions.girls_15_19_year}}"  id="girls_15_19_year"
+                                    placeholder="Enter the No of Champions(Girls) 15-19 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of Champions(Girls) 15-19 year.
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Champions(Boys) 10-14 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='boys_10_14_year' value="{{champions.boys_10_14_year}}" id="boys_10_14_year"
+                                    placeholder="Enter the No of Champions(Boys) 10-14 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of Champions(Boys) 10-14 year.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Champions(Boys) 15-19 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='boys_15_19_year' value="{{champions.boys_15_19_year}}" id="boys_15_19_year"
+                                    placeholder="Enter the No of Champions(Boys) 15-19 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of Champions(Boys) 15-19 year.
+                                </div>
+                            </div>
+                        </div>
+                                  
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">Name of the institutions First<span class="required-field"></span></label>
+                                <select class="form-select" name='first_inst_visited' id='first_inst_visited' 
+                                    aria-label="Floating label select example" required="">
+                                    <option selected value="">Select</option>
+                                    <option value='1' {% if champions.first_inst_visited|slugify == '1' %}selected{% endif %}>CHC</option>
+                                    <option value='2' {% if champions.first_inst_visited|slugify == '2' %}selected{% endif %}>AFHC</option>
+                                    <option value='3' {% if champions.first_inst_visited|slugify == '3' %}selected{% endif %}>HSC</option>
+                                    <option value='4' {% if champions.first_inst_visited|slugify == '4' %}selected{% endif %}>HWC</option>
+                                    <option value='5' {% if champions.first_inst_visited|slugify == '5' %}selected{% endif %}>Police Station</option>
+                                    <option value='6' {% if champions.first_inst_visited|slugify == '6' %}selected{% endif %}>Post Office</option>
+                                    <option value='7' {% if champions.first_inst_visited|slugify == '7' %}selected{% endif %}>Bank</option>
+                                    <option value='8' {% if champions.first_inst_visited|slugify == '8' %}selected{% endif %}>Pragya Kendra</option>
+                                    <option value='9' {% if champions.first_inst_visited|slugify == '9' %}selected{% endif %}>Panchayat Bhawan</option>
+                                    <option value='10' {% if champions.first_inst_visited|slugify == '10' %}selected{% endif %}>Employment exchange</option>
+                                    <option value='11' {% if champions.first_inst_visited|slugify == '11' %}selected{% endif %}>Zoo</option>
+                                    <option value='12' {% if champions.first_inst_visited|slugify == '12' %}selected{% endif %}>Science Park</option>
+                                    <option value='13' {% if champions.first_inst_visited|slugify == '13' %}selected{% endif %}>Others</option>
+                                    </select>
+                                <div class="invalid-feedback">
+                                    Please select a name of the institutions first.
+                                </div>
+                            </div>
+                        </div>        
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">Name of the institutions Second</label>
+                                <select class="form-select" name='second_inst_visited' id='second_inst_visited' 
+                                    aria-label="Floating label select example" >
+                                    <option selected value="">Select</option>
+                                    <option value='1' {% if champions.second_inst_visited|slugify == '1' %}selected{% endif %}>CHC</option>
+                                    <option value='2' {% if champions.second_inst_visited|slugify == '2' %}selected{% endif %}>AFHC</option>
+                                    <option value='3' {% if champions.second_inst_visited|slugify == '3' %}selected{% endif %}>HSC</option>
+                                    <option value='4' {% if champions.second_inst_visited|slugify == '4' %}selected{% endif %}>HWC</option>
+                                    <option value='5' {% if champions.second_inst_visited|slugify == '5' %}selected{% endif %}>Police Station</option>
+                                    <option value='6' {% if champions.second_inst_visited|slugify == '6' %}selected{% endif %}>Post Office</option>
+                                    <option value='7' {% if champions.second_inst_visited|slugify == '7' %}selected{% endif %}>Bank</option>
+                                    <option value='8' {% if champions.second_inst_visited|slugify == '8' %}selected{% endif %}>Pragya Kendra</option>
+                                    <option value='9' {% if champions.second_inst_visited|slugify == '9' %}selected{% endif %}>Panchayat Bhawan</option>
+                                    <option value='10' {% if champions.second_inst_visited|slugify == '10' %}selected{% endif %}>Employment exchange</option>
+                                    <option value='11' {% if champions.second_inst_visited|slugify == '11' %}selected{% endif %}>Zoo</option>
+                                    <option value='12' {% if champions.second_inst_visited|slugify == '12' %}selected{% endif %}>Science Park</option>
+                                    <option value='13' {% if champions.second_inst_visited|slugify == '13' %}selected{% endif %}>Others</option>
+                                    </select>
+                                <div class="invalid-feedback">
+                                    Please select a name of the institutions second.
+                                </div>
+                            </div>
+                        </div>     
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">Name of the institutions Third</label>
+                                <select class="form-select" name='third_inst_visited' id='third_inst_visited' 
+                                    aria-label="Floating label select example" >
+                                    <option selected value="">Select</option>
+                                    <option value='1' {% if champions.third_inst_visited|slugify == '1' %}selected{% endif %}>CHC</option>
+                                    <option value='2' {% if champions.third_inst_visited|slugify == '2' %}selected{% endif %}>AFHC</option>
+                                    <option value='3' {% if champions.third_inst_visited|slugify == '3' %}selected{% endif %}>HSC</option>
+                                    <option value='4' {% if champions.third_inst_visited|slugify == '4' %}selected{% endif %}>HWC</option>
+                                    <option value='5' {% if champions.third_inst_visited|slugify == '5' %}selected{% endif %}>Police Station</option>
+                                    <option value='6' {% if champions.third_inst_visited|slugify == '6' %}selected{% endif %}>Post Office</option>
+                                    <option value='7' {% if champions.third_inst_visited|slugify == '7' %}selected{% endif %}>Bank</option>
+                                    <option value='8' {% if champions.third_inst_visited|slugify == '8' %}selected{% endif %}>Pragya Kendra</option>
+                                    <option value='9' {% if champions.third_inst_visited|slugify == '9' %}selected{% endif %}>Panchayat Bhawan</option>
+                                    <option value='10' {% if champions.third_inst_visited|slugify == '10' %}selected{% endif %}>Employment exchange</option>
+                                    <option value='11' {% if champions.third_inst_visited|slugify == '11' %}selected{% endif %}>Zoo</option>
+                                    <option value='12' {% if champions.third_inst_visited|slugify == '12' %}selected{% endif %}>Science Park</option>
+                                    <option value='13' {% if champions.third_inst_visited|slugify == '13' %}selected{% endif %}>Others</option>
+                                    </select>
+                                <div class="invalid-feedback">
+                                    Please select a name of the institutions third.
+                                </div>    
+                            </div>
+                        </div>    
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">Name of the institutions Fourth</label>
+                                <select class="form-select" name='fourth_inst_visited' id='fourth_inst_visited' 
+                                    aria-label="Floating label select example" >
+                                    <option selected value="">Select</option>
+                                    <option value='1' {% if champions.fourth_inst_visited|slugify == '1' %}selected{% endif %}>CHC</option>
+                                    <option value='2' {% if champions.fourth_inst_visited|slugify == '2' %}selected{% endif %}>AFHC</option>
+                                    <option value='3' {% if champions.fourth_inst_visited|slugify == '3' %}selected{% endif %}>HSC</option>
+                                    <option value='4' {% if champions.fourth_inst_visited|slugify == '4' %}selected{% endif %}>HWC</option>
+                                    <option value='5' {% if champions.fourth_inst_visited|slugify == '5' %}selected{% endif %}>Police Station</option>
+                                    <option value='6' {% if champions.fourth_inst_visited|slugify == '6' %}selected{% endif %}>Post Office</option>
+                                    <option value='7' {% if champions.fourth_inst_visited|slugify == '7' %}selected{% endif %}>Bank</option>
+                                    <option value='8' {% if champions.fourth_inst_visited|slugify == '8' %}selected{% endif %}>Pragya Kendra</option>
+                                    <option value='9' {% if champions.fourth_inst_visited|slugify == '9' %}selected{% endif %}>Panchayat Bhawan</option>
+                                    <option value='10' {% if champions.fourth_inst_visited|slugify == '10' %}selected{% endif %}>Employment exchange</option>
+                                    <option value='11' {% if champions.fourth_inst_visited|slugify == '11' %}selected{% endif %}>Zoo</option>
+                                    <option value='12' {% if champions.fourth_inst_visited|slugify == '12' %}selected{% endif %}>Science Park</option>
+                                    <option value='13' {% if champions.fourth_inst_visited|slugify == '13' %}selected{% endif %}>Others</option>
+                                    </select>
+                                <div class="invalid-feedback">
+                                    Please select a name of the institutions Fourth.
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="reset" onclick="location.href='/po-report/fossil/champions-listing/{{task_id}}/'" class="btn btn-secondary waves-effect">
+                            Cancel
+                        </button>
+                        <!-- <button type="submit" class="btn btn-primary w-md">Submit</button> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

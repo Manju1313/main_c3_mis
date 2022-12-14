@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load static %} 
+{% block contents %}
+
+<!--************Chart Script Part*********-->
+{% include "dashboard/chart_script.html" %}
+<!--**************************************-->
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <form class="form-horizontal" method="POST" id="filters">
+                    {%csrf_token%}
+                    <div class="row">
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">District :</label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose District" id="district" name='District' >      
+                                    <option selected value="">Choose District</option>
+                                    {% for i in district_id %}
+                                        {% for key, value in i.items %}
+                                        <option value="{{key}}">{{value}}</option>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </select>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Block :</label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose Block" id="block" name='Block' >      
+                                    <option selected value="">Choose Block</option>
+                                    {% for i in block_id %}
+                                        {% for key, value in i.items %}
+                                        <option value="{{key}}">{{value}}</option>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </select>
+                            </div>   
+                        </div>
+                    <div class="row justify-content-end mt-3">
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-square btn-success btn-lg float-right">Filter</button>
+                        </div>
+                        <div class="col-auto">
+                            <button type="button" id="reset" class="btn btn-square btn-primary btn-lg float-right">Reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="row">
+            {% for ct in data_html.chart %}
+                <div class="{{ct.div}}" >
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-title">
+				    <h5>{{ct.chart_title}} {% if ct.tooltip %}<i class="fa fa-info-circle"data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="{{ct.tooltip}}" ></i>{% endif %}</h5>
+                            </div>
+                            <div class="row">
+				    <div class="col-12 {%if ct.chart_type == 'TABLECHART'%}justify-content-bottom mt-5{%endif%}" >
+                                    <div id="{{ct.chart_name}}"style="width:95%;height:{{ct.chart_height}};"></div>
+                                </div>
+				<div style="display:inline-block;margin-left: 10px;{%if ct.chart_type == 'TABLECHART' %}margin-top:10px;{%endif%}">{{ct.chart_note|safe}}</div>
+                            </div>
+                        </div>
+                    </div>	
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {                          
+        $('#district').change(function () {
+            var optionSelected = $(this).find("option:selected");
+            var valueSelected  = optionSelected.val();
+            $.ajax({
+                type:"GET",
+                url: '/ajax/block/'+valueSelected+'/',
+                success:function(result){
+                    $("#block option").remove();
+                    a = '<option selected value="">Choose Adolescent Name</option>';
+                    $("#block").append(a);
+                    if(JSON.parse(result) == 0){
+                        $("#block option").remove();
+                        a = '<option selected value="">No Block is mapped to this District Name</option>';
+                        $("#block").append(a);
+                    }
+                    else{
+                        $.each(JSON.parse(result),function(key, value)
+                        {
+                            a = '<option value=' + value['id']+'>' + value['name']+'</option>';
+                            $("#block").append(a);
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}
+{% block extra_javascript %}
+{% endblock %}
+
+

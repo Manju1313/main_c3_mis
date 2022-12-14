@@ -1,0 +1,65 @@
+<!--Section 2-->
+<!--Details of transaction of digital literacy sessions -->
+
+
+<div class="row" id="fccs-2">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 2:</h4>
+                    <p class="card-title-desc">Details of transaction of digital literacy sessions </p>
+                </div>
+                {% if task_obj.task_status == 1 and 'Cluster Coordinator' == user_role %}
+                <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/cc-report/fossil/digital-literacy-listing/{{task_id}}/'">
+                        View
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/cc-report/fossil/add-digital-literacy/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div>
+                {% endif %}
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name of Panchayat</th>
+                                    <th>Name of Village</th>
+                                    <th>Name of AWC</th>
+                                    <th>Name of Adolescent</th>
+                                    <th>Session name</th>
+                                    <th>Date of session</th>
+                                    <th>Session Day</th>
+                                    <th>Name of the Facilitator</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Designation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for d in digital_literacy %}
+                                <tr>
+                                    <th>{{d.adolescent_name.awc.village.grama_panchayat}}</th>
+                                    <th>{{d.adolescent_name.awc.village}}</th>
+                                    <th>{{d.adolescent_name.awc}}</th>
+                                    <th>{{d.adolescent_name}}</th>
+                                    <td>{{d.fossil_dl_session_config}}</td>
+                                    <td>{{d.date_of_session}}</td>
+                                    <td>{{d.get_session_day_display}}</td>
+                                    <td>{{d.facilitator_name}}</td>
+                                    <td>{{d.get_gender_display|default_if_none:""}}</td>
+                                    <td>{{d.age|default_if_none:""}}</td>
+                                    <td>{{d.get_designation_data_display}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+

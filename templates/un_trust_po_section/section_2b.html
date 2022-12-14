@@ -1,0 +1,57 @@
+<!--Section 2(b)-->
+<!--Details of Parents of at risk girls linked with vocational training & placement -->
+
+
+<div class="row" id="upos-2b">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 2(b):</h4>
+                    <p class="card-title-desc">Details of Parents of at risk girls linked with vocational training & placement </p>
+                </div>
+                <!-- <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/po-report/untrust/parents-vocation-listing/{{task_id}}/'">
+                         View
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/untrust/add-parents-vocation/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div> -->
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name of the Block</th>
+                                    <th>Name of the Panchayat</th>
+                                    <th>Name of the Village</th>
+                                    <th>Name of AWC (Code)</th>
+                                    <th>Number of the Parents linked</th>
+                                    <th>Number of parents completed Training</th>
+                                    <th>Number of parents offered Placement</th>
+                                    <th>Number of parents accepted placement</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for v in parent_vacation %}
+                                <tr>
+                                    <th>{{v.name_of_block}}</th>
+                                    <td>{{v.name_of_panchayat}}</td>
+                                    <td>{{v.name_of_village}}</td>
+                                    <td>{{v.name_of_awc_code}}</td>
+                                    <td>{{v.parent_name}}</td>
+                                    <td>{{v.training_complated}}</td>
+                                    <td>{{v.placement_accepted}}</td>
+                                    <td>{{v.placement_offered}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+

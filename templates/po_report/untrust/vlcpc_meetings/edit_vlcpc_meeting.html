@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class='row'>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">AWC Name<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose AWC Name" id="validationCustom04" name='awc_name' required>      
+                                    <option selected value="">Choose AWC Name</option>
+                                    {% for i in awc %}
+                                    <option value="{{i.id}}" {% if i.id == vlcpc_metting.awc_name.id %}selected{% endif %}>{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                
+                                <div class="invalid-feedback">
+                                    Please select a awc name.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="form-label">Date of Meeting<span class="required-field"></span></label>
+                                <input type="date" class="form-control" name='date_of_meeting' value="{{vlcpc_metting.date_of_meeting|date:'Y-m-d'}}" id="previous_data"  placeholder="Enter Date of Mettings" required="">
+                                <div class="invalid-feedback">
+                                    Please provide a vaild date of meeting.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Issues Discussed<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='issues_discussed' value="{{vlcpc_metting.issues_discussed}}"  id="issues_discussed"
+                                    placeholder="Enter your issues Discussed"  required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid issues discussed.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="floatingemailInput">Decision taken<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control" name='decision_taken' value="{{vlcpc_metting.decision_taken}}"  id="decision_taken"
+                                placeholder="Enter your Decision taken"  required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid decision taken.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Participants Planned<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='no_of_participants_planned' value="{{vlcpc_metting.no_of_participants_planned}}"  id="no_of_participants_planned"
+                                    placeholder="Enter your No of Participants Planned"  required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of participants planned.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Participants Attended<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='no_of_participants_attended' value="{{vlcpc_metting.no_of_participants_attended}}" id="no_of_participants_attended"
+                                    placeholder="Enter your No of Participants Attended"  required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of participants attended.
+                                </div>
+                            </div>
+                        </div>
+                    </div>         
+                    <div>
+                        <button type="reset" onclick="location.href='/po-report/untrust/vlcpc-meeting-listing/{{task_id}}/'" class="btn btn-secondary waves-effect">
+                            Cancel
+                        </button>
+                        <!-- <button type="submit" class="btn btn-primary w-md">Submit</button> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

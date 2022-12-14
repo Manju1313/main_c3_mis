@@ -1,0 +1,25 @@
+*~
+*#*
+*.pyc
+*.swp
+__pycache__
+/silk/**/*
+/static/silk/**/*
+*.ipynb
+*.sublime-project
+*.sublime-workspace
+/.vscode/**/*
+# /Convene2/database.py
+# /Convene2/storage.py
+# /Convene2/middleware.py
+/C3_WEB/settings.py
+# /Convene2/wsgi.py
+# common_methods.py
+*.xlsx
+*.sql
+*.zip
+*.gz
+*.bz2 
+/media/*
+requirements.txt
+!.gitignore

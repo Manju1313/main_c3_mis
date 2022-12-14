@@ -1,0 +1,228 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class='row'>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Name of the block<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose Name of the block" id="block_name" name='block_name' required>      
+                                    <option selected value="">Choose Name of the block</option>
+                                    {% for i in block_obj %}
+                                    <option value="{{i.id}}" {% if i.id == dcpu_bcpu.block_name.id %}selected{% endif %}>{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a Name of the block.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Name of the Institution<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='name_of_institution' value="{{dcpu_bcpu.name_of_institution}}"   id="name_of_institution"
+                                    placeholder="Enter the Name of the Institution" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid name of the institution.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="form-label">Date of Visit<span class="required-field"></span></label>
+                                <input type="date" class="form-control" name='date_of_visit' id="previous_data" value="{{dcpu_bcpu.date_of_visit|date:'Y-m-d'}}" 
+                                placeholder="Enter Date of Visit" required="">
+                                <div class="invalid-feedback">
+                                     Please provide a valid date of visit.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Name of lead of the Meeting</label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='name_of_lead'  value="{{dcpu_bcpu.name_of_lead}}"  id="name_of_lead"
+                                    placeholder="Enter the Name of lead of the Meeting" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid name of lead of the meeting.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="form-label">Designation<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control" name='designation'  value="{{dcpu_bcpu.designation}}" id="designation"  
+                                placeholder="Enter your Designation" required="">
+                                <div class="invalid-feedback">  
+                                    please provide a valid designation.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Issues Discussed<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='issues_discussed'  value="{{dcpu_bcpu.issues_discussed}}"  id="issues_discussed"
+                                    placeholder="Enter the Issues Discussed" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid issues discussed.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Adolescent Boys 10-14 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='boys_10_14_year'  value="{{dcpu_bcpu.boys_10_14_year}}" id="boys_10_14_year"
+                                    placeholder="Enter the No of Adolescent boys 10-14 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent boys 10-14 year.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Adolescent Boys 15-19 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='boys_15_19_year'  value="{{dcpu_bcpu.boys_15_19_year}}"  id="boys_15_19_year"
+                                    placeholder="Enter the No of Adolescent Boys 15-19 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent boys 15-19 year.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Adolescent Girls 10-14 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='girls_10_14_year'  value="{{dcpu_bcpu.girls_10_14_year}}"  id="girls_10_14_year"
+                                    placeholder="Enter the No of Adolescent Girls 10-14 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent girls 10-14 year.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Adolescent Girls 15-19 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='girls_15_19_year'  value="{{dcpu_bcpu.girls_15_19_year}}"  id="girls_15_19_year"
+                                    placeholder="Enter the No of Adolescent Girls 15-19 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent girls 15-19 year.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Champions 15-19 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='champions_15_19_year'  value="{{dcpu_bcpu.champions_15_19_year}}"  id="champions_15_19_year"
+                                    placeholder="Enter the No of Champions 15-19 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of champions 15-19 year.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Adult Male from community<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='adult_male'  value="{{dcpu_bcpu.adult_male}}"  id="adult_male"
+                                    placeholder="Enter the No of Adult Male from community" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adult male from community.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Adult Female from community<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='adult_female'  value="{{dcpu_bcpu.adult_female}}" id="adult_female"
+                                    placeholder="Enter the No of Adult Female from community" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adult female from community.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Teachers<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"   name='teachers'  value="{{dcpu_bcpu.teachers}}"  id="teachers" 
+                                    placeholder="Enter the No of Teachers" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of teachers.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of PRI members<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='pri_members'  value="{{dcpu_bcpu.pri_members}}"  id="pri_members"
+                                    placeholder="Enter the No of  PRI Members" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of PRI members.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Services providers<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='services_providers'  value="{{dcpu_bcpu.services_providers}}"  id="services_providers"
+                                    placeholder="Enter the No of Services Providers" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of services providers.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of SMC members<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='sms_members'  value="{{dcpu_bcpu.sms_members}}"  id="sms_members"
+                                    placeholder="Enter the No of SMC Members" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of SMC members.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Others<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='other' value="{{dcpu_bcpu.other}}"  id="other"
+                                    placeholder="Enter the No of Others" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of others.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="reset" onclick="location.href='/po-report/untrust/dcpu-bcpu-listing/{{task_id}}/'" class="btn btn-secondary waves-effect">
+                            Cancel
+                        </button>
+                        <!-- <button type="submit" class="btn btn-primary w-md">Submit</button> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

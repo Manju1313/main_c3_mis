@@ -1,0 +1,202 @@
+{% load static %}
+<style>
+  .tableCell{
+    text-align:center;
+  }
+  .headerCell{
+    background-color:#5890AD;
+    color:white !important;
+  }
+  .oddTableRow{
+    /*background-color:#ffeecd;*/
+    background-color:#eeeede;;
+  }
+  .hoverTableRow{
+    background-color:#dededc;
+  }
+  .selectedTableRow{
+    background-color:#d1d6bb;
+  }
+  .google-visualization-table-sortind {
+    color: #fff!important;
+    padding-left: 4px;
+  }
+</style>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+
+//console.log(value.container_id);
+google.charts.load('current', {'packages':['corechart','table']});
+google.charts.setOnLoadCallback(drawChart);
+var datas = {};
+//var chartsRef = {"last_contact_with_family":"","recommended_adoption_view":"", "stay_since_adoption_inquiry":"", "stay_in_cci":"", "last_review_by_cwc":"","child_adpotion_status":"","categories_in_cci":""}
+
+/*function recommended_adoption_view_click_handler(e) {
+  var selectedChart = chartsRef['recommended_adoption_view_click_handler'];
+  var selection = selectedChart.getSelection();
+  var on_click_urls = [];
+  var url = "";
+  for (var i = 0; i < selection.length; i++) {
+      if (selection[i].row != null)
+      {
+        url = on_click_urls[selection[i].row];
+        break;
+      }
+  }
+  if(url.length > 0)
+  {
+    window.open(url,'Dashboard')
+  }
+}
+*/
+function drawChart()
+{
+datas= {{ data|safe }};
+var chart;
+
+for (data in datas.chart)
+{
+  var value = datas.chart[data];
+  console.log(value)
+
+  const colours=value.colours
+  if (colours != undefined){
+    for (var i = 0; i < value['datas'].length; i++) {
+      value['datas'][i].push(colours[i])
+      {% comment %} console.log(colours.length) {% endcomment %}
+    }
+  }
+
+  var data = new google.visualization.arrayToDataTable(value.datas);
+
+  var options = value.options;
+  var on_click_urls = value.on_click_urls;
+  var on_click_handler = value.on_click_handler;
+  var chart_type = value.chart_type;
+  var addln_header = value.addln_header;
+  var addln_function_name = "add_additional_header_" + value.chart_slug.replace(/-/g,'_');
+  var containerID = value.chart_name;
+
+
+  //document.getElementById(value.title_div).append(value.chart_title);
+  //$(value.div_size_id).addClass(value.div);
+
+  if(data.getNumberOfRows() == 0)
+  {
+    document.getElementById(containerID).append("Data Not Available");
+  }
+  else
+  {
+    if(chart_type == 'COLUMNCHART' )
+    {
+      // if all values are empty display "Data Not Available" instead of empty chart
+      var arrayColumn = (arr, n) => arr.map(x => x[n]);
+      var second_column = arrayColumn(value.datas, 1);
+      var slice_first_row = second_column.slice(1, second_column.length);
+      var all_array_value = slice_first_row.filter(x => x > 0).length >= 1;
+      if(all_array_value == false)
+      { 
+      	second_column = arrayColumn(value.datas, 2);
+      	slice_first_row = second_column.slice(1, second_column.length);
+      	all_array_value = slice_first_row.filter(x => x > 0).length >= 1;
+      }
+      if(all_array_value==true)
+      {
+        var view = new google.visualization.DataView(data);
+
+        /*view.setColumns([0, 1,
+                { calc: "stringify",
+                  sourceColumn: 1,
+                  type: "string",
+                  role: "annotation" },2]);
+        */
+	chart = new google.visualization.ColumnChart(document.getElementById(containerID));
+        
+        {% comment %} google.visualization.events.addListener(chart, 'select', recommended_adoption_view_click_handler); {% endcomment %}
+
+        chart.draw(view, options);
+      }
+      else
+      {
+        document.getElementById(containerID).append("Data Not Available");
+      }
+    }
+    else if(chart_type == 'PIECHART')
+    { 
+      // if all values are empty display "Data Not Available" instead of empty chart
+      var arrayColumn = (arr, n) => arr.map(x => x[n]);
+      var second_column = arrayColumn(value.datas, 1);
+      var slice_first_row = second_column.slice(1, second_column.length);
+      var all_array_value = slice_first_row.filter(x => x > 0).length >= 1;
+      if(all_array_value==true)
+      {
+        var chart = new google.visualization.PieChart(document.getElementById(containerID));
+        chart.draw(data, options);
+      }
+      else
+      {
+        document.getElementById(containerID).append("Data Not Available");
+      }
+    }
+    else if(chart_type == 'TABLECHART')
+    {
+      var chart = new google.visualization.Table(document.getElementById(containerID));
+      // dynamically assign the on ready funtion for the table charts which have the addln_header 
+      //key set to non empty in the chart_query attribute
+      if(addln_header != '')
+      {
+        google.visualization.events.addListener(chart, 'ready',window[addln_function_name]);
+      }
+      chart.draw(data, options);
+      
+    }
+    else if(chart_type == 'BARCHART' )
+    {
+      // if all values are empty display "Data Not Available" instead of empty chart
+      var arrayColumn = (arr, n) => arr.map(x => x[n]);
+      var second_column = arrayColumn([["", "", {"role": "style"}], ["Shelter14", 1, "#FFAA00"]], 1);
+      var slice_first_row = second_column.slice(1, second_column.length);
+      var all_array_value = slice_first_row.filter(x => x > 0).length >= 1;
+
+      
+
+      if(all_array_value==true)
+      {
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+                { calc: "stringify",
+                  sourceColumn: 1,
+                  type: "string",
+                  role: "annotation" },
+                ]);
+        chart = new google.visualization.BarChart(document.getElementById(containerID));
+        chart.draw(view, options);
+      }
+      
+      else
+      {
+        document.getElementById(containerID).append("Data Not Available");
+      }
+    }
+    else if(chart_type == 'COLUMNSTACK')
+      {
+          chart = new google.visualization.ColumnChart(document.getElementById(containerID));
+          chart.draw(data, options);
+        
+      }
+  }
+}
+}
+// Code to generate the functions which get triggere on chart ready to include the additional header row for the table charts
+{% for key, value in table_chart_addln_headers.items %}
+  function add_additional_header_{{value.0|safe}}()
+  {
+    var tbl = document.getElementById('{{key|safe}}').getElementsByClassName('google-visualization-table-table')[0];
+    var thead = tbl.getElementsByTagName('thead')[0];
+    var addln_hdr = thead.insertRow(0);
+    addln_hdr.innerHTML = "{{value.1|safe}}";
+  }
+{% endfor %}
+
+</script>

@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class='row'>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Panchayat name<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose Panchayat Name" id="panchayat_name" name='panchayat_name' required>      
+                                    <option selected value="">Choose Panchayat name</option>
+                                    {% for i in gramapanchayat %}
+                                    <option value="{{i.id}}" {% if i.id == friendly_club.panchayat_name.id %}selected{% endif %}>{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                
+                                <div class="invalid-feedback">
+                                    Please select a panchayat name.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="form-label">Date<span class="required-field"></span></label>
+                                <input type="date" class="form-control" name='date_of_registration' id="previous_data" value="{{friendly_club.start_date|date:'Y-m-d'}}"  placeholder="Enter Date of Registration" required="">
+                                <div class="invalid-feedback">
+                                    Please provide a valid date of registration.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">HSC Name<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='hsc_name' value="{{friendly_club.hsc_name}}"  id="hsc_name"
+                                    placeholder="Enter the HSC Name" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid HSC name.
+                                </div>
+                            </div>
+                        </div>
+                   
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Subject<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='subject'  id="subject" value="{{friendly_club.subject}}"
+                                    placeholder="Enter the Subject" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid subject.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Facilitator Name<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='facilitator'  id="facilitator" value="{{friendly_club.facilitator}}"
+                                    placeholder="Enter the Facilitator Name" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid facilitator name. 
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Designation<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose Designations" id="designation" name='designation' required>      
+                                    <option selected value="">Choose Designations</option>
+                                    <option value='1' {% if friendly_club.designation|slugify == '1' %}selected{% endif %}>ANM</option>
+                                    <option value='2' {% if friendly_club.designation|slugify == '2' %}selected{% endif %}>Sahiya</option>
+                                    <option value='3' {% if friendly_club.designation|slugify == '3' %}selected{% endif %}>Sevika</option>
+                                    <option value='4' {% if friendly_club.designation|slugify == '4' %}selected{% endif %}>Peer Educator</option>
+                                    <option value='5' {% if friendly_club.designation|slugify == '5' %}selected{% endif %}>Cluster Coordinator</option>
+                                    <option value='6' {% if friendly_club.designation|slugify == '6' %}selected{% endif %}>Project Officer</option>
+                                    <option value='7' {% if friendly_club.designation|slugify == '7' %}selected{% endif %}>SPO</option>
+                                    <option value='8' {% if friendly_club.designation|slugify == '8' %}selected{% endif %}>Others</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please provide a valid designation. 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Sahiya<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='no_of_sahiya' id="no_of_sahiya" value="{{friendly_club.no_of_sahiya}}"
+                                    placeholder="Enter the No of Sahiya" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of sahiya.
+                                </div>
+                            </div>
+                        </div>
+                   
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of AWW<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='no_of_aww'  id="no_of_sahiya" value="{{friendly_club.no_of_sahiya}}"
+                                    placeholder="Enter the No of AWW" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of AWW. 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of PE girls 10-14 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='pe_girls_10_14_year' id="pe_girls_10_14_year" value="{{friendly_club.pe_girls_10_14_year}}"
+                                    placeholder="Enter the No of PE girls 10-14 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of PE girls 10-14 year.
+                                </div>
+                            </div>
+                        </div>
+                   
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of PE girls 15-19 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='pe_girls_15_19_year' id="pe_girls_15_19_year" value="{{friendly_club.pe_girls_15_19_year}}"
+                                    placeholder="Enter the No of PE girls 15-19 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of PE girls 15-19 year.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of PE boys 10-14 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='pe_boys_10_14_year' id="pe_boys_10_14_year" value="{{friendly_club.pe_boys_10_14_year}}"
+                                    placeholder="Enter the No of PE boys 10-14 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of PE boys 10-14 year.
+                                </div>
+                            </div>
+                        </div>
+                  
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of PE boys 15-19 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='pe_boys_15_19_year' id="pe_boys_15_19_year" value="{{friendly_club.pe_boys_15_19_year}}"
+                                    placeholder="Enter the No of PE boys 15-19 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of PE boys 15-19 year.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="reset" onclick="location.href='/po-report/untrust/friendly-club-listing/{{task_id}}/'" class="btn btn-secondary waves-effect">
+                            Cancel
+                        </button>
+                        <!-- <button type="submit" class="btn btn-primary w-md">Submit</button> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

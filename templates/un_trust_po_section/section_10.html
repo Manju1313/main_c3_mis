@@ -1,0 +1,57 @@
+<!--Section 10-->
+<!--Details of VLCPC meetings-->
+
+<div class="row" id="upos-10">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 10:</h4>
+                    <p class="card-title-desc">Details of VLCPC meetings</p>
+                </div>
+                <!-- <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/po-report/untrust/vlcpc-meeting-listing/{{task_id}}/'">
+                         View
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/untrust/add-vlcpc-meeting/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div> -->
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Name of Block</th>
+                                    <th rowspan="2">Name of Panchayat</th>
+                                    <th rowspan="2">Name of Village</th>
+                                    <th rowspan="2">Name of AWC</th>
+                                    <th rowspan="2">Date of mettings</th>
+                                    <th colspan="2">No. of Participants</th>
+                                </tr>
+                                <tr>
+                                    <th>Planned</th>
+                                    <th>Attended</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for v in vlcpc_metting %}
+                                <tr>
+                                    <th>{{v.name_of_block}}</th>
+                                    <th>{{v.name_of_panchayat}}</th>
+                                    <th>{{v.name_of_village}}</th>
+                                    <td>{{v.name_of_awc_code}}</td>
+                                    <td>{{v.date_of_meeting}}</td>
+                                    <td>{{v.no_of_participants_planned}}</td>
+                                    <td>{{v.no_of_participants_attended}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

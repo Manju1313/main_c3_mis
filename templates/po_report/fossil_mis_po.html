@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block extra_css %}
+<!-- Responsive Table css -->
+<link href="{% static 'libs/admin-resources/rwd-table/rwd-table.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block contents %}
+<style>
+    .table>thead { vertical-align: top}
+    .card-title{ margin-right: 5px }
+</style>
+
+{% include 'fossil_po_section/fossil_heading.html' %}
+{% include 'fossil_po_section/section_1.html' %}
+{% include 'fossil_po_section/section_2.html' %}
+{% include 'fossil_po_section/section_3.html' %}
+{% include 'fossil_po_section/section_4a.html' %}
+{% include 'fossil_po_section/section_4b.html' %}
+{% include 'fossil_po_section/section_5.html' %}
+{% include 'fossil_po_section/section_6.html' %}
+{% include 'fossil_po_section/section_7.html' %}
+{% include 'fossil_po_section/section_8.html' %}
+{% include 'fossil_po_section/section_9.html' %}
+{% include 'fossil_po_section/section_10.html' %}
+{% include 'fossil_po_section/section_11.html' %}
+{% include 'fossil_po_section/section_12.html' %}
+{% include 'fossil_po_section/section_13.html' %}
+{% include 'fossil_po_section/section_14.html' %}
+{% include 'fossil_po_section/section_15.html' %}
+{% include 'fossil_po_section/section_16.html' %}
+{% include 'fossil_po_section/section_17.html' %}
+{% include 'fossil_po_section/need_revision.html' %}
+
+{% if dataentry_obj %}
+<div>
+    <button type="button" class="btn btn-info"><b>Remark</b></button>
+    {% for i in dataentry_obj %}
+        <P><b>Updated by:</b>{{i.user_name}}, {{i.server_created_on}}  </P>
+        <P><b>Status:</b> {{i.remark}}.</P>
+    {% endfor %}
+</div> 
+{% endif %}
+
+
+
+{% endblock %}
+{% block extra_javascript %}
+        <!-- Responsive Table js -->
+        <script src="{% static 'libs/admin-resources/rwd-table/rwd-table.min.js' %}"></script>
+
+        <!-- Init js -->
+        {% comment %} <script src="{% static 'js/pages/table-responsive.init.js' %}"></script> {% endcomment %}
+    <script>
+        function Confirm(task_id, val, title){
+            Swal.fire({
+            title: 'Are you sure you want to '+title+' ?',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed){
+                $.ajax({
+                url:'/ajax-task/'+task_id,
+                type:'POST',
+                data:{status_val:val}, 
+                dataType: 'json',
+                success: function(result) {
+                    window.location.reload();
+                } 
+            });
+            }
+        }).then(function(){ window.location.reload(); })
+        }
+    </script>
+    
+    <script>
+        function ConfirmNeed(task_id,val,title){
+            Swal.fire({
+            title: 'Are you sure you want to '+ title +' ?',
+            input: 'textarea',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            inputValidator: function (value) {
+                return !value && 'You need to write something!'
+            }
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed){
+                $.ajax({
+                url:'/ajax-task/'+task_id,
+                type:'POST',
+                data:{status_val:val,remark: result.value}, 
+                dataType: 'json',
+                success: function(result) {
+                    window.location.reload();
+                } 
+            });
+            }
+        }).then(function(){ window.location.reload(); })
+        }
+    </script>
+
+{% endblock %}

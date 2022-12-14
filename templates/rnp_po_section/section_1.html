@@ -1,0 +1,71 @@
+<!--Section 1-->
+<!--Details of transaction of sessions on health & nutrition-->
+
+<div class="row" id="rpos-1">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 1:</h4>
+                    <p class="card-title-desc">Details of transaction of sessions on health & nutrition</p>
+                </div>
+                <!--<div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/po-report/fossil/health-sessions-listing/{{task_id}}/'">
+                        View
+                    </button>
+                     {% if 'Program Officer' == user_role %}
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/fossil/add-health-sessions/{{task_id}}/'">
+                        Entry
+                    </button>
+                    {% endif %}
+                </div> -->
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th rowspan="3">Name of CC</th>
+                                    <th rowspan="3">Name of the Block</th>
+                                    <th rowspan="3">Name of the Panchayat</th>
+                                    <th rowspan="3">Name of the Village</th>
+                                    <th rowspan="3">Name of AWC (Code)</th>
+                                    <th rowspan="3">Session name /code</th>
+
+                                    <th colspan="2">Number of adolescent girls</th>
+                                    <th colspan="2">Number of adolescent boys</th>
+
+                                    <tr>
+                                        <th rowspan="2">10-14 year</th>
+                                        <th rowspan="2">15-19 year</th>
+
+                                        <th rowspan="2">10-14 year</th>
+                                        <th rowspan="2">15-19 year</th>
+                                    </tr>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for s in health_sessions %}
+                                <tr>
+                                    <th>{{s.name_of_cc}}</th>
+                                    <th>{{s.name_of_block}}</th>
+                                    <th>{{s.name_of_panchayat}}</th>
+                                    <td>{{s.name_of_village}}</td>
+                                    <td>{{s.name_of_awc_code}}</td>
+                                    <td>{{s.session_name}}</td>
+                                    
+                                    <td>{{s.girls_10_14_year}}</td>
+                                    <td>{{s.girls_15_19_year}}</td>
+                                    <td>{{s.boys_10_14_year}}</td>
+                                    <td>{{s.boys_15_19_year}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

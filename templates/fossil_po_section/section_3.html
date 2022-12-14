@@ -1,0 +1,58 @@
+<!--Section 3-->
+<!--Details of adolescent girls linked with vocational training & placement -->
+
+<div class="row" id="fpos-3">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 3:</h4>
+                    <p class="card-title-desc">Details of adolescent girls linked with vocational training & placement </p>
+                </div>
+                <!--<div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/po-report/fossil/vocation-listing/{{task_id}}/'">
+                       View
+                    </button>
+                     {% if 'Program Officer' == user_role %}
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/fossil/add-vocation/{{task_id}}/'">
+                        Entry
+                    </button>
+                    {% endif %}
+                </div> -->
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-3" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name of the Block</th>
+                                    <th>Name of the Panchayat</th>
+                                    <th>Name of the Village</th>
+                                    <th>Name of AWC (Code)</th>
+                                    <th>Number of the adolescent girls linked</th>
+                                    <th>Number of girls completed Training</th>
+                                    <th>Number of girls offered Placement</th>
+                                    <th>Number of girls accepted placement</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for v in vocation %}
+                                <tr>
+                                    <th>{{v.name_of_block}}</th>
+                                    <th>{{v.name_of_panchayat}}</th>
+                                    <th>{{v.name_of_village}}</th>
+                                    <td>{{v.name_of_awc_code}}</td>
+                                    <td>{{v.number_adolescent_girls_linked}}</td>
+                                    <td>{{v.number_girls_completed_training}}</td>
+                                    <td>{{v.number_of_girls_offered_placement}}</td>                                 
+                                    <td>{{v.number_girls_accepted_placement}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

@@ -1,0 +1,64 @@
+<!--Section 6-->
+<!--Details of Adolescent Friendly Club (AFC)-->
+
+<div class="row" id="rpos-5">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 5:</h4>
+                    <p class="card-title-desc">Details of Adolescent Friendly Club (AFC)</p>
+                </div>
+               <!-- <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/po-report/rnp/friendly-club-listing/{{task_id}}/'">
+                        View
+                    </button>
+                     <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/rnp/add-friendly-club/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div> -->
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Name of the Block</th>
+                                    <th rowspan="2">Name of the Panchayat</th>
+                                    <th rowspan="2">Name of the HSC</th>
+                                    <th rowspan="2">Number of Sahiya participated</th>
+                                    <th rowspan="2">Number of AWW participated</th>
+
+                                    <th  colspan="2">Number of PE (girls)</th>
+                                    <th  colspan="2">Number of PE (boys)</th>
+                                </tr>
+                                <tr>
+                                    <th>10-14 year</th>
+                                    <th>15-19 year</th>
+                                    <th>10-14 year</th>
+                                    <th>15-19 year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for f in friendly_club %}
+                                <tr>
+                                    <th>{{f.name_of_block}}</th>
+                                    <th>{{f.name_of_panchayat}}</th>
+                                    <td>{{f.name_of_hsc}}</td>
+                                    <td>{{f.name_of_sahiya_participated}}</td>
+                                    <td>{{f.no_of_aww}}</td>
+                                    <td>{{f.girls_10_14_year}}</td>
+                                    <td>{{f.girls_15_19_year}}</td>
+                                    <td>{{f.boys_10_14_year}}</td>
+                                    <td>{{f.boys_15_19_year}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    {% if exist_error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{exist_error}}
+                    </div>
+                    {% endif %}
+                    <div class='row'>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Awc Name<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose Awc Name" id="awc" name='awc_name' required>      
+                                    <option selected value="">Choose Awc Name</option>
+                                    {% for i in awc_obj %}
+                                    <option value="{{i.id}}" {% if i.id == adolescent_name.awc.id %}selected{% endif %}>{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                
+                                <div class="invalid-feedback">
+                                    Please select a awc name.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Adolescent Name<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose Adolescent Name" id="adolescent" name='adolescent_name' required>      
+                                    <option selected value="">Choose Adolescent Name</option>
+                                    {% for i in adolescent_obj %}
+                                    <option value="{{i.id}}" {% if i.id == adolescent_name.id %}selected{% endif %}>{{i.name}} - {{i.code}}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a Adolescent Name.
+                                </div>
+                            </div>   
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Age<span class="required-field"></span></label>
+                                <input type="text" pattern="^(10|11|12|13|14|15|16|17|18|19)$" class="form-control"  name='age' id="age" value="{{age}}"
+                                    placeholder="Enter your Age" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid age between 10 to 19.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Gender<span class="required-field"></span></label>
+                                <select  class="form-select"  aria-label="Floating label select example" 
+                                placeholder="Choose the Gender" id="gender" name='gender' required>      
+                                    <option selected value="">Choose the Gender</option>
+                                    <option value='1' {% if gender == '1' %}selected{% endif %}>Male</option>
+                                    <option value='2' {% if gender == '2' %}selected{% endif %}>Female</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a gender.
+                                </div>
+                            </div>   
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Session Category<span class="required-field"></span></label>
+                                <select  class="form-select"  aria-label="Floating label select example" 
+                                placeholder="Choose Session Name" id="session_name" name='session_name' required>      
+                                    <option selected value="">Choose the Session Category</option>
+                                    <option value='1' {% if session_name == '1' %}selected{% endif %}>Theory</option>
+                                    <option value='2' {% if session_name == '2' %}selected{% endif %}>Practical</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a session category.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Session Name<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose FossilDLSession Name" id="fossil_dl_category" name='fossil_dl_session_config' required>      
+                                    <option selected value="">Session Name</option>
+                                    {% for i in fossil_dl_session_category_obj %}
+                                    <option value="{{i.id}}" {% if i.id == fossil_dl_session_config.id %}selected{% endif %}>{{i.session_category}}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a Session Name.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Date of Session<span class="required-field"></span></label>
+                                <input type="date" class="form-control"  name='date_of_session'  id="previous_data" value="{{date_of_session}}"
+                                    placeholder="Enter the Date of Session" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid date of session.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Session Day<span class="required-field"></span></label>
+                                <select  class="form-select"  aria-label="Floating label select example" 
+                                placeholder="Choose Session Day" id="session_day" name='session_day' required>      
+                                    <option selected value="">Choose Session Day</option>
+                                    <option value='1' {% if session_day == '1' %}selected{% endif %}>Day-1</option>
+                                    <option value='2' {% if session_day == '2' %}selected{% endif %}>Day-2</option>
+                                    <option value='3' {% if session_day == '3' %}selected{% endif %}>Day-3</option>
+                                    <option value='4' {% if session_day == '4' %}selected{% endif %}>Day-4</option>
+                                    <option value='5' {% if session_day == '5' %}selected{% endif %}>Day-5</option>
+                                    <option value='6' {% if session_day == '6' %}selected{% endif %}>Day-6</option>
+                                    <option value='7' {% if session_day == '7' %}selected{% endif %}>Day-7</option>
+                                    <option value='8' {% if session_day == '8' %}selected{% endif %}>Day-8</option>
+                                    <option value='9' {% if session_day == '9' %}selected{% endif %}>Day-9</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please provide a valid Session Day. 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Facilitator name<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='facilitator_name' value="{{facilitator_name}}"
+                                 id="facilitator_name" placeholder="Enter your Facilitator Name" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid Facilitator Name.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Designations<span class="required-field"></span></label>
+                                <select  class="form-select"  aria-label="Floating label select example" 
+                                placeholder="Choose Designations" id="designations" name='designations' required>      
+                                    <option selected value="">Choose Designations</option>
+                                    <option value='1' {% if designations == '1' %}selected{% endif %}>ANM</option>
+                                    <option value='2' {% if designations == '2' %}selected{% endif %}>Sahiya</option>
+                                    <option value='3' {% if designations == '3' %}selected{% endif %}>Sevika</option>
+                                    <option value='4' {% if designations == '4' %}selected{% endif %}>Peer Educator</option>
+                                    <option value='5' {% if designations == '5' %}selected{% endif %}>Cluster Coordinator</option>
+                                    <option value='6' {% if designations == '6' %}selected{% endif %}>Project Officer</option>
+                                    <option value='7' {% if designations == '7' %}selected{% endif %}>SPO</option>
+                                    <option value='8' {% if designations == '8' %}selected{% endif %}>Others</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a Designations.
+                                </div>
+                            </div>   
+                        </div>
+                    </div>
+                    <div>
+                        <button type="reset" onclick="location.href='/po-report/fossil/digital-literacy-listing/{{task_id}}/'" class="btn btn-secondary waves-effect">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary w-md">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {                          
+        $('#awc').change(function () {
+            var optionSelected = $(this).find("option:selected");
+            var valueSelected  = optionSelected.val();
+            $.ajax({
+                type:"GET",
+                url: '/ajax/adolescent/'+valueSelected+'/',
+                success:function(result){
+                    $("#adolescent option").remove();
+                    a = '<option selected value="">Choose Adolescent Name</option>';
+                    $("#adolescent").append(a);
+                    if(JSON.parse(result) == 0){
+                        $("#adolescent option").remove();
+                        a = '<option selected value="">No adolescent is mapped to this Awc Name</option>';
+                        $("#adolescent").append(a);
+                    }
+                    else{
+                        $.each(JSON.parse(result),function(key, value)
+                        {
+                            a = '<option value=' + value['id']+'>' + value['name']+'</option>';
+                            $("#adolescent").append(a);
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

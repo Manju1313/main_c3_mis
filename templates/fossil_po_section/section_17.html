@@ -1,0 +1,55 @@
+<!--Section 16-->
+<!--Any suggestions to improve the program implementation   -->
+
+<div class="row" id="fpos-17">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 17:</h4>
+                    <p class="card-title-desc">Any suggestions to improve the program implementation</p>
+                </div>
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <!-- <label for="exampleInputEmail1">Successes:</label><br> -->
+                        <textarea id="suggestions" name="suggestions" class="form-control" rows="3" placeholder="Text is coming...." ></textarea>
+                        <div class="invalid-feedback">
+                            Please provide a valid suggestions.
+                        </div>
+                    </div>
+                    
+                    <button type="submit"  class="btn btn-success waves-effect waves-light w-md">Save</button>
+                        {% if task_obj.task_status == 2 and 'Senior Program Officer' == user_role %}  
+                            {% if not view_entry_flag %}    
+                            <input type='button' style='margin-left:5px' id='download_button' class="btn btn-primary float-end w-md" value='Approve' onclick="Confirm('{{task_id}}',3,'Approve')">
+                            <button type="button" style='margin-left:5px' class="confirm_btn btn btn-info ml-2 float-end" onclick="ConfirmNeed('{{task_id}}',1,'Need Revision')">Need Revision</button>
+                            {% endif %}
+                        {% elif task_obj.task_status == 2 and 'Senior Lead' == user_role %}    
+                        <input type='button' style='margin-left:5px' id='download_button' class="btn btn-primary float-end w-md" value='Approve' onclick="Confirm('{{task_id}}',3,'Approve')">
+                        <button type="button" style='margin-left:5px' class="confirm_btn btn btn-info ml-2 float-end" onclick="ConfirmNeed('{{task_id}}',1,'Need Revision')">Need Revision</button>
+                        {% endif %}
+                        
+                        
+                        {% if task_obj.task_status == 1 and 'Program Officer' == user_role %}    
+                            <input type='button' style='margin-left:5px' id='download_button' class="btn btn-primary float-end w-md" value='Submit for Approval' onclick="Confirm('{{task_id}}',2,'Submit for Approval')">
+                        {% elif task_obj.task_status == 1 and 'Trainging Coordinator' == user_role %}  
+                        <input type='button' style='margin-left:5px' id='download_button' class="btn btn-primary float-end w-md" value='Submit for Approval' onclick="Confirm('{{task_id}}',2,'Submit for Approval')">
+                        {% elif task_obj.task_status == 1 and 'Senior Program Officer' == user_role and view_entry_flag %}  
+                        <input type='button' style='margin-left:5px' id='download_button' class="btn btn-primary float-end w-md" value='Submit for Approval' onclick="Confirm('{{task_id}}',2,'Submit for Approval')">
+                        {% endif %}
+                        
+                        {% if 'Program Officer' == user_role %}  
+                        <button type="reset" style="float:right;" onclick="location.href='/monthly/report/'" class="btn btn-secondary waves-effect">Cancel</button>
+                        {% elif 'Trainging Coordinator' == user_role %}  
+                        <button type="reset" style="float:right;" onclick="location.href='/monthly/report/'" class="btn btn-secondary waves-effect">Cancel</button>
+                        {% elif 'Senior Program Officer' == user_role  %}  
+                        <button type="reset" style="float:right;" onclick="location.href='/po/monthly/report/'" class="btn btn-secondary waves-effect">Cancel</button>
+                        {% elif 'Senior Lead' == user_role %} 
+                        <button type="reset" style="float:right;" onclick="location.href='/spo/monthly/report/'" class="btn btn-secondary waves-effect">Cancel</button>
+                        {% endif %}
+                </form>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

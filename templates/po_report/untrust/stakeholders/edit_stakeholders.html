@@ -1,0 +1,1631 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class='row'>
+                        <h4 class='heading-clr text-center  waves-effect rounded p-2' >Education department</h4>
+                        <h5 class="mb-2">Master trainers:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='master_trainers_male' onkeyup="add();"  value="{{stakeholders_obj.master_trainers_male}}"  id="master_trainers_male"
+                                    placeholder="Enter the no of male" pattern="[0-9]{0,10}" required>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid no of male.
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='master_trainers_female' onkeyup="add();" value="{{stakeholders_obj.master_trainers_female}}" id="master_trainers_female"
+                                    placeholder="Enter the no of female" pattern="[0-9]{0,10}"  required>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid no of female.
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='master_trainers_total' onkeyup="add();" value="{{stakeholders_obj.master_trainers_total}}"  id="master_trainers_total"
+                                    placeholder="Enter the no of total" pattern="[0-9]{0,10}"  required readonly>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid no of total.
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Nodal Teachers:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='nodal_teachers_male' value="{{stakeholders_obj.nodal_teachers_male}}"   id="nodal_teachers_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='nodal_teachers_female' value="{{stakeholders_obj.nodal_teachers_female}}"  id="nodal_teachers_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='nodal_teachers_total' value="{{stakeholders_obj.nodal_teachers_total}}"  id="nodal_teachers_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Principals:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='principals_male' value="{{stakeholders_obj.principals_male}}"  id="principals_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='principals_female' value="{{stakeholders_obj.principals_female}}"  id="principals_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='principals_total' value="{{stakeholders_obj.principals_total}}"  id="principals_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">District level officials:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='district_level_officials_male' value="{{stakeholders_obj.district_level_officials_male}}"  id="district_level_officials_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='district_level_officials_female' value="{{stakeholders_obj.district_level_officials_female}}"  id="district_level_officials_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='district_level_officials_total' value="{{stakeholders_obj.district_level_officials_total}}"  id="district_level_officials_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Peer Educator:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='peer_educator_male' value="{{stakeholders_obj.peer_educator_male}}"  id="peer_educator_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='peer_educator_female' value="{{stakeholders_obj.peer_educator_female}}"  id="peer_educator_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='peer_educator_total' value="{{stakeholders_obj.peer_educator_total}}"  id="peer_educator_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">State level officials:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='state_level_officials_male' value="{{stakeholders_obj.state_level_officials_male}}"  id="state_level_officials_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='state_level_officials_female' value="{{stakeholders_obj.state_level_officials_female}}"  id="state_level_officials_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='state_level_officials_total' value="{{stakeholders_obj.state_level_officials_total}}"  id="state_level_officials_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h4 class='heading-clr text-center  waves-effect rounded p-2' >ICDS department</h4>
+                        <h5 class="mb-2">Awws:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_awws_male' value="{{stakeholders_obj.icds_awws_male}}"  id="icds_awws_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_awws_female' value="{{stakeholders_obj.icds_awws_female}}"  id="icds_awws_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_awws_total' value="{{stakeholders_obj.icds_awws_total}}"  id="icds_awws_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Supervisors:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_supervisors_male' value="{{stakeholders_obj.icds_supervisors_male}}"  id="icds_supervisors_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_supervisors_female' value="{{stakeholders_obj.icds_supervisors_female}}"  id="icds_supervisors_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_supervisors_total' value="{{stakeholders_obj.icds_supervisors_total}}"  id="icds_supervisors_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Peer Educator:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_peer_educator_male' value="{{stakeholders_obj.icds_peer_educator_male}}"  id="icds_peer_educator_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_peer_educator_female' value="{{stakeholders_obj.icds_peer_educator_female}}"  id="icds_peer_educator_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_peer_educator_total' value="{{stakeholders_obj.icds_peer_educator_total}}"  id="icds_peer_educator_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Child developement project officers:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_child_developement_project_officers_male' value="{{stakeholders_obj.icds_child_developement_project_officers_male}}"  id="icds_child_developement_project_officers_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_child_developement_project_officers_female' value="{{stakeholders_obj.icds_child_developement_project_officers_female}}"  id="icds_child_developement_project_officers_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_child_developement_project_officers_total' value="{{stakeholders_obj.icds_child_developement_project_officers_total}}"  id="icds_child_developement_project_officers_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">District level officials:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_district_level_officials_male' value="{{stakeholders_obj.icds_district_level_officials_male}}"  id="icds_district_level_officials_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_district_level_officials_female' value="{{stakeholders_obj.icds_district_level_officials_female}}"  id="icds_district_level_officials_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_district_level_officials_total' value="{{stakeholders_obj.icds_district_level_officials_total}}"  id="icds_district_level_officials_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">State level officials:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_state_level_officials_male' value="{{stakeholders_obj.icds_state_level_officials_male}}"  id="icds_state_level_officials_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_state_level_officials_female' value="{{stakeholders_obj.icds_state_level_officials_female}}"  id="icds_state_level_officials_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='icds_state_level_officials_total' value="{{stakeholders_obj.icds_state_level_officials_total}}"  id="icds_state_level_officials_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h4 class='heading-clr text-center  waves-effect rounded p-2' >Health department</h4>
+                        <h5 class="mb-2">ASHAs:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_ashas_male' value="{{stakeholders_obj.health_ashas_male}}"  id="health_ashas_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_ashas_female' value="{{stakeholders_obj.health_ashas_female}}"  id="health_ashas_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_ashas_total' value="{{stakeholders_obj.health_ashas_total}}"  id="health_ashas_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">ANMs:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_anms_male' value="{{stakeholders_obj.health_anms_male}}"  id="health_anms_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_anms_female' value="{{stakeholders_obj.health_anms_female}}"  id="health_anms_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_anms_total' value="{{stakeholders_obj.health_anms_total}}"  id="health_anms_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">BPM/BHM/PHEOs:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_bpm_bhm_pheos_male' value="{{stakeholders_obj.health_bpm_bhm_pheos_male}}"  id="health_bpm_bhm_pheos_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_bpm_bhm_pheos_female' value="{{stakeholders_obj.health_bpm_bhm_pheos_female}}"  id="health_bpm_bhm_pheos_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_bpm_bhm_pheos_total' value="{{stakeholders_obj.health_bpm_bhm_pheos_total}}"  id="health_bpm_bhm_pheos_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Medical officers:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_medical_officers_male' value="{{stakeholders_obj.health_medical_officers_male}}"  id="health_medical_officers_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_medical_officers_female' value="{{stakeholders_obj.health_medical_officers_female}}"  id="health_medical_officers_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_medical_officers_total' value="{{stakeholders_obj.health_medical_officers_total}}"  id="health_medical_officers_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">District level officials:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_district_level_officials_male' value="{{stakeholders_obj.health_district_level_officials_male}}"  id="health_district_level_officials_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_district_level_officials_female' value="{{stakeholders_obj.health_district_level_officials_female}}"  id="health_district_level_officials_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_district_level_officials_total' value="{{stakeholders_obj.health_district_level_officials_total}}"  id="health_district_level_officials_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">State level officials:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_state_level_officials_male' value="{{stakeholders_obj.health_state_level_officials_male}}"  id="health_state_level_officials_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_state_level_officials_female' value="{{stakeholders_obj.health_state_level_officials_female}}"  id="health_state_level_officials_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required >
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_state_level_officials_total' value="{{stakeholders_obj.health_state_level_officials_total}}"  id="health_state_level_officials_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">RKS members:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_rsk_male' value="{{stakeholders_obj.health_rsk_male}}"  id="health_rsk_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_rsk_female' value="{{stakeholders_obj.health_rsk_female}}"  id="health_rsk_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_rsk_total' value="{{stakeholders_obj.health_rsk_total}}"  id="health_rsk_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Peer Educator:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_peer_educator_male' value="{{stakeholders_obj.health_peer_educator_male}}"  id="health_peer_educator_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_peer_educator_female' value="{{stakeholders_obj.health_peer_educator_female}}"  id="health_peer_educator_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='health_peer_educator_total' value="{{stakeholders_obj.health_peer_educator_total}}"  id="health_peer_educator_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h4 class='heading-clr text-center  waves-effect rounded p-2' >Panchayat Raj department</h4>
+                        <h5 class="mb-2">Ward Members:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_ward_members_male' value="{{stakeholders_obj.panchayat_ward_members_male}}"  id="panchayat_ward_members_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_ward_members_female' value="{{stakeholders_obj.panchayat_ward_members_female}}"  id="panchayat_ward_members_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_ward_members_total' value="{{stakeholders_obj.panchayat_ward_members_total}}"  id="panchayat_ward_members_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Up-Mukhiya/Up-Pramukh:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_up_mukhiya_up_Pramukh_male' value="{{stakeholders_obj.panchayat_up_mukhiya_up_Pramukh_male}}"  id="panchayat_up_mukhiya_up_Pramukh_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_up_mukhiya_up_Pramukh_female' value="{{stakeholders_obj.panchayat_up_mukhiya_up_Pramukh_female}}"  id="panchayat_up_mukhiya_up_Pramukh_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_up_mukhiya_up_Pramukh_total' value="{{stakeholders_obj.panchayat_up_mukhiya_up_Pramukh_total}}"  id="panchayat_up_mukhiya_up_Pramukh_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Mukhiya/Pramukh:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_mukhiya_Pramukh_male' value="{{stakeholders_obj.panchayat_mukhiya_Pramukh_male}}"  id="panchayat_mukhiya_Pramukh_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_mukhiya_Pramukh_female' value="{{stakeholders_obj.panchayat_mukhiya_Pramukh_female}}"  id="panchayat_mukhiya_Pramukh_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_mukhiya_Pramukh_total' value="{{stakeholders_obj.panchayat_mukhiya_Pramukh_total}}"  id="panchayat_mukhiya_Pramukh_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Panchayat Samiti Member:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_samiti_member_male' value="{{stakeholders_obj.panchayat_samiti_member_male}}"  id="panchayat_samiti_member_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_samiti_member_female' value="{{stakeholders_obj.panchayat_samiti_member_female}}"  id="panchayat_samiti_member_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_samiti_member_total' value="{{stakeholders_obj.panchayat_samiti_member_total}}"  id="panchayat_samiti_member_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Zila Parishad Member:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_zila_parishad_member_male' value="{{stakeholders_obj.panchayat_zila_parishad_member_male}}"  id="panchayat_zila_parishad_member_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_zila_parishad_member_female' value="{{stakeholders_obj.panchayat_zila_parishad_member_female}}"  id="panchayat_zila_parishad_member_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_zila_parishad_member_total' value="{{stakeholders_obj.panchayat_zila_parishad_member_total}}"  id="panchayat_zila_parishad_member_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Vc-Zila Parishad:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_vc_zila_parishad_male' value="{{stakeholders_obj.panchayat_vc_zila_parishad_male}}"  id="panchayat_vc_zila_parishad_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_vc_zila_parishad_female' value="{{stakeholders_obj.panchayat_vc_zila_parishad_female}}"  id="panchayat_vc_zila_parishad_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_vc_zila_parishad_total' value="{{stakeholders_obj.panchayat_vc_zila_parishad_total}}"  id="panchayat_vc_zila_parishad_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Chairman-Zila Parishad:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_chairman_zila_parishad_male' value="{{stakeholders_obj.panchayat_chairman_zila_parishad_male}}"  id="panchayat_chairman_zila_parishad_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_chairman_zila_parishad_female' value="{{stakeholders_obj.panchayat_chairman_zila_parishad_female}}"  id="panchayat_chairman_zila_parishad_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_chairman_zila_parishad_total' value="{{stakeholders_obj.panchayat_chairman_zila_parishad_total}}"  id="panchayat_chairman_zila_parishad_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Block level officials:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_block_level_officials_male' value="{{stakeholders_obj.panchayat_block_level_officials_male}}"  id="panchayat_block_level_officials_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required >
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_block_level_officials_female' value="{{stakeholders_obj.panchayat_block_level_officials_female}}"  id="panchayat_block_level_officials_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_block_level_officials_total' value="{{stakeholders_obj.panchayat_block_level_officials_total}}"  id="panchayat_block_level_officials_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">District level officials:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_district_level_officials_male' value="{{stakeholders_obj.panchayat_district_level_officials_male}}"  id="panchayat_district_level_officials_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_district_level_officials_female' value="{{stakeholders_obj.panchayat_district_level_officials_female}}"  id="panchayat_district_level_officials_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_district_level_officials_total' value="{{stakeholders_obj.panchayat_district_level_officials_total}}"  id="panchayat_district_level_officials_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">State level officials:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_state_level_officials_male' value="{{stakeholders_obj.panchayat_state_level_officials_male}}"  id="panchayat_state_level_officials_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_state_level_officials_female' value="{{stakeholders_obj.panchayat_state_level_officials_female}}"  id="panchayat_state_level_officials_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='panchayat_state_level_officials_total' value="{{stakeholders_obj.panchayat_state_level_officials_total}}"  id="panchayat_state_level_officials_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h4 class='heading-clr text-center  waves-effect rounded p-2' >Media</h4>
+                        <h5 class="mb-2">Media Interns:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='media_interns_male' value="{{stakeholders_obj.media_interns_male}}"  id="media_interns_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='media_interns_female' value="{{stakeholders_obj.media_interns_female}}"  id="media_interns_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='media_interns_total' value="{{stakeholders_obj.media_interns_total}}"  id="media_interns_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Journalists:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='media_journalists_male' value="{{stakeholders_obj.media_journalists_male}}"  id="media_journalists_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='media_journalists_female' value="{{stakeholders_obj.media_journalists_female}}"  id="media_journalists_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='media_journalists_total' value="{{stakeholders_obj.media_journalists_total}}"  id="media_journalists_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Editors:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='media_editors_male' value="{{stakeholders_obj.media_editors_male}}"  id="media_editors_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='media_editors_female' value="{{stakeholders_obj.media_editors_female}}"  id="media_editors_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='media_editors_total' value="{{stakeholders_obj.media_editors_total}}"  id="media_editors_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h4 class='heading-clr text-center  waves-effect rounded p-2' >Others</h4>
+                        <h5 class="mb-2">Block corrdinators/Cluster corrdinators/Field corrdinators:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='others_block_cluster_field_corrdinators_male' value="{{stakeholders_obj.others_block_cluster_field_corrdinators_male}}"  id="others_block_cluster_field_corrdinators_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='others_block_cluster_field_corrdinators_female' value="{{stakeholders_obj.others_block_cluster_field_corrdinators_female}}"  id="others_block_cluster_field_corrdinators_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='others_block_cluster_field_corrdinators_total' value="{{stakeholders_obj.others_block_cluster_field_corrdinators_total}}"  id="others_block_cluster_field_corrdinators_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">NGO Staff:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='others_ngo_staff_corrdinators_male' value="{{stakeholders_obj.others_ngo_staff_corrdinators_male}}"  id="others_ngo_staff_corrdinators_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='others_ngo_staff_corrdinators_female' value="{{stakeholders_obj.others_ngo_staff_corrdinators_female}}"  id="others_ngo_staff_corrdinators_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='others_ngo_staff_corrdinators_total' value="{{stakeholders_obj.others_ngo_staff_corrdinators_total}}"  id="others_ngo_staff_corrdinators_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h5 class="mb-2">Others:</h5>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='others_male' value="{{stakeholders_obj.others_male}}"  id="others_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='others_female' value="{{stakeholders_obj.others_female}}"  id="others_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='others_total' value="{{stakeholders_obj.others_total}}"  id="others_total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <h4 class='heading-clr text-center  waves-effect rounded p-2' >Total</h4>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Male<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='total_male' value="{{stakeholders_obj.total_male}}"  id="total_male"
+                                placeholder="Enter the no of male" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of male.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Female<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='total_female' value="{{stakeholders_obj.total_female}}"  id="total_female"
+                                placeholder="Enter the no of female" pattern="[0-9]{0,10}" onkeyup="add();" required readonly>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Total<span class="required-field"></span></label>
+                                <input type="text" class="form-control"  name='total' value="{{stakeholders_obj.total}}"  id="total"
+                                placeholder="Enter the no of total" pattern="[0-9]{0,10}" onkeyup="add();" required readonly> 
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of total total.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="reset" onclick="location.href='/po-report/untrust/stakeholders-listing/{{task_id}}/'" class="btn btn-secondary waves-effect">
+                            Cancel
+                        </button>
+                        {% if task_obj.task_status == 1 and 'Program Officer' == user_role or 'Senior Program Officer' == user_role %}  
+                        <button type="submit" class="btn btn-primary w-md">Submit</button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function add(){
+        var master_trainers_male = document.getElementById("master_trainers_male").value;
+        var master_trainers_female = document.getElementById("master_trainers_female").value;
+        if (master_trainers_male == "")master_trainers_male = 0;
+        if (master_trainers_female == "")master_trainers_female = 0;
+        master_trainers_total = parseInt(master_trainers_male) + parseInt(master_trainers_female)
+        if (!isNaN(master_trainers_total)) {
+        document.getElementById("master_trainers_total").value = master_trainers_total;
+        }
+
+        var nodal_teachers_male = document.getElementById("nodal_teachers_male").value;
+        var nodal_teachers_female = document.getElementById("nodal_teachers_female").value;
+        if (nodal_teachers_male == "")nodal_teachers_male = 0;
+        if (nodal_teachers_female == "")nodal_teachers_female = 0;
+        nodal_teachers_total = parseInt(nodal_teachers_male) + parseInt(nodal_teachers_female)
+        if (!isNaN(nodal_teachers_total)) {
+        document.getElementById("nodal_teachers_total").value = nodal_teachers_total;
+        }
+
+        var principals_male = document.getElementById("principals_male").value;
+        var principals_female = document.getElementById("principals_female").value;
+        if (principals_male == "")principals_male = 0;
+        if (principals_female == "")principals_female = 0;
+        principals_total =  parseInt(principals_male) + parseInt(principals_female)
+        if (!isNaN(principals_total)) {
+        document.getElementById("principals_total").value = principals_total;
+        }
+
+        var peer_educator_male = document.getElementById("peer_educator_male").value;
+        var peer_educator_female = document.getElementById("peer_educator_female").value;
+        if (peer_educator_male == "")peer_educator_male = 0;
+        if (peer_educator_female == "")peer_educator_female = 0;
+        peer_educator_total = parseInt(peer_educator_male) + parseInt(peer_educator_female);
+        if (!isNaN(peer_educator_total)) {
+        document.getElementById("peer_educator_total").value = peer_educator_total;
+        }
+
+
+        var district_level_officials_male = document.getElementById("district_level_officials_male").value;
+        var district_level_officials_female = document.getElementById("district_level_officials_female").value;
+        if (district_level_officials_male == "")district_level_officials_male = 0;
+        if (district_level_officials_female == "")district_level_officials_female = 0;
+        district_level_officials_total = parseInt(district_level_officials_male) + parseInt(district_level_officials_female);
+        if (!isNaN(district_level_officials_total)) {
+        document.getElementById("district_level_officials_total").value = district_level_officials_total;
+        }
+
+        var state_level_officials_male = document.getElementById("state_level_officials_male").value;
+        var state_level_officials_female = document.getElementById("state_level_officials_female").value;
+        if (state_level_officials_male == "")state_level_officials_male = 0;
+        if (state_level_officials_female == "")state_level_officials_female = 0;
+        state_level_officials_total = parseInt(state_level_officials_male) + parseInt(state_level_officials_female);
+        if (!isNaN(state_level_officials_total)) {
+        document.getElementById("state_level_officials_total").value = state_level_officials_total;
+        }
+
+        var icds_awws_male = document.getElementById("icds_awws_male").value;
+        var icds_awws_female = document.getElementById("icds_awws_female").value;
+        if (icds_awws_male == "")icds_awws_male = 0;
+        if (icds_awws_female == "")icds_awws_female = 0;
+        icds_awws_total = parseInt(icds_awws_male) + parseInt(icds_awws_female);
+        if (!isNaN(icds_awws_total)) {
+        document.getElementById("icds_awws_total").value = icds_awws_total;
+        }
+
+        var icds_supervisors_male = document.getElementById("icds_supervisors_male").value;
+        var icds_supervisors_female = document.getElementById("icds_supervisors_female").value;
+        if (icds_supervisors_male == "")icds_supervisors_male = 0;
+        if (icds_supervisors_female == "")icds_supervisors_female = 0;
+        icds_supervisors_total = parseInt(icds_supervisors_male) + parseInt(icds_supervisors_female);
+        if (!isNaN(icds_supervisors_total)) {
+        document.getElementById("icds_supervisors_total").value = icds_supervisors_total;
+        }
+
+        var icds_peer_educator_male = document.getElementById("icds_peer_educator_male").value;
+        var icds_peer_educator_female = document.getElementById("icds_peer_educator_female").value;
+        if (icds_peer_educator_male == "")icds_peer_educator_male = 0;
+        if (icds_peer_educator_female == "")icds_peer_educator_female = 0;
+        icds_peer_educator_total = parseInt(icds_peer_educator_male) + parseInt(icds_peer_educator_female);
+        if (!isNaN(icds_peer_educator_total)) {
+        document.getElementById("icds_peer_educator_total").value = icds_peer_educator_total;
+        }
+
+        var icds_child_developement_project_officers_male = document.getElementById("icds_child_developement_project_officers_male").value;
+        var icds_child_developement_project_officers_female = document.getElementById("icds_child_developement_project_officers_female").value;
+        if (icds_child_developement_project_officers_male == "")icds_child_developement_project_officers_male = 0;
+        if (icds_child_developement_project_officers_female == "")icds_child_developement_project_officers_female = 0;
+        icds_child_developement_project_officers_total = parseInt(icds_child_developement_project_officers_male) + parseInt(icds_child_developement_project_officers_female);
+        if (!isNaN(icds_child_developement_project_officers_total)) {
+        document.getElementById("icds_child_developement_project_officers_total").value = icds_child_developement_project_officers_total;
+        }
+
+        var icds_district_level_officials_male = document.getElementById("icds_district_level_officials_male").value;
+        var icds_district_level_officials_female = document.getElementById("icds_district_level_officials_female").value;
+        if (icds_district_level_officials_male == "")icds_district_level_officials_male = 0;
+        if (icds_district_level_officials_female == "")icds_district_level_officials_female = 0;
+        icds_district_level_officials_total = parseInt(icds_district_level_officials_male) + parseInt(icds_district_level_officials_female);
+        if (!isNaN(icds_district_level_officials_total)) {
+        document.getElementById("icds_district_level_officials_total").value = icds_district_level_officials_total;
+        }
+
+        var icds_state_level_officials_male = document.getElementById("icds_state_level_officials_male").value;
+        var icds_state_level_officials_female = document.getElementById("icds_state_level_officials_female").value;
+        if (icds_state_level_officials_male == "")icds_state_level_officials_male = 0;
+        if (icds_state_level_officials_female == "")icds_state_level_officials_female = 0;
+        icds_state_level_officials_total = parseInt(icds_state_level_officials_male) + parseInt(icds_state_level_officials_female);
+        if (!isNaN(icds_state_level_officials_total)) {
+        document.getElementById("icds_state_level_officials_total").value = icds_state_level_officials_total;
+        }
+
+        var health_ashas_male = document.getElementById("health_ashas_male").value;
+        var health_ashas_female = document.getElementById("health_ashas_female").value;
+        if (health_ashas_male == "")health_ashas_male = 0;
+        if (health_ashas_female == "")health_ashas_female = 0;
+        health_ashas_total = parseInt(health_ashas_male) + parseInt(health_ashas_female);
+        if (!isNaN(health_ashas_total)) {
+        document.getElementById("health_ashas_total").value = health_ashas_total;
+        }
+
+        var health_anms_male = document.getElementById("health_anms_male").value;
+        var health_anms_female = document.getElementById("health_anms_female").value;
+        if (health_anms_male == "")health_anms_male = 0;
+        if (health_anms_female == "")health_anms_female = 0;
+        health_anms_total = parseInt(health_anms_male) + parseInt(health_anms_female);
+        if (!isNaN(health_anms_total)) {
+        document.getElementById("health_anms_total").value = health_anms_total;
+        }
+
+        var health_bpm_bhm_pheos_male = document.getElementById("health_bpm_bhm_pheos_male").value;
+        var health_bpm_bhm_pheos_female = document.getElementById("health_bpm_bhm_pheos_female").value;
+        if (health_bpm_bhm_pheos_male == "")health_bpm_bhm_pheos_male = 0;
+        if (health_bpm_bhm_pheos_female == "")health_bpm_bhm_pheos_female = 0;
+        health_bpm_bhm_pheos_total = parseInt(health_bpm_bhm_pheos_male) + parseInt(health_bpm_bhm_pheos_female);
+        if (!isNaN(health_bpm_bhm_pheos_total)) {
+        document.getElementById("health_bpm_bhm_pheos_total").value = health_bpm_bhm_pheos_total;
+        }
+
+        var health_medical_officers_male = document.getElementById("health_medical_officers_male").value;
+        var health_medical_officers_female = document.getElementById("health_medical_officers_female").value;
+        if (health_medical_officers_male == "")health_medical_officers_male = 0;
+        if (health_medical_officers_female == "")health_medical_officers_female = 0;
+        health_medical_officers_total = parseInt(health_medical_officers_male) + parseInt(health_medical_officers_female);
+        if (!isNaN(health_medical_officers_total)) {
+        document.getElementById("health_medical_officers_total").value = health_medical_officers_total;
+        }
+
+        var health_district_level_officials_male = document.getElementById("health_district_level_officials_male").value;
+        var health_district_level_officials_female = document.getElementById("health_district_level_officials_female").value;
+        if (health_district_level_officials_male == "")health_district_level_officials_male = 0;
+        if (health_district_level_officials_female == "")health_district_level_officials_female = 0;
+        health_district_level_officials_total = parseInt(health_district_level_officials_male) + parseInt(health_district_level_officials_female);
+        if (!isNaN(health_district_level_officials_total)) {
+        document.getElementById("health_district_level_officials_total").value = health_district_level_officials_total;
+        }
+
+        var health_state_level_officials_male = document.getElementById("health_state_level_officials_male").value;
+        var health_state_level_officials_female = document.getElementById("health_state_level_officials_female").value;
+        if (health_state_level_officials_male == "")health_state_level_officials_male = 0;
+        if (health_state_level_officials_female == "")health_state_level_officials_female = 0;
+        health_state_level_officials_total = parseInt(health_state_level_officials_male) + parseInt(health_state_level_officials_female);
+        if (!isNaN(health_state_level_officials_total)) {
+        document.getElementById("health_state_level_officials_total").value = health_state_level_officials_total;
+        }
+
+        var health_rsk_male = document.getElementById("health_rsk_male").value;
+        var health_rsk_female = document.getElementById("health_rsk_female").value;
+        if (health_rsk_male == "")health_rsk_male = 0;
+        if (health_rsk_female == "")health_rsk_female = 0;
+        health_rsk_total = parseInt(health_rsk_male) + parseInt(health_rsk_female);
+        if (!isNaN(health_rsk_total)) {
+        document.getElementById("health_rsk_total").value = health_rsk_total;
+        }
+
+        var health_peer_educator_male = document.getElementById("health_peer_educator_male").value;
+        var health_peer_educator_female = document.getElementById("health_peer_educator_female").value;
+        if (health_peer_educator_male == "")health_peer_educator_male = 0;
+        if (health_peer_educator_female == "")health_peer_educator_female = 0;
+        health_peer_educator_total = parseInt(health_peer_educator_male) + parseInt(health_peer_educator_female);
+        if (!isNaN(health_peer_educator_total)) {
+        document.getElementById("health_peer_educator_total").value = health_peer_educator_total;
+        }
+
+        var panchayat_ward_members_male = document.getElementById("panchayat_ward_members_male").value;
+        var panchayat_ward_members_female = document.getElementById("panchayat_ward_members_female").value;
+        if (panchayat_ward_members_male == "")panchayat_ward_members_male = 0;
+        if (panchayat_ward_members_female == "")panchayat_ward_members_female = 0;
+        panchayat_ward_members_total = parseInt(panchayat_ward_members_male) + parseInt(panchayat_ward_members_female);
+        if (!isNaN(panchayat_ward_members_total)) {
+        document.getElementById("panchayat_ward_members_total").value = panchayat_ward_members_total;
+        }
+
+
+        var panchayat_up_mukhiya_up_Pramukh_male = document.getElementById("panchayat_up_mukhiya_up_Pramukh_male").value;
+        var panchayat_up_mukhiya_up_Pramukh_female = document.getElementById("panchayat_up_mukhiya_up_Pramukh_female").value;
+        if (panchayat_up_mukhiya_up_Pramukh_male == "")panchayat_up_mukhiya_up_Pramukh_male = 0;
+        if (panchayat_up_mukhiya_up_Pramukh_female == "")panchayat_up_mukhiya_up_Pramukh_female = 0;
+        panchayat_up_mukhiya_up_Pramukh_total = parseInt(panchayat_up_mukhiya_up_Pramukh_male) + parseInt(panchayat_up_mukhiya_up_Pramukh_female);
+        if (!isNaN(panchayat_up_mukhiya_up_Pramukh_total)) {
+        document.getElementById("panchayat_up_mukhiya_up_Pramukh_total").value = panchayat_up_mukhiya_up_Pramukh_total;
+        }
+
+        var panchayat_mukhiya_Pramukh_male = document.getElementById("panchayat_mukhiya_Pramukh_male").value;
+        var panchayat_mukhiya_Pramukh_female = document.getElementById("panchayat_mukhiya_Pramukh_female").value;
+        if (panchayat_mukhiya_Pramukh_male == "")panchayat_mukhiya_Pramukh_male = 0;
+        if (panchayat_mukhiya_Pramukh_female == "")panchayat_mukhiya_Pramukh_female = 0;
+        panchayat_mukhiya_Pramukh_total = parseInt(panchayat_mukhiya_Pramukh_male) + parseInt(panchayat_mukhiya_Pramukh_female);
+        if (!isNaN(panchayat_mukhiya_Pramukh_total)) {
+        document.getElementById("panchayat_mukhiya_Pramukh_total").value = panchayat_mukhiya_Pramukh_total;
+        }
+
+        var panchayat_samiti_member_male = document.getElementById("panchayat_samiti_member_male").value;
+        var panchayat_samiti_member_female = document.getElementById("panchayat_samiti_member_female").value;
+        if (panchayat_samiti_member_male == "")panchayat_samiti_member_male = 0;
+        if (panchayat_samiti_member_female == "")panchayat_samiti_member_female = 0;
+        panchayat_samiti_member_total = parseInt(panchayat_samiti_member_male) + parseInt(panchayat_samiti_member_female);
+        if (!isNaN(panchayat_samiti_member_total)) {
+        document.getElementById("panchayat_samiti_member_total").value = panchayat_samiti_member_total;
+        }
+
+        var panchayat_zila_parishad_member_male = document.getElementById("panchayat_zila_parishad_member_male").value;
+        var panchayat_zila_parishad_member_female = document.getElementById("panchayat_zila_parishad_member_female").value;
+        if (panchayat_zila_parishad_member_male == "")panchayat_zila_parishad_member_male = 0;
+        if (panchayat_zila_parishad_member_female == "")panchayat_zila_parishad_member_female = 0;
+        panchayat_zila_parishad_member_total = parseInt(panchayat_zila_parishad_member_male) + parseInt(panchayat_zila_parishad_member_female);
+        if (!isNaN(panchayat_zila_parishad_member_total)) {
+        document.getElementById("panchayat_zila_parishad_member_total").value = panchayat_zila_parishad_member_total;
+        }
+
+        var panchayat_vc_zila_parishad_male = document.getElementById("panchayat_vc_zila_parishad_male").value;
+        var panchayat_vc_zila_parishad_female = document.getElementById("panchayat_vc_zila_parishad_female").value;
+        if (panchayat_vc_zila_parishad_male == "")panchayat_vc_zila_parishad_male = 0;
+        if (panchayat_vc_zila_parishad_female == "")panchayat_vc_zila_parishad_female = 0;
+        panchayat_vc_zila_parishad_total = parseInt(panchayat_vc_zila_parishad_male) + parseInt(panchayat_vc_zila_parishad_female);
+        if (!isNaN(panchayat_vc_zila_parishad_total)) {
+        document.getElementById("panchayat_vc_zila_parishad_total").value = panchayat_vc_zila_parishad_total;
+        }
+
+        var panchayat_chairman_zila_parishad_male = document.getElementById("panchayat_chairman_zila_parishad_male").value;
+        var panchayat_chairman_zila_parishad_female = document.getElementById("panchayat_chairman_zila_parishad_female").value;
+        if (panchayat_chairman_zila_parishad_male == "")panchayat_chairman_zila_parishad_male = 0;
+        if (panchayat_chairman_zila_parishad_female == "")panchayat_chairman_zila_parishad_female = 0;
+        panchayat_chairman_zila_parishad_total = parseInt(panchayat_chairman_zila_parishad_male) + parseInt(panchayat_chairman_zila_parishad_female);
+        if (!isNaN(panchayat_chairman_zila_parishad_total)) {       
+        document.getElementById("panchayat_chairman_zila_parishad_total").value = panchayat_chairman_zila_parishad_total;
+        }
+
+        var panchayat_block_level_officials_male = document.getElementById("panchayat_block_level_officials_male").value;
+        var panchayat_block_level_officials_female = document.getElementById("panchayat_block_level_officials_female").value;
+        if (panchayat_block_level_officials_male == "")panchayat_block_level_officials_male = 0;
+        if (panchayat_block_level_officials_female == "")panchayat_block_level_officials_female = 0;
+        panchayat_block_level_officials_total = parseInt(panchayat_block_level_officials_male) + parseInt(panchayat_block_level_officials_female);
+        if (!isNaN(panchayat_block_level_officials_total)) {
+        document.getElementById("panchayat_block_level_officials_total").value = panchayat_block_level_officials_total;
+        }
+
+        var panchayat_district_level_officials_male = document.getElementById("panchayat_district_level_officials_male").value;
+        var panchayat_district_level_officials_female = document.getElementById("panchayat_district_level_officials_female").value;
+        if (panchayat_district_level_officials_male == "")panchayat_district_level_officials_male = 0;
+        if (panchayat_district_level_officials_female == "")panchayat_district_level_officials_female = 0;
+        panchayat_district_level_officials_total = parseInt(panchayat_district_level_officials_male) + parseInt(panchayat_district_level_officials_female);
+        if (!isNaN(panchayat_district_level_officials_total)) {
+        document.getElementById("panchayat_district_level_officials_total").value = panchayat_district_level_officials_total;
+        }
+
+        var panchayat_state_level_officials_male = document.getElementById("panchayat_state_level_officials_male").value;
+        var panchayat_state_level_officials_female = document.getElementById("panchayat_state_level_officials_female").value;
+        if (panchayat_state_level_officials_male == "")panchayat_state_level_officials_male = 0;
+        if (panchayat_state_level_officials_female == "")panchayat_state_level_officials_female = 0;
+        panchayat_state_level_officials_total = parseInt(panchayat_state_level_officials_male) + parseInt(panchayat_state_level_officials_female);
+        if (!isNaN(panchayat_state_level_officials_total)) {
+        document.getElementById("panchayat_state_level_officials_total").value = panchayat_state_level_officials_total;
+        }
+
+        var media_interns_male = document.getElementById("media_interns_male").value;
+        var media_interns_female = document.getElementById("media_interns_female").value;
+        if (media_interns_male == "")media_interns_male = 0;
+        if (media_interns_female == "")media_interns_female = 0;
+        media_interns_total = parseInt(media_interns_male) + parseInt(media_interns_female);
+        if (!isNaN(media_interns_total)) {
+        document.getElementById("media_interns_total").value = media_interns_total;
+        }
+
+        var media_journalists_male = document.getElementById("media_journalists_male").value;
+        var media_journalists_female = document.getElementById("media_journalists_female").value;
+        if (media_journalists_male == "")media_journalists_male = 0;
+        if (media_journalists_female == "")media_journalists_female = 0;
+        media_journalists_total = parseInt(media_journalists_male) + parseInt(media_journalists_female);
+        if (!isNaN(media_journalists_total)) {
+        document.getElementById("media_journalists_total").value = media_journalists_total;
+        }
+
+        var media_editors_male = document.getElementById("media_editors_male").value;
+        var media_editors_female = document.getElementById("media_editors_female").value;
+        if (media_editors_male == "")media_editors_male = 0;
+        if (media_editors_female == "")media_editors_female = 0;
+        media_editors_total = parseInt(media_editors_male) + parseInt(media_editors_female);
+        if (!isNaN(media_editors_total)) {
+        document.getElementById("media_editors_total").value = media_editors_total;
+        }
+
+        var others_block_cluster_field_corrdinators_male = document.getElementById("others_block_cluster_field_corrdinators_male").value;
+        var others_block_cluster_field_corrdinators_female = document.getElementById("others_block_cluster_field_corrdinators_female").value;
+        if (others_block_cluster_field_corrdinators_male == "")others_block_cluster_field_corrdinators_male = 0;
+        if (others_block_cluster_field_corrdinators_female == "")others_block_cluster_field_corrdinators_female = 0;
+        others_block_cluster_field_corrdinators_total = parseInt(others_block_cluster_field_corrdinators_male) + parseInt(others_block_cluster_field_corrdinators_female);
+        if (!isNaN(others_block_cluster_field_corrdinators_total)) {
+        document.getElementById("others_block_cluster_field_corrdinators_total").value = others_block_cluster_field_corrdinators_total;
+        }
+
+        var others_ngo_staff_corrdinators_male = document.getElementById("others_ngo_staff_corrdinators_male").value;
+        var others_ngo_staff_corrdinators_female = document.getElementById("others_ngo_staff_corrdinators_female").value;
+        if (others_ngo_staff_corrdinators_male == "")others_ngo_staff_corrdinators_male = 0;
+        if (others_ngo_staff_corrdinators_female == "")others_ngo_staff_corrdinators_female = 0;
+        others_ngo_staff_corrdinators_total = parseInt(others_ngo_staff_corrdinators_male) + parseInt(others_ngo_staff_corrdinators_female);
+        if (!isNaN(others_ngo_staff_corrdinators_total)) {
+        document.getElementById("others_ngo_staff_corrdinators_total").value = others_ngo_staff_corrdinators_total;
+        }
+
+        var others_male = document.getElementById("others_male").value;
+        var others_female = document.getElementById("others_female").value;
+        if (others_male == "")others_male = 0;
+        if (others_female == "")others_female = 0;
+        others_total = parseInt(others_male) + parseInt(others_female);
+        if (!isNaN(others_total)) {
+        document.getElementById("others_total").value = others_total;
+        }
+       
+
+        male_total = parseInt(master_trainers_male) + parseInt(nodal_teachers_male) + parseInt(principals_male) +
+        parseInt(district_level_officials_male) + parseInt(peer_educator_male) + parseInt(state_level_officials_male) +
+        parseInt(icds_awws_male) + parseInt(icds_supervisors_male) + parseInt(icds_peer_educator_male) +
+        parseInt(icds_child_developement_project_officers_male) + parseInt(icds_district_level_officials_male) + parseInt(icds_state_level_officials_male) +
+        parseInt(health_ashas_male) + parseInt(health_anms_male) + parseInt(health_bpm_bhm_pheos_male) +
+        parseInt(health_medical_officers_male) + parseInt(health_district_level_officials_male) + parseInt(health_state_level_officials_male) +
+        parseInt(health_rsk_male) + parseInt(health_peer_educator_male) + parseInt(panchayat_ward_members_male) +
+        parseInt(panchayat_up_mukhiya_up_Pramukh_male) + parseInt(panchayat_mukhiya_Pramukh_male) + parseInt(panchayat_samiti_member_male) +
+        parseInt(panchayat_zila_parishad_member_male) + parseInt(panchayat_vc_zila_parishad_male) + parseInt(panchayat_chairman_zila_parishad_male) +
+        parseInt(panchayat_block_level_officials_male) + parseInt(panchayat_district_level_officials_male) + parseInt(panchayat_state_level_officials_male) +
+        parseInt(media_interns_male) + parseInt(media_journalists_male) + parseInt(media_editors_male) +
+        parseInt(others_block_cluster_field_corrdinators_male) + parseInt(others_ngo_staff_corrdinators_male) + parseInt(others_male);
+        if (!isNaN(male_total)) {
+        document.getElementById("total_male").value = male_total;
+        }
+
+        female_total = parseInt(master_trainers_female) + parseInt(nodal_teachers_female) + parseInt(principals_female) +
+        parseInt(district_level_officials_female) + parseInt(peer_educator_female) + parseInt(state_level_officials_female) +
+        parseInt(icds_awws_female) + parseInt(icds_supervisors_female) + parseInt(icds_peer_educator_female) +
+        parseInt(icds_child_developement_project_officers_female) + parseInt(icds_district_level_officials_female) + parseInt(icds_state_level_officials_female) +
+        parseInt(health_ashas_female) + parseInt(health_anms_female) + parseInt(health_bpm_bhm_pheos_female) +
+        parseInt(health_medical_officers_female) + parseInt(health_district_level_officials_female) + parseInt(health_state_level_officials_female) +
+        parseInt(health_rsk_female) + parseInt(health_peer_educator_female) + parseInt(panchayat_ward_members_female) +
+        parseInt(panchayat_up_mukhiya_up_Pramukh_female) + parseInt(panchayat_mukhiya_Pramukh_female) + parseInt(panchayat_samiti_member_female) +
+        parseInt(panchayat_zila_parishad_member_female) + parseInt(panchayat_vc_zila_parishad_female) + parseInt(panchayat_chairman_zila_parishad_female) +
+        parseInt(panchayat_block_level_officials_female) + parseInt(panchayat_district_level_officials_female) + parseInt(panchayat_state_level_officials_female) +
+        parseInt(media_interns_female) + parseInt(media_journalists_female) + parseInt(media_editors_female) +
+        parseInt(others_block_cluster_field_corrdinators_female) + parseInt(others_ngo_staff_corrdinators_female) + parseInt(others_female);
+        if (!isNaN(female_total)) {
+        document.getElementById("total_female").value = female_total;
+        }
+
+        all_total = parseInt(master_trainers_total) + parseInt(nodal_teachers_total) + parseInt(principals_total) +
+        parseInt(district_level_officials_total) + parseInt(peer_educator_total) + parseInt(state_level_officials_total) +
+        parseInt(icds_awws_total) + parseInt(icds_supervisors_total) + parseInt(icds_peer_educator_total) +
+        parseInt(icds_child_developement_project_officers_total) + parseInt(icds_district_level_officials_total) + parseInt(icds_state_level_officials_total) +
+        parseInt(health_ashas_total) + parseInt(health_anms_total) + parseInt(health_bpm_bhm_pheos_total) +
+        parseInt(health_medical_officers_total) + parseInt(health_district_level_officials_total) + parseInt(health_state_level_officials_total) +
+        parseInt(health_rsk_total) + parseInt(health_peer_educator_total) + parseInt(panchayat_ward_members_total) +
+        parseInt(panchayat_up_mukhiya_up_Pramukh_total) + parseInt(panchayat_mukhiya_Pramukh_total) + parseInt(panchayat_samiti_member_total) +
+        parseInt(panchayat_zila_parishad_member_total) + parseInt(panchayat_vc_zila_parishad_total) + parseInt(panchayat_chairman_zila_parishad_total) +
+        parseInt(panchayat_block_level_officials_total) + parseInt(panchayat_district_level_officials_total) + parseInt(panchayat_state_level_officials_total) +
+        parseInt(media_interns_total) + parseInt(media_journalists_total) + parseInt(media_editors_total) +
+        parseInt(others_block_cluster_field_corrdinators_total) + parseInt(others_ngo_staff_corrdinators_total) + parseInt(others_total);
+        if (!isNaN(all_total)) {
+        document.getElementById("total").value = all_total; 
+        }
+    }
+</script>
+{% endblock %}
+

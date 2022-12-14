@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class='row'>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">School Name<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose School Name" id="school_name" name='school_name' required>      
+                                    <option selected value="">Choose School Name</option>
+                                    {% for i in school %}
+                                    <option value="{{i.id}}">{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                
+                                <div class="invalid-feedback">
+                                    Please select a School Name.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="form-label">Date<span class="required-field"></span></label>
+                                <input type="date" class="form-control" name='date_of_registration' id="previous_data" placeholder="Enter Date of Registration" required="">
+                                <div class="invalid-feedback">
+                                    Please provide a valid date of registration.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Participants<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='no_of_participants'  id="no_of_participants"
+                                    placeholder="Enter the No of Participants" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of Participants.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" id='event_model'>
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">Issues discussed<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                    placeholder="Choose the issues discussed" id="issues_discussion" name='issues_discussion' required>      
+                                    <option selected value="">Choose the issues discussed</option>
+                                    {% for i in masterlookups_issues_discussion %}
+                                    <option value="{{i.id}}">{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <div class="invalid-feedback">
+                                    Please select a issues discussed.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Decision Taken<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='decision_taken'  id="decision_taken"
+                                    placeholder="Enter the Decision Taken" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid Decision Taken.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="reset" onclick="location.href='/po-report/fossil/balsansad-listing/{{task_id}}/'" class="btn btn-secondary waves-effect">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary w-md">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class='row'>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Adolescent Name<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose Adolescent Name" id="adolescent_name" name='adolescent_name' required>      
+                                    <option value="">Choose Adolescent Name</option>
+                                    {% for i in adolescent_obj %}
+                                    <option value="{{i.id}}" {% if i.id == adolescent_reenrolled.adolescent_name.id %}selected{% endif %}>{{i.name}} - {{i.code}}</option>
+                                    {% endfor %}
+                                </select>
+                                
+                                <div class="invalid-feedback">
+                                    Please select a adolescent name.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">Gender</label>
+                                <select class="form-select" name='gender' id='gender' 
+                                    aria-label="Floating label select example" >
+                                    <option selected value="">Select</option>
+                                    <option value='1' {% if adolescent_reenrolled.gender|slugify == '1' %}selected{% endif %}>Male</option>
+                                    <option value='2' {% if adolescent_reenrolled.gender|slugify == '2' %}selected{% endif %}>Female</option>
+                                    </select>
+                                <div class="invalid-feedback">
+                                    Please select a valid gender.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Age</label>
+                                <input type="text" pattern="^(10|11|12|13|14|15|16|17|18|19)$" class="form-control"  name='age' value="{{adolescent_reenrolled.age|default_if_none:''}}"  id="age"
+                                    placeholder="Enter your Age" >
+                                <div class="invalid-feedback">
+                                    Please provide a valid age between 10 to 19.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Parent/Guardian Name<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,20}" class="form-control"  name='parent_guardian_name' value="{{adolescent_reenrolled.parent_guardian_name}}"  id="parent_guardian_name"
+                                    placeholder="Enter the Parent/Guardian Name" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid parent/guardian name.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">School Name<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control" value="{{adolescent_reenrolled.school_name}}" name='school_name' id="school_name"
+                                    placeholder="Enter your School Name" required>
+                                <!-- <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose School Name" id="school_name" name='school_name' required>      
+                                    <option selected value="">Choose School Name</option>
+                                    {% for i in school %}
+                                    <option value="{{i.id}}" {% if i.id == adolescent_reenrolled.school_name.id %}selected{% endif %}>{{i.name}}</option>
+                                    {% endfor %}
+                                </select> -->
+                                
+                                <div class="invalid-feedback">
+                                    Please select a school name.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">In which class enrolled<span class="required-field"></span></label>
+                                <select class="form-select" name='which_class_enrolled' id='which_class_enrolled' 
+                                    aria-label="Floating label select example" required="">
+                                    <option selected value="">Select</option>
+                                    <option value='1' {% if adolescent_reenrolled.which_class_enrolled|slugify == '1' %}selected{% endif %}>Class V</option>
+                                    <option value='2' {% if adolescent_reenrolled.which_class_enrolled|slugify == '2' %}selected{% endif %}>Class VI</option>
+                                    <option value='3' {% if adolescent_reenrolled.which_class_enrolled|slugify == '3' %}selected{% endif %}>Class VII</option>
+                                    <option value='4' {% if adolescent_reenrolled.which_class_enrolled|slugify == '4' %}selected{% endif %}>Class VIII</option>
+                                    <option value='5' {% if adolescent_reenrolled.which_class_enrolled|slugify == '5' %}selected{% endif %}>Class IX</option>
+                                    <option value='6' {% if adolescent_reenrolled.which_class_enrolled|slugify == '6' %}selected{% endif %}>Class X</option>
+                                    <option value='7' {% if adolescent_reenrolled.which_class_enrolled|slugify == '7' %}selected{% endif %}>Class XI</option>
+                                    <option value='8' {% if adolescent_reenrolled.which_class_enrolled|slugify == '8' %}selected{% endif %}>Class XII</option>
+                                    </select>
+                                <div class="invalid-feedback">
+                                    Please select a valid In which class enrolled.
+                                </div>
+                            </div>
+                        </div>  
+                    </div>
+                    <div>
+                        <button type="reset" onclick="location.href='/cc-report/untrust/reenrolled-listing/{{task_id}}/'" class="btn btn-secondary waves-effect">
+                            Cancel
+                        </button>
+                        {% if task_obj.task_status == 1 and 'Cluster Coordinator' == user_role %}
+                        <button type="submit" class="btn btn-primary w-md">Submit</button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

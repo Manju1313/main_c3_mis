@@ -1,0 +1,43 @@
+<!-- heading -->
+<!--Cluster coordinator monthly progress report-->
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-center">
+                    <h3 class="mb-3 font-size-20">Adolescent Girls Mainstreaming Gender Equality</h3>
+                    <h5 class="mb-5"><u>Cluster coordinator monthly progress report</u></h5>
+                </div>
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                           
+                            <thead class="bg-white">
+                                <tr>             
+                                    <th>Name of the CC : <span class="h-font">{{ task_obj.user.username }}</span></th>
+                                    <th>District : <span class="h-font">{{district_name|join:", "}}</span></th>
+                                </tr>
+                                <tr>
+                                    <th>Block : <span class="h-font">{{block_name|join:", "}}</span></th>
+                                    <th>Month : <span class="h-font">{{ task_obj.start_date|date:'F' }}</span></th>
+                                </tr>
+                                <tr>
+                                    
+                                    <th>Year: <span class="h-font">{{ task_obj.start_date|date:'Y' }}</span></th>
+                                    <th>Number of Villages allotted : <span class="h-font">{{no_of_village}}</span> </th>
+                                </tr>
+                                <tr>                                   
+                                    <th>Number of AWCs allotted : <span class="h-font">{{cc_awc_ah}}</span></th>
+                                    <th>Status: <span class="h-font">{{task_obj.get_task_status_display}}</span></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div> 
+</div> 

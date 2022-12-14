@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class='row'>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Village Name<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose Village Name" id="village_name" name='village_name' required>      
+                                    <option selected value="">Choose Village Name</option>
+                                    {% for i in village %}
+                                    <option value="{{i.id}}" {% if i.id == activities.village_name.id %}selected{% endif %}>{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                
+                                <div class="invalid-feedback">
+                                    Please select a village name.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="form-label">Date of Activity<span class="required-field"></span></label>
+                                <input type="date" class="form-control" name='date_of_registration' id="previous_data" value="{{activities.start_date|date:'Y-m-d'}}"  placeholder="Enter Date of Activity" required="">
+                                <div class="invalid-feedback">
+                                    Please provide a valid date of activity.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">Name of Event/Activity<span class="required-field"></span></label>
+                                <select class="form-select" name='name_of_event_activity' id='name_of_event_activity' onchange='onSelectChange_choose_model(this)'
+                                    aria-label="Floating label select example" required="" >
+                                    <option selected value="">Select</option>
+                                    <option value='1' {% if activities.name_of_event_activity|slugify == '1' %}selected{% endif %}>Event</option>
+                                    <option value='2' {% if activities.name_of_event_activity|slugify == '2' %}selected{% endif %}>Activity</option>
+                                    </select>
+                                <div class="invalid-feedback">
+                                    Please select a name of event/activity.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" id='event_model'>
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">Theme/Topic<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                    placeholder="Choose the Theme/Topic" id="event" name='name_of_event'>      
+                                    <option selected value="">Choose the Theme/Topic</option>
+                                    {% for i in masterlookups_event %}
+                                    <option value="{{i.id}}" {% if i.id == activities.event_name.id %}selected{% endif %}>{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a theme/topic.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" id='activity_model'>
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">Activities<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                    placeholder="Choose the Activities" id="activity" name='name_of_activity'>      
+                                    <option selected value="">Choose the Activities</option>
+                                    {% for i in masterlookups_activity %}
+                                    <option value="{{i.id}}" {% if i.id == activities.activity_name.id %}selected{% endif %}>{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                    
+                                <div class="invalid-feedback">
+                                    Please select a Activities.
+                                </div>
+                            </div>
+                        </div>
+                   
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">Organized by<span class="required-field"></span></label>
+                                <select class="form-select" name='organized_by' id='organized_by'
+                                    aria-label="Floating label select example" required="" >
+                                    <option selected value="">Select</option>
+                                    <option value='1' {% if activities.organized_by|slugify == '1' %}selected{% endif %}>C3</option>
+                                    <option value='2' {% if activities.organized_by|slugify == '2' %}selected{% endif %}>Govt.</option>
+                                    </select>
+                                <div class="invalid-feedback">
+                                    Please select a organized by.
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Adolescent Boys 10-14 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='boys_10_14_year' value="{{activities.boys_10_14_year}}"  id="boys_10_14_year"
+                                    placeholder="Enter the No of Adolescent Boys 10-14 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent boys 10-14 year.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Adolescent Boys 15-19 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='boys_15_19_year' value="{{activities.boys_15_19_year}}" id="boys_15_19_year"
+                                    placeholder="Enter the No of Adolescent Boys 15-19 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent boys 15-19 year.
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Adolescent Girls 10-14 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='girls_10_14_year' value="{{activities.girls_10_14_year}}"  id="girls_10_14_year"
+                                    placeholder="Enter the No of Adolescent Girls 10-14 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent girls 10-14 year.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Adolescent Girls 15-19 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='girls_15_19_year'  value='{{activities.girls_15_19_year}}' id="girls_15_19_year"
+                                    placeholder="Enter the No of Adolescent Girls 15-19 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent girls 15-19 year.
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Champions 15-19 year<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='champions_15_19_year' value='{{activities.champions_15_19_year}}' id="champions_15_19_year"
+                                    placeholder="Enter the No of Champions 15-19 year" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of champions 15-19 year.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Adult Male<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='adult_male' value="{{activities.adult_male}}" id="adult_male"
+                                    placeholder="Enter the No of Adult Male" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adult male.
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Adult Female<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='adult_female'  value="{{activities.adult_female}}" id="adult_female"
+                                    placeholder="Enter the No of Adult Female" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adult female.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Teachers<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='teachers'  value="{{activities.teachers}}"  id="teachers"
+                                    placeholder="Enter the No of Teachers" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of teachers.
+                                </div>
+                            </div>
+                        </div>
+                   
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of PRI Members<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='pri_members'  value="{{activities.pri_members}}" id="pri_members"
+                                    placeholder="Enter the No of PRI Members" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of PRI members.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Services Providers<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='services_providers'  value="{{activities.services_providers}}" id="services_providers"
+                                    placeholder="Enter the No of Services Providers" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of services providers.
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of SMC Members<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='sms_members'  value="{{activities.sms_members}}" id="sms_members"
+                                    placeholder="Enter the No of SMC Members" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid No of SMC members.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of Others<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='other'  value="{{activities.other}}" id="other"
+                                    placeholder="Enter the No of Others" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of others.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="reset" onclick="location.href='/po-report/fossil/community-activities-listing/{{task_id}}/'" class="btn btn-secondary waves-effect">
+                            Cancel
+                        </button>
+                        <!-- <button type="submit" class="btn btn-primary w-md">Submit</button> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    window.onload = function () {
+        value = '{{activities.name_of_event_activity}}'
+        if (value === '1'){
+            document.getElementById("event_model").style.display = "block"; 
+            document.getElementById("activity_model").style.display = "none";
+        }else{
+            document.getElementById("activity_model").style.display = "block"; 
+            document.getElementById("event_model").style.display = "none";
+        }
+    };
+    function onSelectChange_choose_model(name_of_event_activity){
+
+        var opt = name_of_event_activity.options[name_of_event_activity.selectedIndex].text;
+        
+        if(opt === 'Event'){         
+            document.getElementById('event_model').style.display = "block";  
+            document.getElementById('activity_model').style.display = 'none';    
+            document.getElementById('event').setAttribute('required','required')
+            document.getElementById('activity').removeAttribute('required','required');
+            $('#activity').prop('selectedIndex', 0).change();
+            $('#event').prop('selectedIndex', 0).change();
+        }else{             
+            document.getElementById('activity_model').style.display = 'block';
+            document.getElementById('event_model').style.display = 'none';
+            document.getElementById('activity').setAttribute('required','required')
+            document.getElementById('event').removeAttribute('required','required');
+            $('#activity').prop('selectedIndex', 0).change();
+            $('#event').prop('selectedIndex', 0).change();
+        }
+    }
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,268 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class='row'>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Adolescent Name<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose Adolescent Name" id="validationCustom04" name='adolescent_name' required>      
+                                    <option selected value="">Choose Adolescent Name</option>
+                                    {% for i in adolescent_obj %}
+                                    <option value="{{i.id}}"{% if i.id == vocation_obj.adolescent_name.id %}selected{% endif %}>{{i.name}} - {{i.code}}</option>
+                                    {% endfor %}
+                                </select>
+                                
+                                <div class="invalid-feedback">
+                                    Please select a adolescent name.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="form-label">Date of Registration<span class="required-field"></span></label>
+                                <input type="date" class="form-control" name='date_of_registration' id="previous_data" value="{{vocation_obj.date_of_registration|date:'Y-m-d'}}" placeholder="Enter Date of Registration" required="">
+                                <div class="invalid-feedback">
+                                    Please provide a valid date of registration.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Age</label>
+                                <input type="text" pattern="^(18|19|20|21|22|23|24|25|26)$" class="form-control"  name='age' value="{{vocation_obj.age|default_if_none:''}}" id="floatingtextInput"
+                                    placeholder="Enter your Age" >
+                                <div class="invalid-feedback">
+                                    Please provide a valid age between 18 to 26.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="floatingemailInput">Parent or Guardian Name<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,20}" class="form-control" name='parent_guardian_name' value="{{vocation_obj.parent_guardian_name}}"  id="floatingtextInput"
+                                placeholder="Enter Parent or Guardian Name" required="">
+                                <div class="invalid-feedback">
+                                    Please enter the parent or guardian name.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Training Subject<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose Adolescent Name" id="validationCustom04" name='training_subject' required>      
+                                    <option selected value="">Choose Adolescent Name</option>
+                                    {% for i in tranining_sub_obj %}
+                                    <option value="{{i.id}}"{% if i.id == vocation_obj.training_subject.id %}selected{% endif %}>{{i.training_subject}}</option>
+                                    {% endfor %}
+                                </select>
+                                <!-- <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='training_subject' value="{{vocation_obj.training_subject}}"  id="floatingtextInput"
+                                    placeholder="Enter your Training Subject" required> -->
+                                <div class="invalid-feedback">
+                                    Please provide a valid training subject.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Training Providing By<span class="required-field"></span></label>
+                                <select class="form-select" name='training_providing_by' id='training_providing_by'
+                                    aria-label="Floating label select example" required="">
+                                    <option selected value="">Select</option>
+                                    <option value='1' {% if vocation_obj.training_providing_by|slugify  == '1' %}selected{% endif %}>JSLPS</option>
+                                    <option value='2' {% if vocation_obj.training_providing_by|slugify  == '2' %}selected{% endif %}>SGRS Pvt. Ltd.</option>
+                                    <option value='3' {% if vocation_obj.training_providing_by|slugify  == '3' %}selected{% endif %}>Vikas Bharti</option>
+                                    <option value='4' {% if vocation_obj.training_providing_by|slugify  == '4' %}selected{% endif %}>Others</option>
+                                </select>
+                                <!-- <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='training_providing_by' value="{{vocation_obj.training_providing_by}}" id="floatingtextInput"
+                                    placeholder="Enter your Training Subject" required> -->
+                                <div class="invalid-feedback">
+                                    Please provide a valid training providing by.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Duration in days<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,9}" class="form-control"  name='duration_days' value="{{vocation_obj.duration_days}}"  id="floatingtextInput"
+                                    placeholder="Enter your Duration in days" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid Duration in days.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">Training Completed<span class="required-field"></span></label>
+                                <select class="form-select" name='training_complated' id='training_complated'
+                                    aria-label="Floating label select example" required="" >
+                                    <option selected value="">Select</option>
+                                    <option value='1' {% if vocation_obj.training_complated|slugify == '1' %}selected{% endif %}>Yes</option>
+                                    <option value='2' {% if vocation_obj.training_complated|slugify == '2' %}selected{% endif %}>No</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a Training Completed.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6 training_com d-none">
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">Placement Offered<span class="required-field"></span></label>
+                                <select class="form-select" name='placement_offered' id='placement_offered'
+                                    aria-label="Floating label select example">
+                                    <option selected value="">Select</option>
+                                    <option value='1' {% if vocation_obj.placement_offered|slugify == '1' %}selected{% endif %}>Yes</option>
+                                    <option value='2' {% if vocation_obj.placement_offered|slugify == '2' %}selected{% endif %}>No</option>
+                                    </select>
+                                <div class="invalid-feedback">
+                                    Please select a placement offered.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 placement_off d-none">
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">Placement Accepted<span class="required-field"></span></label>
+                                <select class="form-select" name='placement_accepted' id='placement_accepted'
+                                    aria-label="Floating label select example">
+                                    <option selected value="">Select</option>
+                                    <option value='1' {% if vocation_obj.placement_accepted|slugify == '1' %}selected{% endif %}>Accepted</option>
+                                    <option value='2' {% if vocation_obj.placement_accepted|slugify == '2' %}selected{% endif %}>Not Accepted</option>
+                                    </select>
+                                <div class="invalid-feedback">
+                                    Please select a placement accepted.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6 accepted_off d-none">
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">Type of Employment<span class="required-field"></span></label>
+                                <select class="form-select" name='type_of_employment' id='type_of_employment' 
+                                    aria-label="Floating label select example">
+                                    <option selected value="">Select</option>
+                                    <option value='1' {% if vocation_obj.type_of_employment|slugify == '1' %}selected{% endif %}>Full time</option>
+                                    <option value='2' {% if vocation_obj.type_of_employment|slugify == '2' %}selected{% endif %}>Part time</option>
+                                    <option value='3' {% if vocation_obj.type_of_employment|slugify == '3' %}selected{% endif %}>Apprentice</option>
+                                    </select>
+                                <div class="invalid-feedback">
+                                    Please select a type of employment.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="reset" onclick="location.href='/cc-report/fossil/vocation-listing/{{task_id}}/'" class="btn btn-secondary waves-effect">
+                            Cancel
+                        </button>
+                        {% if task_obj.task_status == 1 and 'Cluster Coordinator' == user_role %}
+                        <button type="submit" class="btn btn-primary w-md">Submit</button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_javascript %}
+<script type="text/javascript">
+    $('#training_complated').change(function(){
+        if($(this).val().toLowerCase() == "1"){
+			$(".training_com").removeClass('d-none');
+            $("#placement_offered").attr('required', 'required');
+            $('#placement_offered').prop('selectedIndex', 0).change();
+            $('#placement_accepted').prop('selectedIndex', 0).change();
+            $('#type_of_employment').prop('selectedIndex', 0).change();
+		}else{
+			$(".placement_off").addClass('d-none');
+			$(".training_com").addClass('d-none');
+			$(".accepted_off").addClass('d-none');
+            $("#placement_offered").removeAttr('required', 'required');
+            $('#placement_offered').prop('selectedIndex', 0).change();
+            $('#placement_accepted').prop('selectedIndex', 0).change();
+            $('#type_of_employment').prop('selectedIndex', 0).change();
+		}
+		clear_value();
+	});
+
+    $('#placement_offered').change(function(){
+        if($(this).val().toLowerCase() == "1"){
+			$(".placement_off").removeClass('d-none');
+            $("#placement_accepted").attr('required', 'required');
+            $('#placement_accepted').prop('selectedIndex', 0).change();
+            $('#type_of_employment').prop('selectedIndex', 0).change();
+		}else{
+            $(".placement_off").addClass('d-none');
+			$(".accepted_off").addClass('d-none');
+            $('#placement_accepted').prop('selectedIndex', 0).change();
+            $('#type_of_employment').prop('selectedIndex', 0).change();
+            $("#placement_accepted").removeAttr('required', 'required');
+            
+
+		}
+		clear_value();
+	});
+    $('#placement_accepted').change(function(){
+        if($(this).val().toLowerCase() == "1"){
+			$(".accepted_off").removeClass('d-none');
+            $('#type_of_employment').attr('required', 'required');
+            $('#type_of_employment').prop('selectedIndex', 0).change();
+		}else{
+            $('#type_of_employment').removeAttr('required', 'required');
+            $('#type_of_employment').prop('selectedIndex', 0).change();
+			$(".accepted_off").addClass('d-none');
+		}
+		clear_value();
+	});
+    </script>
+     <script type="text/javascript">
+        $(document).ready(function()  {
+            var training_complated = parseInt("{{vocation_obj.training_complated}}")
+            var placement_offered = parseInt("{{vocation_obj.placement_offered}}")
+            var placement_accepted = parseInt("{{vocation_obj.placement_accepted}}")
+
+            if(training_complated==1){
+                $(".placement_off").removeClass('d-none');
+			    $(".training_com").removeClass('d-none');
+                $(".accepted_off").removeClass('d-none');
+            }else{
+                $(".placement_off").addClass('d-none');
+			    $(".training_com").addClass('d-none');
+                $(".accepted_off").addClass('d-none');
+            }
+            if(placement_offered==1){
+                $(".placement_off").removeClass('d-none');
+                $(".accepted_off").removeClass('d-none');
+            }else{
+                $(".placement_off").addClass('d-none');
+                $(".accepted_off").addClass('d-none');
+            }
+            if(placement_accepted==1){
+                $(".accepted_off").removeClass('d-none');
+            }else{
+                $(".accepted_off").addClass('d-none');
+            }
+        });
+    </script>
+{% endblock %}
+{% endblock %}
+

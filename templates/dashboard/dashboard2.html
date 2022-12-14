@@ -1,0 +1,379 @@
+{% extends "base.html" %}
+{% load configuration_tags   %}
+{% load static %} {% block contents %}
+
+
+
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <form class="form-horizontal" method="POST" id="filters">
+
+                    {%csrf_token%}
+                    <div class="row">
+                        <div class="col-auto mt-2">
+                            
+                            
+                            Filter by:
+                        </div>
+                        <div class="col-3">
+                            <input type="month" class="form-control" name='start_filter' value="{{start_month}}" id="start_filter" >
+                        </div>
+                        <div class="col-3">
+                            <input type="month" class="form-control" name='end_filter' value="{{end_month}}" id="end_filter" >
+                        </div>
+                       
+                        <div class="col-3 mb-3">
+                            <!-- <label class="form-label">Multiple Select</label> -->
+                            <select class="select2 form-control select2-multiple"
+                                multiple="multiple" data-placeholder="Choose ...">
+                                    <option value="AK">Alaska</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="CA">California</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="WA">Washington</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">District :</label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose District" id="District" name='District' >      
+                                    <option selected value="">Choose District</option>
+                                    {% for i in district_id %}
+                                        {% for key, value in i.items %}
+                                        <option value="{{key}}">{{value}}</option>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </select>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Block :</label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose Block" id="Block" name='Block' >      
+                                    <option selected value="">Choose Block</option>
+                                    {% for i in block_id %}
+                                        {% for key, value in i.items %}
+                                        <option value="{{key}}">{{value}}</option>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </select>
+                            </div>   
+                        </div>
+                    <div class="row justify-content-end mt-3">
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-square btn-success btn-lg float-right">Filter</button>
+                        </div>
+                        <div class="col-auto">
+                            <button type="button" id="reset" class="btn btn-square btn-primary btn-lg float-right">Reset</button>
+                        </div>
+                    </div>
+            
+                </form>
+                <table class="table t1" >
+                    <tbody>
+                        <!--Mission Jyot-->
+                        <tr height='20%' class=" t1_tr" >
+                            <td class=" t1_td" width='20%'>
+                                <div class="cross">
+                                    <div class="text">Mission Jyot</div>
+                                        <div class="triangle">
+                                        </div>
+                                </div>
+                            </td>
+                            <td  class=" t1_td">
+                                <section id="advanced-search-datatable" class='mt-3'>
+                                    <div class="row">
+                                        <div class="table-responsive">
+                                        <table class="table mb-0">
+
+                                            <tbody class=" t1_tr">
+                                                <tr >
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">Total number of Vision Centres </br> <font style="color:#0048a7 !important">{{data.0.0|default_if_none:'0'}}</font></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">Eye Screening at Vision </br> Centre & Camp </br><font style="color:#0048a7 !important">{{data.0.1|default_if_none:'0'}}</font></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">Spectacles dispensed </br> <font style="color:#0048a7 !important">{{data.0.2|default_if_none:'0'}} ({{data.0.23|default_if_none:'0'}}%)</font></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">Surgeries </br> <font style="color:#0048a7 !important">{{data.0.3|default_if_none:'0'}} ({{data.0.24|default_if_none:'0'}}%)</font></th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    </div>
+                                </section>
+                            </td>
+                        </tr>
+                        {% if 9 in request.session.user_mission_list %}
+                        <!--Mission Nayan-->
+                        <tr height='20%' class=" t1_tr">
+                            <td class=" t1_td">
+                                <div class="cross">
+                                    <div class="text">Mission Nayan</div>
+                                        <div class="triangle">
+                                        </div>
+                                </div>
+                            </td>
+                            <td  class=" t1_td">
+                                <section id="advanced-search-datatable" class='mt-3'>
+                                    <div class="row">
+                                        <div class="table-responsive">
+                                        <table class="table  mb-0">
+
+                                            <tbody class=" t1_tr">
+                                                <tr>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">Neonates screened for ROP </br> <font style="color:#0048a7 !important"> {{data.0.9|default_if_none:'0'}}</font></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">Children found ROP positive</br> <font style="color:#0048a7 !important">{{data.0.10|default_if_none:'0'}}</font></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">No. of Treatments done</br> <font style="color:#0048a7 !important">{{data.0.11|default_if_none:'0'}}</font></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%;border:0px solid"></th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    </div>
+                                </section>
+                            </td>
+                        </tr> 
+                        {% endif %}
+                        {% if 6 in request.session.user_mission_list %}
+                        <!--Mission Jeevan-->
+                        <tr height='20%' class=" t1_tr">
+                            <td class=" t1_td">
+                                <div class="cross">
+                                    <div class="text">Mission Jeevan</div>
+                                        <div class="triangle">
+                                        </div>
+                                </div>
+                            </td>
+                            <td  class=" t1_td">
+                                <section id="advanced-search-datatable" class='mt-3'>
+                                    <div class="row">
+                                        <div class="table-responsive">
+                                        <table class="table  mb-0">
+
+                                            <tbody class=" t1_tr">
+                                                <tr >
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">Children enrolled </br> <font style="color:#0048a7 !important"> {{data.0.12|default_if_none:'0'}}</font></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%;border:0px solid"></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%;border:0px solid"></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%;border:0px solid"></th>
+                                                    
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    </div>
+                                </section>
+                            </td>
+                        </tr> 
+                        {% endif %}
+                        {% if 2 in request.session.user_mission_list %}
+                        <!--Mission Roshni-->
+                        <tr height='20%' class=" t1_tr">
+                            <td class=" t1_td">
+                                <div class="cross">
+                                    <div class="text">Mission Roshni</div>
+                                        <div class="triangle">
+                                        </div>
+                                </div>
+                            </td>
+                            <td  class=" t1_td">
+                                <section id="advanced-search-datatable" class='mt-3'>
+                                    <div class="row">
+                                        <div class="table-responsive">
+                                        <table class="table  mb-0">
+
+                                            <tbody class=" t1_tr">
+                                                <tr >
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">No. of School Camps</br> <font style="color:#0048a7 !important">0</font ></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">Children Screened</br> <font style="color:#0048a7 !important">{{data.0.13|default_if_none:'0'}}</font ></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">Spectacles Dispensed</br> <font style="color:#0048a7 !important">{{data.0.14|default_if_none:'0'}} ({{data.0.25|default_if_none:'0'}}%)</font ></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%;border:0px solid"></th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    </div>
+                                </section>
+                            </td>
+                        </tr> 
+                        {% endif %}
+                        {% if 1 in request.session.user_mission_list %}
+                        <!--Mission Disha-->
+                        <tr height='20%' class=" t1_tr">
+                            <td class=" t1_td">
+                                <div class="cross">
+                                    <div class="text">Mission Disha</div>
+                                        <div class="triangle">
+                                        </div>
+                                </div>
+                            </td>
+                            <td  class=" t1_td">
+                                <section id="advanced-search-datatable" class='mt-3'>
+                                    <div class="row">
+                                        <div class="table-responsive">
+                                        <table class="table  mb-0">
+
+                                            <tbody class=" t1_tr">
+                                                <tr >
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">No. of Camps </br>  <font style="color:#0048a7 !important">0</font ></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">People screened </br>  <font style="color:#0048a7 !important">{{data.0.15|default_if_none:'0'}}</font ></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">Spectacles dispensed </br>  <font style="color:#0048a7 !important">{{data.0.16|default_if_none:'0'}} ({{data.0.26|default_if_none:'0'}}%)</font ></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%;border:0px solid"></th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    </div>
+                                </section>
+                            </td>
+                        </tr> 
+                        {% endif %}
+                        {% if 8 in request.session.user_mission_list %}
+                        <!--Mission Saksham-->
+                        <tr height='20%' class=" t1_tr">
+                            <td class=" t1_td">
+                                <div class="cross">
+                                    <div class="text">Saksham</div>
+                                        <div class="triangle">
+                                        </div>
+                                </div>
+                            </td>
+                            <td  class=" t1_td">
+                                <section id="advanced-search-datatable" class='mt-3'>
+                                    <div class="row">
+                                        <div class="table-responsive">
+                                        <table class="table  mb-0">
+
+                                            <tbody class=" t1_tr">
+                                                <tr >
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">AOP Completed training </br> <font style="color:#0048a7 !important">{{data.0.17|default_if_none:'0'}}</font ></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">AOP in training </br> <font style="color:#0048a7 !important">{{data.0.18|default_if_none:'0'}}</font ></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%;border:0px solid"></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%;border:0px solid"></th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    </div>
+                                </section>
+                            </td>
+                        </tr> 
+                        {% endif %}
+                        {% if 4 in request.session.user_mission_list %}
+                        <!--Mission Netra-->
+                        <tr height='20%' class=" t1_tr">
+                            <td class=" t1_td">
+                                <div class="cross">
+                                    <div class="text">Mission Netra</div>
+                                        <div class="triangle">
+                                        </div>
+                                </div>
+                            </td>
+                            <td  class=" t1_td">
+                                <section id="advanced-search-datatable" class='mt-3'>
+                                    <div class="row">
+                                        <div class="table-responsive">
+                                        <table class="table  mb-0">
+
+                                            <tbody class=" t1_tr">
+                                                <tr>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">Surgeries </br> <font style="color:#0048a7 !important">{{data.0.19|default_if_none:'0'}}</font ></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%;border:0px solid"></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%;border:0px solid"></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%;border:0px solid"></th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    </div>
+                                </section>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% if 7 in request.session.user_mission_list %}
+                        <!--Hospital-->
+                        <tr height='20%' class=" t1_tr">
+                            <td class=" t1_td">
+                                <div class="cross">
+                                    <div class="text">Hospital</div>
+                                        <div class="triangle">
+                                        </div>
+                                </div>
+                            </td>
+                            <td  class=" t1_td">
+                                <section id="advanced-search-datatable" class='mt-3'>
+                                    <div class="row">
+                                        <div class="table-responsive">
+                                        <table class="table  mb-0">
+                                            <tbody class=" t1_tr">
+                                                <tr >
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">Screening </br> <font style="color:#0048a7 !important"> {{data.0.20|default_if_none:'0'}} </font ></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">Cataract surgeries </br> <font style="color:#0048a7 !important"> {{data.0.21|default_if_none:'0'}} ({{data.0.27|default_if_none:'0'}}%)</font ></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%">Other surgeries </br> <font style="color:#0048a7 !important"> {{data.0.22|default_if_none:'0'}} ({{data.0.28|default_if_none:'0'}}%)</font ></th>
+                                                    <th style="text-align: center; vertical-align:bottom !important;width:25%;border:0px solid"></th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    </div>
+                                </section>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    <tbody>                
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .t1, .t1_tr, .t1_td {
+        border: none;
+    }
+    
+    .cross {
+        background-color: skyblue;
+        width: 100px;
+        height: 50px;
+        margin-top: 10%;
+    }
+    .text{ 
+        height: 50px;
+        display: flex;
+        justify-content:center;
+        align-items: center;
+    }
+    .triangle {
+        width: 0;
+        height: 0;
+        border-top: 40px solid transparent;
+        border-left: 40px solid skyblue;
+        border-bottom: 40px solid transparent;
+        margin: auto;
+        margin-top: 5%;
+        margin-left: 100px;
+        position: relative;
+        top: -70px;
+    }
+</style>
+<script>
+    /*Resetting the Dropdown selected options while clicking Reset Button*/
+    $("#reset").click(function() {
+        $('#start_filter').val('');
+        $('#end_filter').val('');
+        this.form.submit();
+    });
+</script>
+{% endblock %}
+{% block extra_javascript %}
+{% endblock %}      

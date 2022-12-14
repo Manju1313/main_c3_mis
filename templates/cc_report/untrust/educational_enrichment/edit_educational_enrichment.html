@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class='row'>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Adolescent Name<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose Adolescent Name" id="adolescent_name" name='adolescent_name' required>      
+                                    <option selected value="">Choose Adolescent Name</option>
+                                    {% for i in adolescent_obj %}
+                                    <option value="{{i.id}}" {% if i.id == education_enrichment.adolescent_name.id %}selected{% endif %}>{{i.name}} - {{i.code}}</option>
+                                    {% endfor %}
+                                </select>
+                                
+                                <div class="invalid-feedback">
+                                    Please select a village name.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Parent/Guardian Name<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,20}" class="form-control"  name='parent_guardian_name' value="{{education_enrichment.parent_guardian_name}}" id="parent_guardian_name"
+                                    placeholder="Enter the Parent/Guardian Name" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid parent/guardian name.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="form-label">Enrolment Date<span class="required-field"></span></label>
+                                <input type="date" class="form-control" name='enrolment_date' id="previous_data" value="{{education_enrichment.enrolment_date|date:'Y-m-d'}}" placeholder="Enrolment Date" required="">
+                                <div class="invalid-feedback">
+                                    Please provide a valide date of enrolment.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">Standard<span class="required-field"></span></label>
+                                <select class="form-select" name='standard' id='standard'
+                                    aria-label="Floating label select example" required="" >
+                                    <option selected value="">Select</option>
+                                    <option value='1' {% if education_enrichment.standard|slugify == '1' %}selected{% endif %}>VIII</option>
+                                    <option value='2' {% if education_enrichment.standard|slugify == '2' %}selected{% endif %}>IX</option>
+                                    <option value='3' {% if education_enrichment.standard|slugify == '3' %}selected{% endif %}>X</option>
+                                    </select>
+                                <div class="invalid-feedback">
+                                    Please select a valid standard.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Duration of Coaching Support(in months)<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='duration_of_coaching_support' value="{{education_enrichment.duration_of_coaching_support}}" id="duration_of_coaching_support"
+                                    placeholder="Enter the Duration of Coaching Support(in months)" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid duration of coaching support(in months).
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div>
+                        <button type="reset" onclick="location.href='/cc-report/untrust/educational-enrichment-listing/{{task_id}}/'" class="btn btn-secondary waves-effect">
+                            Cancel
+                        </button>
+                        {% if task_obj.task_status == 1 and 'Cluster Coordinator' == user_role %}
+                        <button type="submit" class="btn btn-primary w-md">Submit</button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

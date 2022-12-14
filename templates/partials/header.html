@@ -1,0 +1,132 @@
+{% load configuration_tags   %}
+{% load static %}
+{% block header%}
+<style>
+    .page-topbar, .logo-content{
+        margin: auto 0;
+    }
+    .top-heading-loga{
+    margin-top: 0rem!important;
+    margin-bottom: 0rem!important;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1;
+    color: #ff4e00e0;
+}
+
+
+.navbar-brand-box {
+    padding: 0px!important;
+}
+.vertical-menu {
+    background: #fff!important;
+}
+.navbar-brand-box {
+    background: #fff!important;
+}
+.vertical-collpsed .vertical-menu #sidebar-menu>ul>li:hover>a {
+    background: #2a3042!important;
+    color: #fff;
+}
+#sidebar-menu ul li a {
+    color: #fc7c04!important;
+    font-size: 1rem!important;
+}
+#sidebar-menu ul li a:hover {
+    color: #fff!important;
+    background-color: #2a3042!important;
+}
+#sidebar-menu ul li a i {
+    color: #fc7c04!important;
+}
+/* box-shadow: 0 0.75rem 1.5rem rgb(18 38 63 / 3%); */
+#sidebar-menu ul li a:hover  i {
+    color: #fff!important;
+}
+.h-font{
+    font-weight: 400;
+}
+body[data-sidebar=dark].vertical-collpsed {
+    min-height: auto;
+}
+.table>thead { vertical-align: top}
+.card-title{ margin-right: 5px }
+#myBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    font-size: 18px;
+    height: 45px;
+    width: 45px;
+}
+@media only screen and (max-width: 992px) {
+    .navbar-brand-box {
+        padding: 0 1.5rem!important;
+    }
+}
+
+</style>
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <!-- LOGO -->
+                    <div class="navbar-brand-box">
+                        {% if request.user|has_group:"Senior Lead" %}
+                        <a href="/spo/monthly/report/" class="logo logo-light">
+                        {% else %}
+                        <a href="/monthly/report/" class="logo logo-light">
+                        {% endif %}
+                            <span class="logo-sm">
+                                <img src="{% static 'images/C3_small_logo.png' %}" alt="" height="22">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="{% static 'images/C3_big_logo.png' %}" alt="" height="65">
+                            </span> 
+                        </a>
+                    </div>
+                    <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
+                        <i class="fa fa-fw fa-bars"></i>
+                    </button>
+                </div>
+                <div class="d-flex ">
+                    <span class="logo-lg">
+                        <img src="{% static 'images/WeareC3.png' %}" alt="" height="65">
+                     </span>
+                    <!-- <span class="logo-content">
+                        <img src="{% static 'images/everygirl.png' %}" alt="" height="65"> 
+                        <p class="top-heading-loga">EveryGirl</p>
+                        <p class="top-heading-loga">EveryWomen</p>
+                        <p class="top-heading-loga">EveryWhere</p>
+                        <p class="border"></p> 
+                    </span>  -->
+                </div>
+                <div class="d-flex">
+                    <div class="dropdown d-inline-block">
+                        <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="mdi mdi-account-circle bx-sm bx-fw"></i>
+                            <span class="d-none d-xl-inline-block ms-1">{{request.user.username}}</span>
+                            <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <!-- item-->
+                            
+                            {% if request.user.is_authenticated %}
+                                {% comment %} <a class="dropdown-item" href=""><i class="bx bx-key font-size-16 align-middle me-1"></i> Change Password</a>  {% endcomment %}
+                                <a class="dropdown-item text-danger" href="/logout/"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>Log Out</a>
+                            {% else %}
+                                <a class="dropdown-item" href="/login/"><i
+                                        class="bx bx-log-in font-size-16 align-middle me-1 "></i> Log In</a>
+                            {% endif %} 
+                        </div>
+                    </div>
+                </div>
+
+                    
+
+                
+            </div>
+        </header>
+{% endblock %}

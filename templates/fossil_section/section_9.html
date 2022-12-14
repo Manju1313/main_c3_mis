@@ -1,0 +1,71 @@
+<!--Section 9-->
+<!--Details of exposure visits of adolescent champions-->
+
+<div class="row" id="fccs-9">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 9:</h4>
+                    <p class="card-title-desc">Details of exposure visits of adolescent champions</p>
+                </div>
+                {% if task_obj.task_status == 1 and 'Cluster Coordinator' == user_role %}
+                <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/cc-report/fossil/champions-listing/{{task_id}}/'">
+                        View
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/cc-report/fossil/add-champions/{{task_id}}/'">
+                        Entry
+                   </button>
+                </div>
+                {% endif %}
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-3" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Date of Visit</th>
+                                    <th rowspan="2">Name of Panchayat</th>
+                                    <th rowspan="2">Name of Village</th>
+                                    <th rowspan="2">Name of AWC</th>
+                                    <th colspan="2">No of Champions (Girls)</th>
+                                    <th colspan="2">No of Champions (Boys)</th>
+                                    <th colspan="4">Name of institutions visited</th>
+                                </tr>
+                                <tr>
+                                    <th>10-14 year</th>
+                                    <th>15-19 year</th>
+                                    <th>10-14 year</th>
+                                    <th>15-19 year</th>
+                                    <th>First</th>
+                                    <th>Second</th>
+                                    <th>Third</th>
+                                    <th>Fourth</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for c in champions %}
+                                <tr>
+                                    <th>{{c.date_of_visit}}</th>
+                                    <th>{{c.awc_name.village.grama_panchayat}}</th>
+                                    <th>{{c.awc_name.village}}</th>
+                                    <th>{{c.awc_name}}</th>
+                                    <td>{{c.girls_10_14_year}}</td>
+                                    <td>{{c.girls_15_19_year}}</td>
+                                    <td>{{c.boys_10_14_year}}</td>
+                                    <td>{{c.boys_15_19_year}}</td>
+                                    <td>{{c.get_first_inst_visited_display}}</td>
+                                    <td>{{c.get_second_inst_visited_display|default_if_none:""}}</td>
+                                    <td>{{c.get_third_inst_visited_display|default_if_none:""}}</td>
+                                    <td>{{c.get_fourth_inst_visited_display|default_if_none:""}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

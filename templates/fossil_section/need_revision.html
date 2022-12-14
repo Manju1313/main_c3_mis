@@ -1,0 +1,16 @@
+
+
+{% for n in need_revision %}
+<div class="row" id="fpos-17">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="">
+                    <h4 class="card-title"> <i class="mdi mdi-account-circle bx-sm bx-fw"></i> {{n.user_name}} {{n.server_created_on}}</h4>
+                    <p class="ms-5">{{n.remark}}</p>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+{% endfor %}

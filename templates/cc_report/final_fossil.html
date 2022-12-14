@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block extra_css %}
+<!-- Responsive Table css -->
+<link href="{% static 'libs/admin-resources/rwd-table/rwd-table.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block contents %}
+<!-- <button  id="hide" onclick="myHide(); myFunction(); myFunction2();">
+    Click
+</button> -->
+{% comment %} <button onclick="generatePDF()">down</button> {% endcomment %}
+<div id="invoice">
+{% include 'fossil_section/fossil_heading.html' %}
+{% include 'fossil_section/section_1.html' %}
+{% include 'fossil_section/section_2.html' %}
+{% include 'fossil_section/section_3.html' %} 
+{% include 'fossil_section/section_4a.html' %}
+{% include 'fossil_section/section_4b.html' %}
+{% include 'fossil_section/section_5.html' %} 
+{% include 'fossil_section/section_6.html' %}
+{% include 'fossil_section/section_7.html' %} 
+{% include 'fossil_section/section_8.html' %} 
+{% include 'fossil_section/section_9.html' %}
+{% include 'fossil_section/section_10.html' %}   
+{% include 'fossil_section/feedback.html' %} 
+{% include 'fossil_section/need_revision.html' %}   
+
+</div>
+
+{% comment %} <script>
+    function generatePDF(){
+        var element = document.getElementById("invoice");
+        var opt = {
+            margin:       1,
+            width:        700,
+            filename:     'C3-Web-Min.pdf',
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+          };
+        html2pdf()
+        .set(opt)
+        .from(element)
+        .save()
+    }
+    
+</script> {% endcomment %}
+<script type="text/javascript">
+    
+    function myFunction() {
+        alert("FFFddd")
+        var x = document.querySelectorAll(".hsk");
+        x[1].style.display = "none";
+    }
+    function myHide() {
+        
+        var dataArr  = ['data-pattern',]
+        var dataArr1  = ['data-pattern', 'priority-columns']
+        $.each(dataArr, function(i,a){
+         $('['+a+']').removeAttr(a);  
+        }); 
+          
+    }
+    </script>
+
+{% endblock %}
+{% comment %} {% block extra_javascript %}
+        <!-- Responsive Table js -->
+        <script src="{% static 'libs/admin-resources/rwd-table/rwd-table.min.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- Init js -->
+         <script src="{% static 'js/pages/table-responsive.init.js' %}"></script> {% endcomment %}
+        

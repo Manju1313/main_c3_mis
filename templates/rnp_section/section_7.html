@@ -1,0 +1,85 @@
+<!--Section 8-->
+<!--Details of community engagement activities  -->
+
+<div class="row" id="rccs-7">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 7:</h4>
+                    <p class="card-title-desc">Details of community engagement activities</p>
+                </div>
+                {% if task_obj.task_status == 1 and 'Cluster Coordinator' == user_role %}
+                <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/cc-report/rnp/community-activities-listing/{{task_id}}/'">
+                        View
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/cc-report/rnp/add-community-activities/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div>
+                {% endif %}
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th rowspan="3">Date of Activity</th>
+                                    <th rowspan="3">Name of Panchayat</th>
+                                    <th rowspan="3">Name of Village</th>
+                                    <th rowspan="3">Name of the event/activity</th>
+                                    <!-- <th rowspan="3">Theme/topic</th> -->
+                                    <th rowspan="3">Organized by (C3/Govt)</th>
+                                    <th colspan="12">Number of participants</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">Adolescent boys</th>
+                                    <th colspan="2">Adolescent girls</th>
+                                    <th rowspan="2">Champions (15-19 years)</th>
+                                    <th rowspan="2">Adult Male from community</th>
+                                    <th rowspan="2">Adult Female from community</th>
+                                    <th rowspan="2">Teachers</th>
+                                    <th rowspan="2">PRI members</th>
+                                    <th rowspan="2">Services providers</th>
+                                    <th rowspan="2">SMC members</th>
+                                    <th rowspan="2">Others</th>
+                                </tr>
+                                <tr>
+                                    <th>10-14 year</th>
+                                    <th>15-19 year</th>
+                                    <th>10-14 year</th>
+                                    <th>15-19 year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for a in activities %}
+                                <tr>
+                                    <th>{{a.start_date}}</th>
+                                    <th>{{a.village_name.grama_panchayat}}</th>
+                                    <th>{{a.village_name}}</th>
+                                   <td>{% if a.name_of_event_activity == 1 %}{{a.event_name.name}}{% else %}{{a.activity_name.name}}{% endif %}</td>
+                                    <!-- <td>{{a.get_name_of_event_activity_display}}</td> -->
+                                    <!-- <td>{{a.get_theme_topic_display}}</td> -->
+                                    <td>{{a.get_organized_by_display}}</td>
+                                    <td>{{a.girls_10_14_year}}</td>
+                                    <td>{{a.girls_15_19_year}}</td>
+                                    <td>{{a.boys_10_14_year}}</td>
+                                    <td>{{a.boys_15_19_year}}</td>
+                                    <td>{{a.champions_15_19_year}}</td>
+                                    <td>{{a.adult_male}}</td>
+                                    <td>{{a.adult_female}}</td>
+                                    <td>{{a.teachers}}</td>
+                                    <td>{{a.pri_members}}</td>
+                                    <td>{{a.services_providers}}</td>
+                                    <td>{{a.sms_members}}</td>
+                                    <td>{{a.other}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

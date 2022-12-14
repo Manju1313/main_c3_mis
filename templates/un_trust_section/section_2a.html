@@ -1,0 +1,73 @@
+<!--Section 2(a)-->
+<!--Details of adolescent girls linked with vocational training & placement -->
+
+
+<div class="row">
+    <div class="col-12" id="uccs-2a">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 2(a):</h4>
+                    <p class="card-title-desc">Details of adolescent girls linked with vocational training & placement </p>
+                </div>
+                {% if task_obj.task_status == 1 and 'Cluster Coordinator' == user_role %}
+                <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/cc-report/untrust/vocation-listing/{{task_id}}/'">
+                         View
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/cc-report/untrust/add-vocation/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div>
+                {% endif %}
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <div class="table-rep-plugin">
+                    <div class="table-responsive mb-3" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name of Panchayat</th>
+                                    <th>Name of Village</th>
+                                    <th>Name of the adolescent girls</th>
+                                    <th>Date of registration</th>
+                                    <th>Age in years</th>
+                                    <th>Parent/guardian name</th>
+                                    <th>Training subject</th>
+                                    <th>Training providing by</th>
+                                    <th>Duration in days</th>
+                                    <th>Training completed</th>
+                                    <th>Placement offered</th>
+                                    <th>Placement accepted</th>
+                                    <th>Type of employment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for v in vocation %}
+                                <tr>
+                                    <th>{{v.adolescent_name.awc.village.grama_panchayat}}</th>
+                                    <th>{{v.adolescent_name.awc.village}}</th>
+                                    <th>{{v.adolescent_name}}</th>
+                                    <td>{{v.date_of_registration}}</td>
+                                    <td>{{v.age|default_if_none:""}}</td>
+                                    <td>{{v.parent_guardian_name}}</td>
+                                    <td>{{v.training_subject.training_subject}}</td>
+                                    <td>{{v.get_training_providing_by_display}}</td>
+                                    <td>{{v.duration_days}}</td>
+                                    <td>{{v.get_training_complated_display}}</td>
+                                    <td>{{v.get_placement_offered_display|default_if_none:""}}</td>
+                                    <td>{{v.get_placement_accepted_display|default_if_none:""}}</td>
+                                    <td>{{v.get_type_of_employment_display|default_if_none:""}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+

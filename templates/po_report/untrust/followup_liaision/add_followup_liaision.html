@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">District/Block Level<span class="required-field"></span></label>
+                                <select class="form-select" name='district_block_level' id='district_block_level' 
+                                    aria-label="Floating label select example" required="">
+                                    <option selected value="">Select</option>
+                                    <option value='1' {% if district_block_level == '1' %}selected{% endif %}>District Level</option>
+                                    <option value='2' {% if district_block_level == '2' %}selected{% endif %}>Block Level</option>
+                                    </select>
+                                <div class="invalid-feedback">
+                                    Please select a district/block Level.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Meeting with (Designation)<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose Meeting with (Designation)" id="meeting" name='meeting' required>      
+                                    <option selected value="">Choose Meeting with (Designation)</option>
+                                    {% for i in meeting_obj %}
+                                    <option value="{{i.id}}" {% if i.id == meeting.id %}selected{% endif %}>{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please provide a valid Meeting with (Designation).
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Department<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                    placeholder="Choose Type Of Meeting" id="departments" name='departments' required>      
+                                    <option selected value="">Choose the Department</option>
+                                    <option value='1' {% if departments == '1' %}selected{% endif %}>Health</option>
+                                    <option value='2' {% if departments == '2' %}selected{% endif %}>WCD</option>
+                                    <option value='3' {% if departments == '3' %}selected{% endif %}>PRI</option>
+                                    <option value='4' {% if departments == '4' %}selected{% endif %}>District administration</option>
+                                    <option value='5' {% if departments == '5' %}selected{% endif %}>Block administration</option>
+                                    <option value='6' {% if departments == '6' %}selected{% endif %}>Child protection</option>
+                                    <option value='7' {% if departments == '7' %}selected{% endif %}>Education</option>
+                                    <option value='8' {% if departments == '8' %}selected{% endif %}>Partner organization’s meeting</option>
+                                    <option value='9' {% if departments == '9' %}selected{% endif %}>Others</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please provide a valid department. 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Point of Discussion<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='point_of_discussion' id="point_of_discussion"
+                                    placeholder="Enter your Point of Discussion" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid point of discussion.
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Outcome<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='outcome' id="outcome"
+                                    placeholder="Enter your Outcome" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid outcome.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Decision taken<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='decision_taken' id="decision_taken"
+                                    placeholder="Enter your Decision taken" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid decision taken.
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class='row'>  
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Remarks<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='remarks' id="remarks"
+                                    placeholder="Enter your Remarks" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid remarks.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Date<span class="required-field"></span></label>
+                                <input type="date" class="form-control"  name='date' id="previous_data"
+                                    placeholder="Enter your Date" required >
+                                <div class="invalid-feedback">
+                                    Please provide a valid date.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="reset" onclick="location.href='/po-report/untrust/followup-liaision-listing/{{task_id}}/'" class="btn btn-secondary waves-effect">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary w-md">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

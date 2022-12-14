@@ -1,0 +1,304 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class='row'>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Name of visited<span class="required-field"></span></label>
+                                <select class="form-select" name='name_of_visited' id='name_of_visited' onchange='onSelectChange_choose_model(this)'
+                                    aria-label="Floating label select example" required="" >
+                                    <option selected value="">Select</option>
+                                    <option value='1' {% if sessions_monitoring.name_of_visited|slugify == '1' %}selected{% endif %}>Village</option>
+                                    <option value='2' {% if sessions_monitoring.name_of_visited|slugify == '2' %}selected{% endif %}>AWC</option>
+                                    <option value='3' {% if sessions_monitoring.name_of_visited|slugify == '3' %}selected{% endif %}>School</option>
+                                    <option value='4' {% if sessions_monitoring.name_of_visited|slugify == '4' %}selected{% endif %}>Vocational Training Institute'</option>
+                                    <option value='5' {% if sessions_monitoring.name_of_visited|slugify == '5' %}selected{% endif %}>Others</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a Name of the place visited.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Date<span class="required-field"></span></label>
+                                <input type="date" class="form-control"  name='date' value="{{sessions_monitoring.date|date:'Y-m-d'}}"  id="previous_data"
+                                    placeholder="Enter the Date" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid date.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6" id='awc_model' >  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Awc Name<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose Awc Name" id="awc" name='selected_field_awc' >      
+                                    <option selected value="">Choose Awc Name</option>
+                                    {% for i in awc_obj %}
+                                    <option value="{{i.id}}" {% if i.id == sessions_monitoring.object_id %}selected{% endif %}>{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                
+                                <div class="invalid-feedback">
+                                    Please select a awc name.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6 "  id='school_model'>  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">School Name<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose School Name" id="school" name='selected_field_school' >      
+                                    <option selected value="">Choose School Name</option>
+                                    {% for i in school_obj %}
+                                    <option value="{{i.id}}" {% if i.id == sessions_monitoring.object_id %}selected{% endif %}>{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                
+                                <div class="invalid-feedback">
+                                    Please select a school name.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6 "  id='village_model'>  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Village Name<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose village Name" id="village" name='selected_field_village' >      
+                                    <option selected value="">Choose Village Name</option>
+                                    {% for i in village_obj %}
+                                    <option value="{{i.id}}" {% if i.id == sessions_monitoring.object_id %}selected{% endif %}>{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                
+                                <div class="invalid-feedback">
+                                    Please select a village Name.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6" id='vac_other_model'>  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">Name of the place visited<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control" id="vac_other"  value="{{sessions_monitoring.name_of_place_visited}}" name='selected_field_other'
+                                    placeholder="Enter the Name of the place visited" required>
+                                <div class="invalid-feedback">
+                                    Please select a Name of the place visited.
+                                </div>
+                            </div>   
+                        </div>
+                        <div class="col-md-6">
+                            <label class="d-block">Sessions attended<span class="required-field"></span></label>
+                            <div class="list-group  mb-3">
+                                <div class=" list-group-item">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="session_attended" id="validationFormCheck1" value="LSE" {% if 'LSE' in session_choice %}checked{%endif%} onclick="checkboxFunction()" required>
+                                        <label class="form-check-label" for="validationFormCheck1">LSE</label>
+                                    </div>
+                                </div>
+                                <div class=" list-group-item">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="session_attended" id="validationFormCheck2" value="NHE" {% if 'NHE' in session_choice  %}checked{%endif%}  onclick="checkboxFunction()" required> 
+                                        <label class="form-check-label" for="validationFormCheck2">NHE</label>
+                                    </div>
+                                </div>
+                                <div class=" list-group-item">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="session_attended" id="validationFormCheck3" value="DL" {% if 'DL' in session_choice  %}checked{%endif%} onclick="checkboxFunction()" required>
+                                        <label class="form-check-label" for="validationFormCheck3">DL</label>
+                                    </div>  
+                                </div>  
+                                <div class=" list-group-item">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="session_attended" id="validationFormCheck4" value="SHWP" {% if 'SHWP' in session_choice %}checked{%endif%} onclick="checkboxFunction()" required>
+                                        <label class="form-check-label" for="validationFormCheck4">SHWP</label>
+                                    </div>
+                                </div>
+                                <div class=" list-group-item">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="session_attended" id="validationFormCheck5" value="Vocational skill" {% if 'Vocational skill' in session_choice %}checked{%endif%} onclick="checkboxFunction()" required> 
+                                        <label class="form-check-label" for="validationFormCheck5">Vocational skill</label>
+                                        <div class="invalid-feedback">
+                                            Please choose a valid sessions attended.
+                                        </div>   
+                                    </div>                                                          
+                                </div>                                                          
+                            </div>                                                          
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Observation<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='observation' value="{{sessions_monitoring.observation}}" id="observation"
+                                    placeholder="Enter the Observation" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid observation.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Recommendation<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='recommendation' value="{{sessions_monitoring.recommendation}}" id="recommendation"
+                                    placeholder="Enter the Recommendation" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid recommendation.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="reset" onclick="location.href='/po-report/untrust/sessions-monitoring-listing/{{task_id}}/'" class="btn btn-secondary waves-effect">
+                            Cancel
+                        </button>
+                        {% if task_obj.task_status == 1 and 'Program Officer' == user_role or 'Senior Program Officer' == user_role %}  
+                        <button type="submit" class="btn btn-primary w-md">Submit</button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    window.onload = function () {
+        check_box = '{{sessions_monitoring.session_attended}}'
+        if (check_box){
+            document.getElementById('validationFormCheck1').removeAttribute('required','required');
+            document.getElementById('validationFormCheck2').removeAttribute('required','required');
+            document.getElementById('validationFormCheck3').removeAttribute('required','required');
+            document.getElementById('validationFormCheck4').removeAttribute('required','required');
+            document.getElementById('validationFormCheck5').removeAttribute('required','required');
+        }
+        
+        value = '{{sessions_monitoring.name_of_visited}}'
+        if (value === '1'){
+            document.getElementById("village_model").style.display = "block";
+            document.getElementById("awc_model").style.display = "none";
+            document.getElementById("school_model").style.display = "none";
+            document.getElementById("vac_other_model").style.display = "none";
+            document.getElementById('village').setAttribute('required','required');
+            
+        }else if(value === '2'){
+            document.getElementById("village_model").style.display = "none";
+            document.getElementById("awc_model").style.display = "block";
+            document.getElementById("school_model").style.display = "none";
+            document.getElementById("vac_other_model").style.display = "none";
+            document.getElementById('awc').setAttribute('required','required');
+            
+        }else if(value === '3'){
+            document.getElementById("village_model").style.display = "none";
+            document.getElementById("awc_model").style.display = "none";
+            document.getElementById("school_model").style.display = "block";
+            document.getElementById("vac_other_model").style.display = "none";
+            document.getElementById('school').setAttribute('required','required');
+            
+        }else{
+            document.getElementById("village_model").style.display = "none";
+            document.getElementById("awc_model").style.display = "none";
+            document.getElementById("school_model").style.display = "none";
+            document.getElementById("vac_other_model").style.display = "block";
+            document.getElementById('vac_other').setAttribute('required','required');
+        }
+    };
+    function onSelectChange_choose_model(name_of_visited){
+        var opt = name_of_visited.options[name_of_visited.selectedIndex].text;
+        
+        if(opt === 'AWC'){
+            document.getElementById('awc_model').style.display = "block";
+            document.getElementById('school_model').style.display = "none";
+            document.getElementById('village_model').style.display = "none";
+            document.getElementById('vac_other_model').style.display = "none";
+            document.getElementById('awc').setAttribute('required','required')
+            document.getElementById('school').removeAttribute('required','required');
+            document.getElementById('village').removeAttribute('required','required');
+            document.getElementById('vac_other').removeAttribute('required','required');
+            $('#school').prop('selectedIndex', 0).change();
+            $('#awc').prop('selectedIndex', 0).change();
+            $('#village').prop('selectedIndex', 0).change();
+            $('#vac_other').val('');
+        }else if(opt === 'School'){
+            document.getElementById('awc_model').style.display = "none";
+            document.getElementById('school_model').style.display = "block";
+            document.getElementById('village_model').style.display = "none";
+            document.getElementById('vac_other_model').style.display = "none";
+            document.getElementById('awc').removeAttribute('required','required')
+            document.getElementById('school').setAttribute('required','required');
+            document.getElementById('village').removeAttribute('required','required');
+            document.getElementById('vac_other').removeAttribute('required','required');
+            $('#school').prop('selectedIndex', 0).change();
+            $('#awc').prop('selectedIndex', 0).change();
+            $('#village').prop('selectedIndex', 0).change();
+            $('#vac_other').val('');
+        }else if(opt === 'Village'){
+            document.getElementById('awc_model').style.display = "none";
+            document.getElementById('school_model').style.display = "none";
+            document.getElementById('village_model').style.display = "block";
+            document.getElementById('vac_other_model').style.display = "none";
+            document.getElementById('awc').removeAttribute('required','required')
+            document.getElementById('school').removeAttribute('required','required');
+            document.getElementById('village').setAttribute('required','required');
+            document.getElementById('vac_other').removeAttribute('required','required');
+            $('#school').prop('selectedIndex', 0).change();
+            $('#awc').prop('selectedIndex', 0).change();
+            $('#village').prop('selectedIndex', 0).change();
+            $('#vac_other').val('');        
+        }else if(opt === 'School'){
+            document.getElementById('awc_model').style.display = "none";
+            document.getElementById('school_model').style.display = "block";
+            document.getElementById('village_model').style.display = "none";
+            document.getElementById('vac_other_model').style.display = "none";
+            document.getElementById('awc').removeAttribute('required','required')
+            document.getElementById('school').setAttribute('required','required');
+            document.getElementById('village').removeAttribute('required','required');
+            document.getElementById('vac_other').removeAttribute('required','required');
+            $('#school').prop('selectedIndex', 0).change();
+            $('#awc').prop('selectedIndex', 0).change();
+            $('#village').prop('selectedIndex', 0).change(); 
+            $('#vac_other').val('');
+        }else{
+            document.getElementById('awc_model').style.display = "none";
+            document.getElementById('school_model').style.display = "none";
+            document.getElementById('village_model').style.display = "none";
+            document.getElementById('vac_other_model').style.display = "block";
+            document.getElementById('awc').removeAttribute('required','required')
+            document.getElementById('school').removeAttribute('required','required');
+            document.getElementById('village').removeAttribute('required','required');
+            document.getElementById('vac_other').setAttribute('required','required');
+            $('#school').prop('selectedIndex', 0).change();
+            $('#awc').prop('selectedIndex', 0).change();
+            $('#village').prop('selectedIndex', 0).change(); 
+            $('#vac_other').val('');
+        }
+    }
+    function checkboxFunction() {
+        var checkBox1 = document.getElementById("validationFormCheck1");
+        var checkBox2 = document.getElementById("validationFormCheck2");
+        var checkBox3 = document.getElementById("validationFormCheck3");
+        var checkBox4 = document.getElementById("validationFormCheck4");
+        var checkBox5 = document.getElementById("validationFormCheck5");
+        if (checkBox1.checked == true || checkBox2.checked == true || checkBox3.checked == true || checkBox4.checked == true || checkBox5.checked == true){
+            document.getElementById('validationFormCheck1').removeAttribute('required','required');
+            document.getElementById('validationFormCheck2').removeAttribute('required','required');
+            document.getElementById('validationFormCheck3').removeAttribute('required','required');
+            document.getElementById('validationFormCheck4').removeAttribute('required','required');
+            document.getElementById('validationFormCheck5').removeAttribute('required','required');
+        }else{
+            document.getElementById('validationFormCheck1').setAttribute('required','required');
+            document.getElementById('validationFormCheck2').setAttribute('required','required');
+            document.getElementById('validationFormCheck3').setAttribute('required','required');
+            document.getElementById('validationFormCheck4').setAttribute('required','required');
+            document.getElementById('validationFormCheck5').setAttribute('required','required');
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block extra_css %}
+<!-- Responsive Table css -->
+<link href="{% static 'libs/admin-resources/rwd-table/rwd-table.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block contents %}
+
+
+<!-- <div class="mb-3">
+    <button type="button" class="btn btn-warning dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" aria-expanded="false" onclick="myFunction();">
+        PDF Converter <i class="mdi mdi-chevron-right"></i>
+    </button>
+    <button type="button" class="btn btn-primary dh d-none" onclick="generatePDF()">
+        Download PDF
+    </button>
+</div> -->
+<div id="invoice">
+{% include 'rnp_section/rnp_heading.html' %}
+{% include 'rnp_section/section_1.html' %}
+{% include 'rnp_section/section_2.html' %}
+{% include 'rnp_section/section_3a.html' %}
+{% include 'rnp_section/section_3b.html' %}
+{% include 'rnp_section/section_4.html' %}
+{% include 'rnp_section/section_5.html' %}
+{% include 'rnp_section/section_6.html' %}
+{% include 'rnp_section/section_7.html' %}
+{% include 'rnp_section/section_8.html' %}
+{% include 'rnp_section/section_9.html' %}
+<div class="fdb">
+    {% include 'rnp_section/feedback.html' %}
+    {% include 'rnp_section/need_revision.html' %}
+</div>
+</div>
+
+<script type="text/javascript">
+function myFunction() {
+    if($(".gap-2").hasClass('d-none')){
+        $(".gap-2").removeClass("d-none");
+    }else{
+        $(".gap-2").addClass('d-none');
+    }
+    if($(".mb-0").hasClass('table-responsive')){
+        $(".mb-0").removeClass("table-responsive");
+    }else{
+        $(".mb-0").addClass('table-responsive');
+    }
+    if($(".dh").hasClass('d-none')){
+        $(".dh").removeClass("d-none");
+    }else{
+        $(".dh").addClass('d-none');
+    }
+    if($(".fdb").hasClass('d-none')){
+        $(".fdb").removeClass("d-none");
+    }else{
+        $(".fdb").addClass('d-none');
+    }
+   
+
+    let elements = document.querySelectorAll(".table th");
+    let elements2 = document.querySelectorAll(".table td");
+    elements.forEach(e => { 
+     e.style.padding = '0rem';
+     
+    });
+    elements2.forEach(e => { 
+     e.style.padding = '0rem';
+     
+    });
+    
+}
+
+</script>
+<script>
+    function generatePDF(){
+        var element = document.getElementById("invoice");
+        var opt = {
+            margin:       1,
+            filename:     'C3-Web-Min.pdf',
+            image:        { type: 'jpeg', quality: 2 },
+            html2canvas:  { scale: 2 },
+            jsPDF:        { unit: 'in', format: 'letter', orientation: 'landscape' },
+            background: 'white'
+          };
+        html2pdf()
+        .set(opt)
+        .from(element)
+        .save()
+    }
+    
+</script> 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!-- Init js -->
+<script src="{% static 'js/pages/table-responsive.init.js' %}"></script>
+{% endblock %}
+{% block extra_javascript %}
+        <!-- Responsive Table js -->
+        <script src="{% static 'libs/admin-resources/rwd-table/rwd-table.min.js' %}"></script>
+
+        <!-- Init js -->
+        {% comment %} <script src="{% static 'js/pages/table-responsive.init.js' %}"></script> {% endcomment %}
+        
+{% endblock %}

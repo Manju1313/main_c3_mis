@@ -1,0 +1,55 @@
+<!--Section 6-->
+<!--Details of Bal Sansad meetings conducted  -->
+
+<div class="row" id="uccs-6">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 6:</h4>
+                    <p class="card-title-desc">Details of Bal Sansad meetings conducted  </p>
+                </div>
+                {% if task_obj.task_status == 1 and 'Cluster Coordinator' == user_role %}
+                <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/cc-report/untrust/balsansad-listing/{{task_id}}/'">
+                        View
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/cc-report/untrust/add-balsansad/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div>
+                {% endif %}
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                       
+
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Name of Panchayat</th>
+                                    <th>Name of School</th>
+                                    <th>Number of participants</th>
+                                    <th>Issues discussed</th>
+                                    <th>Decision taken</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for b in balsansad_meeting %}
+                                <tr>
+                                    <th>{{b.start_date}}</th>
+                                    <th>{{b.school_name.village.grama_panchayat}}</th>
+                                    <th>{{b.school_name}}</th>
+                                    <td>{{b.no_of_participants}}</td>
+                                    <td>{{b.issues_discussion}}</td>
+                                    <td>{{b.decision_taken}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

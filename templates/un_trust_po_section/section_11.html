@@ -1,0 +1,82 @@
+<!--Section 11-->
+<!--Details of DCPU/BCPU engagement at community and institutional level  -->
+
+<div class="row" id="upos-11">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 11:</h4>
+                    <p class="card-title-desc">Details of DCPU/BCPU engagement at community and institutional level</p>
+                </div>
+                <!-- <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/po-report/untrust/dcpu-bcpu-listing/{{task_id}}/'">
+                         View
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/untrust/add-dcpu-bcpu/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div> -->
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th rowspan="3">Name of the Block/district</th>
+                                    <th rowspan="3">Name of the Institutions</th>
+                                    <th rowspan="3" data-priority="1">Date of Visit</th>
+                                    <th rowspan="3" data-priority="3">Name of lead of the meeting</th>
+                                    <th rowspan="3"  data-priority="1">Designation</th>
+                                    <th rowspan="3"  data-priority="1">Issues discussed</th>
+                                    <th colspan="12" data-priority="3">Number of participants</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">Adolescent boys</th>
+                                    <th colspan="2">Adolescent girls</th>
+                                    <th rowspan="2">Champions (15-19 years)</th>
+                                    <th rowspan="2">Adult Male from community</th>
+                                    <th rowspan="2">Adult Female from community</th>
+                                    <th rowspan="2">Teachers</th>
+                                    <th rowspan="2">PRI members</th>
+                                    <th rowspan="2">Services providers</th>
+                                    <th rowspan="2">SMS members</th>
+                                    <th rowspan="2">Others</th>
+                                </tr>
+                                <tr>
+                                    <th>10-14 year</th>
+                                    <th>15-19 year</th>
+                                    <th>10-14 year</th>
+                                    <th>15-19 year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for db in dcpu_bcpu %}
+                                <tr>
+                                    <th>{{db.name_of_block}}</th>
+                                    <td>{{db.name_of_institution}}</td>
+                                    <td>{{db.date_of_visit}}</td>
+                                    <td>{{db.name_of_lead}}</td>
+                                    <td>{{db.designation}}</td>
+                                    <td>{{db.issues_discussed}}</td>
+                                    <td>{{db.girls_10_14_year}}</td>
+                                    <td>{{db.girls_15_19_year}}</td>
+                                    <td>{{db.boys_10_14_year}}</td>
+                                    <td>{{db.boys_15_19_year}}</td>
+                                    <td>{{db.champions_15_19_year}}</td>
+                                    <td>{{db.adult_male}}</td>
+                                    <td>{{db.adult_female}}</td>
+                                    <td>{{db.teachers}}</td>
+                                    <td>{{db.pri_members}}</td>
+                                    <td>{{db.services_providers}}</td> 
+                                    <td>{{db.sms_members}}</td>
+                                    <td>{{db.other}}</td>                                        
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Challenges</label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control" value="{{faced_related.challenges}}" name='challenges' id="challenges"
+                                    placeholder="Enter your challenges">
+                                <div class="invalid-feedback">
+                                    Please provide a valid challenges.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Proposed Solution</label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='proposed_solution' value="{{faced_related.proposed_solution}}" id="proposed_solution"
+                                    placeholder="Enter your Proposed Solution">
+                                <div class="invalid-feedback">
+                                    Please provide a valid proposed solution.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="reset" onclick="location.href='/po-report/untrust/faced-related-listing/{{task_id}}/'" class="btn btn-secondary waves-effect">
+                            Cancel
+                        </button>
+                        {% if task_obj.task_status == 1 and 'Program Officer' == user_role or 'Senior Program Officer' == user_role %}  
+                        <button type="submit" class="btn btn-primary w-md">Submit</button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

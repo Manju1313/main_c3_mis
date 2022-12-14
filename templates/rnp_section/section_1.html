@@ -1,0 +1,63 @@
+<!--Section 1-->
+<!--Details of transaction of sessions on health & nutrition-->
+
+<div class="row" id="rccs-1">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 1:</h4>
+                    <p class="card-title-desc">Details of transaction of sessions on health & nutrition</p>
+                </div>
+                {% if task_obj.task_status == 1 and 'Cluster Coordinator' == user_role %}
+                <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/cc-report/rnp/health-sessions-listing/{{task_id}}/'">
+                        View
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/cc-report/rnp/add-health-sessions/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div>
+                {% endif %}
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name of the Panchayat</th>
+                                    <th>Name of the Village</th>
+                                    <th>Name of Adolescent</th>
+                                    <th>Session name</th>
+                                    <th>Date of session</th>
+                                    <th>Session Day</th>
+                                    <th>Name of the main Facilitator</th>
+                                    <th>Gender</th>
+                                    <th>Age</th>
+                                    <th>Designation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for s in health_sessions %}
+                                <tr>
+                                    <th>{{s.adolescent_name.awc.village.grama_panchayat}}</th>
+                                    <th>{{s.adolescent_name.awc.village}}</th>
+                                    <th>{{s.adolescent_name}}</th>
+                                    <td>{{s.fossil_ah_session}}</td>
+                                    <td>{{s.date_of_session}}</td>
+                                    <td>{{s.get_session_day_display}}</td>
+                                    <td>{{s.facilitator_name}}</td>
+                                    <td>{{s.get_gender_display|default_if_none:""}}</td>
+                                    <td>{{s.age|default_if_none:""}}</td>
+                                    <td>{{s.get_designation_data_display}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

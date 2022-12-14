@@ -1,0 +1,58 @@
+<!--Section 10-->
+<!--Details of adolescent re-enrolled in schools  -->
+
+<div class="row" id="fccs-10">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 10:</h4>
+                    <p class="card-title-desc">Details of adolescent re-enrolled in schools  </p>
+                </div>
+                {% if task_obj.task_status == 1 and 'Cluster Coordinator' == user_role %}
+                <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/cc-report/fossil/reenrolled-listing/{{task_id}}/'">
+                        View
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/cc-report/fossil/add-reenrolled/{{task_id}}/'">
+                        Entry
+                   </button>
+                </div>
+                {% endif %}
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-3" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name of Panchayat</th>
+                                    <th>Name of Village</th>
+                                    <th>Name of Adolescent</th>
+                                    <th>Gender</th>
+                                    <th>Age</th>
+                                    <th>Parent/guardian</th>
+                                    <th>Name of School</th>
+                                    <th>In which Class enrolled</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for r in adolescent_reenrolled %}
+                                <tr>
+                                    <th>{{r.adolescent_name.awc.village.grama_panchayat}}</th>
+                                    <th>{{r.adolescent_name.awc.village}}</th>
+                                    <th>{{r.adolescent_name}}</th>
+                                    <td>{{r.get_gender_display|default_if_none:""}}</td>
+                                    <td>{{r.age|default_if_none:""}}</td>
+                                    <td>{{r.parent_guardian_name}}</td>
+                                    <td>{{r.school_name}}</td>                                    
+                                    <td>{{r.get_which_class_enrolled_display}}</td>                                    
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

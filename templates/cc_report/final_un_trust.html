@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block extra_css %}
+<!-- Responsive Table css -->
+<link href="{% static 'libs/admin-resources/rwd-table/rwd-table.min.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block contents %}
+<style>
+    .table>thead { vertical-align: top}
+    .card-title{ margin-right: 5px }
+</style>
+
+{% include 'un_trust_section/heading.html' %}
+{% include 'un_trust_section/section_1.html' %}
+{% include 'un_trust_section/section_2a.html' %}
+{% include 'un_trust_section/section_2b.html' %}
+{% include 'un_trust_section/section_3a.html' %}
+{% include 'un_trust_section/section_3b.html' %}
+{% include 'un_trust_section/section_4.html' %}
+{% include 'un_trust_section/section_5.html' %}
+{% include 'un_trust_section/section_6.html' %}
+{% include 'un_trust_section/section_7.html' %}
+{% include 'un_trust_section/section_8.html' %}
+{% include 'un_trust_section/section_9.html' %}
+{% include 'un_trust_section/section_10.html' %}
+{% include 'un_trust_section/section_11.html' %}
+{% include 'un_trust_section/section_12.html' %}
+{% include 'un_trust_section/feedback.html' %}
+{% include 'un_trust_section/need_revision.html' %}
+
+
+ 
+
+
+
+{% endblock %}
+{% block extra_javascript %}
+        <!-- Responsive Table js -->
+        <script src="{% static 'libs/admin-resources/rwd-table/rwd-table.min.js' %}"></script>
+
+        <!-- Init js -->
+        {% comment %} <script src="{% static 'js/pages/table-responsive.init.js' %}"></script> {% endcomment %}
+        
+{% endblock %}

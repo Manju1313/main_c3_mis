@@ -1,0 +1,64 @@
+<!--Section 12-->
+<!--Details of sessions monitoring and handholding support at block level  -->
+
+<div class="row" id="rpos-11">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 11:</h4>
+                    <p class="card-title-desc">Details of sessions monitoring and handholding support at block level  </p>
+                </div>
+                {% if task_obj.task_status == 1 and 'Program Officer' == user_role or 'Trainging Coordinator' == user_role %}  
+                <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/po-report/rnp/sessions-monitoring-listing/{{task_id}}/'">
+                        View
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/rnp/add-sessions-monitoring/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div>
+                {% elif view_entry_flag and 'Senior Program Officer' == user_role and task_obj.task_status == 1 %}
+                <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/po-report/rnp/sessions-monitoring-listing/{{task_id}}/'">
+                        View
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/rnp/add-sessions-monitoring/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div>
+                {% endif %}
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Name of Block</th>
+                                    <th>Name of panchayat</th>
+                                    <th>Name of Village/School/AWC visited</th>
+                                    <th>Sessions attended </th>
+                                    <th>Observation</th>
+                                    <th>Recommendation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for s in sessions_monitoring %}
+                                <tr>
+                                    <th>{{s.date}}</th>
+                                    <th>{% if s.name_of_visited == 1 %}{{s.content_object.grama_panchayat.block|default:"Not applicable"}}{% else %}{{s.content_object.village.grama_panchayat.block|default:"Not applicable"}}{% endif %}</th>
+                                    <th>{% if s.name_of_visited == 1 %}{{s.content_object.grama_panchayat|default:"Not applicable"}}{% else %}{{s.content_object.village.grama_panchayat|default:"Not applicable"}}{% endif %}</th>
+                                    <th>{{s.content_object|default_if_none:""}}{{s.name_of_place_visited|default_if_none:""}}</th>
+                                    <td>{{s.session_attended}}</td>
+                                    <td>{{s.observation}}</td>
+                                    <td>{{s.recommendation}}</td>                                   
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

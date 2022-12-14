@@ -1,0 +1,62 @@
+<!--Section 10-->
+<!--Details of adolescent re-enrolled in schools  -->
+
+<div class="row" id="fpos-10">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 10:</h4>
+                    <p class="card-title-desc">Details of adolescent re-enrolled in schools  </p>
+                </div>
+                <!-- <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/po-report/fossil/reenrolled-listing/{{task_id}}/'">
+                         View
+                    </button>
+                     {% if 'Program Officer' == user_role %}
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/po-report/fossil/add-reenrolled/{{task_id}}/'">
+                        Entry
+                    </button>
+                    {% endif %}
+                </div> -->
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-3" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name of the Block</th>
+                                    <th>Name of the Panchayat</th>
+                                    <th>Name of the Village</th>
+                                    <th>Name of AWC (Code)</th>
+                                    <th>Name. of adolescent </th>
+                                    <th>Gender</th>
+                                    <th>Age</th>
+                                    <th>Parent/guardian name</th>
+                                    <th>Name of the school</th>
+                                    <th>In which Class enrolled</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for r in adolescent_reenrolled %}
+                                <tr>
+                                    <th>{{r.name_of_block}}</th>
+                                    <th>{{r.name_of_panchayat}}</th>
+                                    <th>{{r.name_of_village}}</th>
+                                    <td>{{r.name_of_awc_code}}</td>
+                                    <td>{{r.name_of_adolescent}}</td>
+                                    <td>{{r.gender}}</td>
+                                    <td>{{r.age}}</td>                                    
+                                    <td>{{r.parent_guardian_name}}</td>       
+                                    <td>{{r.name_of_school}}</td>     
+                                    <td>{{r.class_enrolled}}</td>                                  
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

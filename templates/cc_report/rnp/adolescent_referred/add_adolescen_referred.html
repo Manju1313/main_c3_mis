@@ -1,0 +1,257 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class='row'>
+                        <div class="col-md-6">  
+                            <div class="mb-3">
+                                <label for="floatingnameInput">AWC Name<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                placeholder="Choose Adolescent Name" id="validationCustom04" name='awc_name' required>      
+                                    <option selected value="">Choose AWC Name</option>
+                                    {% for i in awc %}
+                                    <option value="{{i.id}}">{{i.name}}</option>
+                                    {% endfor %}
+                                </select>
+                                
+                                <div class="invalid-feedback">
+                                    Please select a awc name.
+                                </div>
+                            </div>   
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent girls referred to 10-14 years<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  onkeyup="validate(this);"  name='girls_referred_10_14_year' id="girls_referred_10_14_year"
+                                    placeholder="Enter the No of adolescent girls referred to 10-14 years" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent girls referred to 10-14 years.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent girls referred to 15-19 years<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  onkeyup="validate(this);" name='girls_referred_15_19_year' id="girls_referred_15_19_year"
+                                    placeholder="Enter the No of adolescent girls referred to 15-19 years" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent girls referred to 15-19 years.
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent boys referred to 10-14 years<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  onkeyup="validate(this);" name='boys_referred_10_14_year' id="boys_referred_10_14_year"
+                                    placeholder="Enter the No of adolescent boys referred to 10-14 years" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent boys referred to 10-14 years.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent boys referred to 15-19 years<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  onkeyup="validate(this);" name='boys_referred_15_19_year' id="boys_referred_15_19_year"
+                                    placeholder="Enter the No of adolescent boys referred to 15-19 years" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent boys referred to 15-19 years.
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent girls referred to HWC<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control"  name='girls_hwc_referred' onkeyup="validate(this);" id="girls_hwc_referred"
+                                    placeholder="Enter the No of adolescent girls referred to HWC" required>
+                                <div class="invalid-feedback">
+                                    Please provide a validno of adolescent girls referred to HWC should be less than or equal to the no of adolescent girls referred to 10-14 + 15-19years.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent girls Visited HWC<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control"  onkeyup="validate(this);" name='girls_hwc_visited' id="girls_hwc_visited"
+                                    placeholder="Enter the No of adolescent girls Visited HWC" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent girls Visited HWC should be less than or equal to the no of adolescent girls referred to HWC.
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent girls referred to AFHC<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control"  name='girls_afhc_referred' onkeyup="validate(this);" id="girls_afhc_referred"
+                                    placeholder="Enter the No of adolescent girls referred to AFHC" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent girls referred to AFHC should be less than or equal to the no of adolescent girls referred to 10-14 + 15-19years.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent girls Visited AFHC<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control"  onkeyup="validate(this);" name='girls_afhc_visited' id="girls_afhc_visited"
+                                    placeholder="Enter the No of adolescent girls Visited AFHC" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent girls Visited AFHC should be less than or equal to the no of adolescent girls referred to AFHC.
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent girls referred to DH<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control"  name='girls_dh_referred' onkeyup="validate(this);" id="girls_dh_referred"
+                                    placeholder="Enter the No of adolescent girls referred to DH" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent girls referred to DH should be less than or equal to the no of adolescent girls referred to 10-14 + 15-19years.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent girls Visited DH<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control"  onkeyup="validate(this);" name='girls_dh_visited' id="girls_dh_visited"
+                                    placeholder="Enter the No of adolescent girls Visited DH" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent girls Visited DH should be less than or equal to the no of adolescent girls referred to DH.
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent boys referred to HWC<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control"  onkeyup="validate(this);" name='boys_hwc_referred' id="boys_hwc_referred"
+                                    placeholder="Enter the No of adolescent boys referred to HWC" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent boys referred to HWC should be less than or equal to the no of adolescent boys referred to 10-14 + 15-19years.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent boys Visited HWC<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control"  onkeyup="validate(this);" name='boys_hwc_visited' id="boys_hwc_visited"
+                                    placeholder="Enter the No of adolescent boys Visited HWC" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent boys Visited HWC should be less than or equal to the no of adolescent boys referred to HWC.
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent boys referred to AFHC<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control"  onkeyup="validate(this);" name='boys_afhc_referred' id="boys_afhc_referred"
+                                    placeholder="Enter the No of adolescent boys referred to AFHC" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent boys referred to AFHC should be less than or equal to the no of adolescent boys referred to 10-14 + 15-19years.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent boys Visited AFHC<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control"  onkeyup="validate(this);" name='boys_afhc_visited' id="boys_afhc_visited"
+                                    placeholder="Enter the No of adolescent boys Visited AFHC" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent boys Visited AFHC should be less than or equal to the no of adolescent boys referred to AFHC.
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent boys referred to DH<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control"  onkeyup="validate(this);" name='boys_dh_referred' id="boys_dh_referred"
+                                    placeholder="Enter the No of adolescent boys referred to DH" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent boys referred to DH should be less than or equal to the no of adolescent boys referred to 10-14 + 15-19years.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">No of adolescent boys Visited DH<span class="required-field"></span></label>
+                                <input type="number" pattern="[0-9]{0,10}" class="form-control"  onkeyup="validate(this);"  name='boys_dh_visited' id="boys_dh_visited"
+                                    placeholder="Enter the No of adolescent boys Visited DH" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid no of adolescent boys Visited DH should be less than or equal to the no of adolescent boys referred to DH.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="reset" onclick="location.href='/cc-report/rnp/adolescent-referred-listing/{{task_id}}/'" class="btn btn-secondary waves-effect">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary w-md">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function validate(){
+        var girls_referred_10_14_year = document.getElementById("girls_referred_10_14_year").value;
+        var girls_referred_15_19_years = document.getElementById("girls_referred_15_19_year").value;
+        var girls_referred = parseInt(girls_referred_10_14_year) + parseInt(girls_referred_15_19_years)
+        document.getElementById("girls_hwc_referred").setAttribute('max', girls_referred) 
+        document.getElementById("girls_afhc_referred").setAttribute('max', girls_referred) 
+        document.getElementById("girls_dh_referred").setAttribute('max', girls_referred) 
+        
+
+        var boys_referred_10_14_years = document.getElementById("boys_referred_10_14_year").value;
+        var boys_referred_15_19_years = document.getElementById("boys_referred_15_19_year").value;
+        var boys_referred = parseInt(boys_referred_10_14_years) + parseInt(boys_referred_15_19_years)
+        document.getElementById("boys_hwc_referred").setAttribute('max', boys_referred) 
+        document.getElementById("boys_afhc_referred").setAttribute('max', boys_referred) 
+        document.getElementById("boys_dh_referred").setAttribute('max', boys_referred) 
+
+        var girls_hwc_referred = document.getElementById("girls_hwc_referred").value;
+        document.getElementById("girls_hwc_visited").setAttribute('max', girls_hwc_referred) 
+        var girls_afhc_referred = document.getElementById("girls_afhc_referred").value;
+        document.getElementById("girls_afhc_visited").setAttribute('max', girls_afhc_referred) 
+        var girls_dh_referred = document.getElementById("girls_dh_referred").value;
+        document.getElementById("girls_dh_visited").setAttribute('max', girls_dh_referred) 
+        var boys_hwc_referred = document.getElementById("boys_hwc_referred").value;
+        document.getElementById("boys_hwc_visited").setAttribute('max', boys_hwc_referred) 
+        var boys_afhc_referred = document.getElementById("boys_afhc_referred").value;
+        document.getElementById("boys_afhc_visited").setAttribute('max', boys_afhc_referred) 
+        var boys_dh_referred = document.getElementById("boys_dh_referred").value;
+        document.getElementById("boys_dh_visited").setAttribute('max', boys_dh_referred) 
+        
+    }
+</script>
+{% endblock %}
+

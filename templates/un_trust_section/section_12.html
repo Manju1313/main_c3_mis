@@ -1,0 +1,59 @@
+<!--Section 12-->
+<!--Details of educational enrichment support provided -->
+
+<div class="row" id="uccs-12">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <h4 class="card-title">Section 12:</h4>
+                    <p class="card-title-desc">Details of educational enrichment support provided</p>
+                </div>
+                {% if task_obj.task_status == 1 and 'Cluster Coordinator' == user_role %}
+                <div class='d-flex mb-3 justify-content-end gap-2'>
+                    <button type="button" class="btn btn-primary waves-effect waves-light" onclick="location.href='/cc-report/untrust/educational-enrichment-listing/{{task_id}}/'">
+                        View
+                    </button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" onclick="location.href='/cc-report/untrust/add-educational-enrichment/{{task_id}}/'">
+                        Entry
+                    </button>
+                </div>
+                {% endif %}
+                <div class="table-rep-plugin">
+                    <div class="table-responsive mb-0" data-pattern="priority-columns">
+                        <table id="tech-companies-1" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name of Block</th>
+                                    <th>Name of Panchayat</th>
+                                    <th>Name of Village</th>
+                                    <th>Name of AWC</th>
+                                    <th>Name of the adolescent girls</th>
+                                    <th>Parent/guardian</th>
+                                    <th>Enrolment date</th>
+                                    <th>Class (VIII, IX & X)</th>
+                                    <th>Duration of coaching support</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for e in education_enrichment %}
+                                <tr>
+                                    <th>{{e.adolescent_name.awc.village.grama_panchayat.block}}</th>
+                                    <th>{{e.adolescent_name.awc.village.grama_panchayat}}</th>
+                                    <th>{{e.adolescent_name.awc.village}}</th>
+                                    <th>{{e.adolescent_name.awc.name}}</th>
+                                    <th>{{e.adolescent_name}}</th>
+                                    <td>{{e.parent_guardian_name}}</td>
+                                    <td>{{e.enrolment_date}}</td>
+                                    <td>{{e.get_standard_display}}</td>
+                                    <td>{{e.duration_of_coaching_support}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

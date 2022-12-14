@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+
+<div class="row align-items-center">
+    <div class="col-xl-12 mx-auto">
+        <div class="card">
+            <div class="card-body">
+
+                <form method='POST' class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class='row'>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="form-label">Date<span class="required-field"></span></label>
+                                <input type="date" class="form-control" name='date' id="previous_data" value="{{participating_meeting.date|date:'Y-m-d'}}" placeholder="Enter the Date " required="">
+                                <div class="invalid-feedback">
+                                    Please provide a valid date.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="floatingSelectGrid">District/Block Level<span class="required-field"></span></label>
+                                <select class="form-select" name='district_block_level' id='district_block_level' 
+                                    aria-label="Floating label select example" required="">
+                                    <option selected disabled value="">Select</option>
+                                    <option value='1' {% if participating_meeting.district_block_level|slugify == '1' %}selected{% endif %}>District Level</option>
+                                    <option value='2' {% if participating_meeting.district_block_level|slugify == '2' %}selected{% endif %}>Block Level</option>
+                                    </select>
+                                <div class="invalid-feedback">
+                                    Please select a district/block Level.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Type Of Meeting<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                    placeholder="Choose Type Of Meeting" id="type_of_meeting" name='type_of_meeting' required>      
+                                    <option selected value="">Choose Type Of Meeting</option>
+                                    <option value='1' {% if participating_meeting.type_of_meeting|slugify == '1' %}selected{% endif %}>Monthly Review meeting</option>
+                                    <option value='2' {% if participating_meeting.type_of_meeting|slugify == '2' %}selected{% endif %}>Quarterly review meeting</option>
+                                    <option value='3' {% if participating_meeting.type_of_meeting|slugify == '3' %}selected{% endif %}>Event planning meeting</option>
+                                    <option value='4' {% if participating_meeting.type_of_meeting|slugify == '4' %}selected{% endif %}>Issue based meeting</option>
+                                    <option value='5' {% if participating_meeting.type_of_meeting|slugify == '5' %}selected{% endif %}>SMC meeting</option>
+                                    <option value='6' {% if participating_meeting.type_of_meeting|slugify == '6' %}selected{% endif %}>Convergence meeting</option>
+                                    <option value='7' {% if participating_meeting.type_of_meeting|slugify == '7' %}selected{% endif %}>Others</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please provide a valid type of meeting.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">In Which Department<span class="required-field"></span></label>
+                                <select  class="form-control select2"  aria-label="Floating label select example" 
+                                    placeholder="Choose Type Of Meeting" id="department" name='department' required>      
+                                    <option selected value="">Choose Type Of Meeting</option>
+                                    <option value='1' {% if  participating_meeting.department|slugify == '1' %}selected{% endif %}>Health</option>
+                                    <option value='2' {% if  participating_meeting.department|slugify == '2' %}selected{% endif %}>WCD</option>
+                                    <option value='3' {% if  participating_meeting.department|slugify == '3' %}selected{% endif %}>PRI</option>
+                                    <option value='4' {% if  participating_meeting.department|slugify == '4' %}selected{% endif %}>District administration</option>
+                                    <option value='5' {% if  participating_meeting.department|slugify == '5' %}selected{% endif %}>Block administration</option>
+                                    <option value='6' {% if  participating_meeting.department|slugify == '6' %}selected{% endif %}>Child protection</option>
+                                    <option value='7' {% if  participating_meeting.department|slugify == '7' %}selected{% endif %}>Education</option>
+                                    <option value='8' {% if  participating_meeting.department|slugify == '8' %}selected{% endif %}>Partner organization’s meeting</option>
+                                    <option value='9' {% if  participating_meeting.department|slugify == '9' %}selected{% endif %}>Others</option>
+                                </select>    
+                                <div class="invalid-feedback">
+                                    Please provide a valid in which department. 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Point of Discussion<span class="required-field"></span></label>
+                                <input type="text" pattern="[A-Za-z ]{0,150}" class="form-control"  name='point_of_discussion' value="{{participating_meeting.point_of_discussion}}" id="point_of_discussion"
+                                    placeholder="Enter the Point of Discussion" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid point of discussion. 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Number of District level officials participated<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='districit_level_officials' value="{{participating_meeting.districit_level_officials}}" id="districit_level_officials"
+                                    placeholder="Enter the Number of District level officials participated" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid Number of District level officials participated.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Number of Block level officials participated<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='block_level' value="{{participating_meeting.block_level}}" id="block_level"
+                                    placeholder="Enter the Number of Block level officials participated" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid Number of Block level officials participated. 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Number of persons participated at cluster level<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='cluster_level' value="{{participating_meeting.cluster_level}}" id="cluster_level"
+                                    placeholder="Enter the Number of persons participated at cluster level" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid Number of persons participated at cluster level.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Numbers of PRIs participated<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='no_of_pri' value="{{participating_meeting.no_of_pri}}" id="no_of_pri"
+                                    placeholder="Enter the Numbers of PRIs participated" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid Numbers of PRIs participated.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label for="floatingemailInput">Number of Others participated<span class="required-field"></span></label>
+                                <input type="text" pattern="[0-9]{0,10}" class="form-control"  name='no_of_others' value="{{participating_meeting.no_of_others}}" id="no_of_others"
+                                    placeholder="Enter the Number of Others participated" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid Number of Others participated.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="reset" onclick="location.href='/po-report/untrust/participating-meeting-listing/{{task_id}}/'" class="btn btn-secondary waves-effect">
+                            Cancel
+                        </button>
+                        {% if task_obj.task_status == 1 and 'Program Officer' == user_role or 'Senior Program Officer' == user_role %}  
+                        <button type="submit" class="btn btn-primary w-md">Submit</button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
